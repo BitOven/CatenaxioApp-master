@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.catenaxio" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <!--
+      IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
+      to match your app's package name + ".permission.C2D_MESSAGE".
+    -->
+    <permission android:protectionLevel="signature"
+
+        android:name="com.catenaxio.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.catenaxio.permission.C2D_MESSAGE" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/icono3"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MyActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CalendarioActivity"
+            android:label="Calendario"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ConvocatoriaActivity"
+            android:label="Convocatorias"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".EstadisticasActivity"
+            android:label="Estadisticas"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ClasificacionActivity"
+            android:label="Clasificacion/Resultados"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".TablLiga"
+            android:label="Liga"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ResultadosActivity"
+            android:label="@string/title_activity_resultados"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <service
+            android:name=".MyAlarmService"
+            android:enabled="true" />
+
+        <receiver android:name=".Receiver" />
+
+        <activity
+            android:name=".ResultadosGanados"
+            android:label="Partidos Ganados"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ResultadosPerdidos"
+            android:label="Partidos Perdidos"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".ResultadosEmpatados"
+            android:label="Partidos Empatados"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".QuesitoActivity"
+            android:label="@string/title_activity_quesito" >
+        </activity>
+        <service android:name="com.parse.PushService" />
+        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <!--
+                  IMPORTANT: Change "com.parse.starter" to match your app's package name.
+                -->
+                <category android:name="com.catenaxio" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+
+</manifest>

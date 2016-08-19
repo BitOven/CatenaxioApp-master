@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        android:drawable="@drawable/estadisticas_off" /> <!-- pressed -->
+    <item android:state_focused="true"
+        android:drawable="@drawable/estadisticas" /> <!-- focused -->
+    <item android:drawable="@drawable/estadisticas" /> <!-- default -->
+</selector>

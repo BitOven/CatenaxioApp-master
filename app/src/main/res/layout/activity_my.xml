@@ -1,0 +1,86 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/fondo1">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text=""
+            android:id="@+id/textView"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/icono4"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="50">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:id="@+id/botonCalendario"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/boton_calendario"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:id="@+id/BotonConvocatoria"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/boton_convocatoria"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="50">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:id="@+id/botonEstadisticas"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/boton_estadisticas"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:id="@+id/botonX"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:layout_margin="30dp"
+                    android:background="@drawable/boton_clasificacion"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

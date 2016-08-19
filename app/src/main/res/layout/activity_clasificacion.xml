@@ -1,0 +1,23 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:weightSum="1"
+    android:background="@color/black"
+    >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imagenClasificacion"
+        android:layout_weight="0.76" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descargar Clasificacion"
+        android:id="@+id/botonDescargaClasificacion"
+        android:textColor="@color/white"
+        android:background="@color/darkblue"/>
+</LinearLayout>

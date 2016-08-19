@@ -1,0 +1,95 @@
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/black">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="32dp">
+
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:id="@+id/textRival"
+            android:text="Rival"
+            android:layout_width="50dp"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:id="@+id/textResultado"
+            android:text="Res"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:text="AG"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"></TextView>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:text="JA"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"></TextView>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:text="HC"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"></TextView>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:text="HI"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"></TextView>
+
+
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:text="HJ"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"></TextView>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:text="JG"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:text="AM"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"></TextView>
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
+
+</LinearLayout>

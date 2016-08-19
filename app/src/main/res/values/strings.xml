@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Catenaxio</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_calendario">Calendario</string>
+    <string name="title_activity_convocatoria">Convocatoria</string>
+    <string name="Jugador">jugador</string>
+
+    <string-array name="jugadores">
+        <item>AbelG</item>
+        <item>AbelD</item>
+        <item>Juanma</item>
+        <item>Anton</item>
+        <item>Cano</item>
+        <item>Hugo</item>
+        <item>Jordan</item>
+        <item>Juan</item>
+        <item>Meri</item>
+    </string-array>
+
+    <string name="title_activity_estadisticas">Estadisticas</string>
+    <string name="title_activity_clasificacion">Clasificacion</string>
+    <string name="title_activity_activitiy_tab_liga">ActivitiyTabLiga</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_resultados">Resultados</string>
+    <string name="title_activity_quesito">Grafica Goles</string>
+
+</resources>

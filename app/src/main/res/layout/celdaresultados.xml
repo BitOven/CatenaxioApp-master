@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:id="@+id/celdaResultado">
+
+    <TextView
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:id="@+id/rivalPartido1"
+        android:text="xxxxxxx"
+        android:layout_width="50dp"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"></TextView>
+
+    <TextView
+        android:layout_marginLeft="3dp"
+        android:layout_marginRight="3dp"
+        android:id="@+id/resultadoPartido1"
+        android:text="2-1"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"></TextView>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/abelPartido1"
+        android:text="   "
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"></TextView>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/antonPartido1"
+        android:text="   "
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"></TextView>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/canoPartido1"
+        android:text="   "
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"></TextView>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/hugoPartido1"
+        android:text="   "
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"></TextView>
+
+
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/jordanPartido1"
+        android:text="   "
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"></TextView>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/juanitoPartido1"
+        android:text="   "
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"></TextView>
+
+    <TextView
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:id="@+id/meriPartido1"
+        android:text="   "
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"></TextView>
+</LinearLayout>

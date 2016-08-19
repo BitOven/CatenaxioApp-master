@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true"
+        android:drawable="@drawable/convocatoria_off" /> <!-- pressed -->
+    <item android:state_focused="true"
+        android:drawable="@drawable/convocatoria" /> <!-- focused -->
+    <item android:drawable="@drawable/convocatoria" /> <!-- default -->
+</selector>
