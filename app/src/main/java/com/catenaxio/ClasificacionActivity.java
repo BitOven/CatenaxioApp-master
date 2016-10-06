@@ -126,7 +126,7 @@ public class ClasificacionActivity extends Activity implements View.OnClickListe
                 pDialog.dismiss();
             }else{
                 pDialog.dismiss();
-                Toast.makeText(ClasificacionActivity.this, "Te quedaste si graduacion y ahora te quedas sin clasificacion", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ClasificacionActivity.this, "Te quedaste sin graduacion y ahora te quedas sin clasificacion", Toast.LENGTH_SHORT).show();
             }
         }
     }

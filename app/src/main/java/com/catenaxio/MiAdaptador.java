@@ -7,6 +7,7 @@ import java.util.Vector;
 import android.content.*;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,9 @@ public class MiAdaptador extends BaseAdapter {
     private final Vector<Integer> lista_estadio;
     private Vector<String> lista_resultados;
 
-    public MiAdaptador(Activity actividad, Vector<String> jor,Vector<String> fecha,Vector<String> hora, Vector<String> rival,
-                       Vector<Integer> estadios,Vector<String> lugares, Vector<String>result) {
+
+    public MiAdaptador(Activity actividad, Vector<String> jor, Vector<String> fecha, Vector<String> hora, Vector<String> rival,
+                       Vector<Integer> estadios, Vector<String> lugares, Vector<String>result) {
         super();
         this.actividad = actividad;
         this.lista_jornada = jor;
