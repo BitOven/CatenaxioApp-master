@@ -2,7 +2,10 @@ package com.catenaxio;
 import android.app.Activity;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,7 +47,37 @@ public class ClasificacionActivity extends Activity {
         setContentView(R.layout.activity_clasificacion);
         imagen=(ImageView)findViewById(R.id.imagenClasificacion);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Clasificacion");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cargarClasif();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.clasificacion, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            startActivity( new Intent(this,SettingsActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void cargarClasif(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Clasificacion").whereMatches("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> imageList, ParseException e) {
                 if (e == null) {
@@ -68,27 +101,6 @@ public class ClasificacionActivity extends Activity {
             }
         });
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.clasificacion, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 //    @Override
 //    public void onClick(View view) {
 //        if(view==clasificacion){

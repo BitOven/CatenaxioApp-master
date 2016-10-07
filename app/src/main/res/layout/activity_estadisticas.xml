@@ -178,15 +178,6 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Actualizar"
-            android:id="@+id/botonActualizar"
-            android:background="@color/darkblue"
-            android:textColor="@color/white"
-            android:layout_weight="1" />
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:text="Grafica % goles"
             android:id="@+id/botonPorcentajeGoles"
             android:background="@color/darkblue"

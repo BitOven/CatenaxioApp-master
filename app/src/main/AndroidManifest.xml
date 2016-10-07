@@ -88,6 +88,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".SettingsActivity"
+            android:label="@string/action_settings"
+            android:parentActivityName=".MyActivity">
+        </activity>
+        <activity
             android:name=".QuesitoActivity"
             android:label="@string/title_activity_quesito" >
         </activity>

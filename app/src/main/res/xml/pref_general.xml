@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListPreference
+        android:key="@string/pref_temporada_key"
+        android:title="@string/pref_temporada_label"
+        android:dialogTitle="@string/pref_temporada_label"
+        android:entries="@array/string_array_temporada"
+        android:entryValues="@array/string_array_temporada"
+        android:defaultValue="@string/pref_temporada_default" />
+
+</PreferenceScreen>

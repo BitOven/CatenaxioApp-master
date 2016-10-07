@@ -215,32 +215,6 @@ public class CalendarioActivity extends Activity {
         adapter= new MiAdaptador(this, lista_jornada, lista_fecha, lista_hora, lista_rival, lista_estadios, lista_lugar, lista_result);
         miLista=(ListView)findViewById(R.id.listView);
         miLista.setAdapter(adapter);
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Partidos");
-        query.whereEqualTo("Temporada","2016-17");
-        query.orderByAscending("Jornada");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> scoreList, ParseException e) {
-                if (e == null) {
-                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                    for (int i = 0; i < scoreList.size(); i++) {
-                        String resultadoo = scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC");
-                        int coloor = scoreList.get(i).getInt("Intindice");
-                        lista_result.setElementAt(resultadoo, i);
-                        lista_estadios.setElementAt(coloor,i);
-                        SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString("jornada"+(i+1), resultadoo);
-                        editor.putInt("color"+(i+1),coloor);
-                        editor.apply();
-                        Log.d("score", "Jornada numero: " + scoreList.get(i).getNumber("Jornada") + "resultado: " + scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC"));
-                    }
-                    adapter.notifyDataSetChanged();
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
-            }
-        });
-
         miLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -251,6 +225,11 @@ public class CalendarioActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        cargarCalendario();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -266,8 +245,53 @@ public class CalendarioActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            startActivity( new Intent(this,SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void cargarCalendario(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Partidos");
+        query.whereEqualTo("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
+        query.orderByAscending("Jornada");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
+                    for (int i = 0; i < scoreList.size(); i++) {
+                        if(scoreList.get(i).getString("Indice").equals("X")){
+                            String resultadoo = "N/A";
+                            int coloor = i%2;
+                            lista_result.setElementAt(resultadoo, i);
+                            lista_estadios.setElementAt(coloor,i);
+                            lista_rival.setElementAt(scoreList.get(i).getString("Rival"),i);
+                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("jornada"+(i+1), resultadoo);
+                            editor.putInt("color"+(i+1),coloor);
+                            editor.apply();
+                        }else{
+                            String resultadoo = scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC");
+                            int coloor = scoreList.get(i).getInt("Intindice");
+                            lista_result.setElementAt(resultadoo, i);
+                            lista_estadios.setElementAt(coloor,i);
+                            lista_rival.setElementAt(scoreList.get(i).getString("Rival"),i);
+                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                            SharedPreferences.Editor editor = settings.edit();
+                            editor.putString("jornada"+(i+1), resultadoo);
+                            editor.putInt("color"+(i+1),coloor);
+                            editor.apply();
+                        }
+                        //Log.d("score", "Jornada numero: " + scoreList.get(i).getNumber("Jornada") + "resultado: " + scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC"));
+                    }
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
+    }
+
 }

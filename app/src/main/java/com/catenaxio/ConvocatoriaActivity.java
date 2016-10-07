@@ -2,6 +2,7 @@ package com.catenaxio;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -131,6 +132,7 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            startActivity( new Intent(this,SettingsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
