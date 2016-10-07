@@ -31,20 +31,42 @@ import com.parse.ParseQuery;
 
 import android.widget.Button;
 
-public class ClasificacionActivity extends Activity implements View.OnClickListener{
+public class ClasificacionActivity extends Activity {
     private ImageView imagen;
     private Bitmap bitmap;
-    private ProgressDialog pDialog;
-    private LoadImage hiloDescarga;
-    private Button clasificacion;
+//    private ProgressDialog pDialog;
+//    private LoadImage hiloDescarga;
+//    private Button clasificacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clasificacion);
         imagen=(ImageView)findViewById(R.id.imagenClasificacion);
-        clasificacion=(Button)findViewById(R.id.botonDescargaClasificacion);
-        clasificacion.setOnClickListener(this);
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Clasificacion");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> imageList, ParseException e) {
+                if (e == null) {
+                    Log.d("score", "Retrieved " + imageList.size() + " images");
+                    ParseFile applicantResume = (ParseFile) imageList.get(0).get("imagen");
+                    applicantResume.getDataInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            if (e == null) {
+                                // data has the bytes for the resume
+                                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                imagen.setImageBitmap(bitmap);
+
+                            } else {
+                                // something went wrong
+                            }
+                        }
+                    });
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
 
@@ -67,68 +89,45 @@ public class ClasificacionActivity extends Activity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view==clasificacion){
+//    @Override
+//    public void onClick(View view) {
+//        if(view==clasificacion){
+//
+////            hiloDescarga=new LoadImage();
+////            hiloDescarga.execute("http://hidandroid.hol.es/catenaxio/clasificacion.png");
+//
+//        }
+//    }
 
-            //hiloDescarga=new LoadImage();
-            //hiloDescarga.execute("http://hidandroid.hol.es/catenaxio/clasificacion.png");
-
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Clasificacion");
-            query.findInBackground(new FindCallback<ParseObject>() {
-                public void done(List<ParseObject> imageList, ParseException e) {
-                    if (e == null) {
-                        Log.d("score", "Retrieved " + imageList.size() + " images");
-                        ParseFile applicantResume = (ParseFile) imageList.get(0).get("imagen");
-                        applicantResume.getDataInBackground(new GetDataCallback() {
-                            public void done(byte[] data, ParseException e) {
-                                if (e == null) {
-                                    // data has the bytes for the resume
-                                    bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                    imagen.setImageBitmap(bitmap);
-
-                                } else {
-                                    // something went wrong
-                                }
-                            }
-                        });
-                    } else {
-                        Log.d("score", "Error: " + e.getMessage());
-                    }
-                }
-            });
-        }
-    }
-
-    private class LoadImage extends AsyncTask<String, String, Bitmap> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(ClasificacionActivity.this);
-            pDialog.setMessage("Cargando la clasificacion, descargando todos los virus de la pagina femafusa");
-            pDialog.show();
-        }
-        protected Bitmap doInBackground(String... args) {
-            for(int i=0;i<3;i++){
-                SystemClock.sleep(1000);
-            }
-
-            try {
-                bitmap = BitmapFactory.decodeStream((InputStream)new URL(args[0]).getContent());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-        protected void onPostExecute(Bitmap image) {
-            if(image != null){
-                imagen.setImageBitmap(image);
-                pDialog.dismiss();
-            }else{
-                pDialog.dismiss();
-                Toast.makeText(ClasificacionActivity.this, "Te quedaste sin graduacion y ahora te quedas sin clasificacion", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+//    private class LoadImage extends AsyncTask<String, String, Bitmap> {
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            pDialog = new ProgressDialog(ClasificacionActivity.this);
+//            pDialog.setMessage("Cargando la clasificacion, descargando todos los virus de la pagina femafusa");
+//            pDialog.show();
+//        }
+//        protected Bitmap doInBackground(String... args) {
+//            for(int i=0;i<3;i++){
+//                SystemClock.sleep(1000);
+//            }
+//
+//            try {
+//                bitmap = BitmapFactory.decodeStream((InputStream)new URL(args[0]).getContent());
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return bitmap;
+//        }
+//        protected void onPostExecute(Bitmap image) {
+//            if(image != null){
+//                imagen.setImageBitmap(image);
+//                pDialog.dismiss();
+//            }else{
+//                pDialog.dismiss();
+//                Toast.makeText(ClasificacionActivity.this, "Te quedaste sin graduacion y ahora te quedas sin clasificacion", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
 }
