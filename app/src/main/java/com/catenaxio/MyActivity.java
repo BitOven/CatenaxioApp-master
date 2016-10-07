@@ -20,7 +20,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
 
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
-    Button botonCalendario,botonConvocatoria,botonEstadistica,botonX;
+    Button botonCalendario,botonEstadistica,botonX;//,botonConvocatoria
     public static final String PREFS_NAME = "Preferencias";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
