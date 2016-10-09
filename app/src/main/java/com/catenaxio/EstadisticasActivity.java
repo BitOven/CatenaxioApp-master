@@ -205,7 +205,7 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
                         Log.d("score", "Goles totales: " + golesTotales);
                     }
                     limpiarArrays();
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < players.size(); i++) {
                         lista_partidos.add(Integer.toString(players.get(i).getInt("PJ")));
                         lista_titulares.add(Integer.toString(players.get(i).getInt("PT")));
                         lista_goles.add(Integer.toString(players.get(i).getInt("Goles")));

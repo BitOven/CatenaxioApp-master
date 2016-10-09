@@ -33,6 +33,7 @@ public class CalendarioActivity extends Activity {
     private Vector<Integer> lista_estadios;
     private Vector<String> lista_result;
     private Vector<Uri> lista_maps;
+    private boolean temporadaActual;
 
     public static final String PREFS_NAME = "Preferencias";
 
@@ -216,9 +217,11 @@ public class CalendarioActivity extends Activity {
         miLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(lista_maps.get(position));
+                if(temporadaActual) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(lista_maps.get(position));
                     startActivity(intent);
+                }
             }
         });
     }
@@ -251,6 +254,8 @@ public class CalendarioActivity extends Activity {
 
     private void cargarCalendario(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getString(getString(R.string.pref_temporada_key),"").equals("2016-17"))temporadaActual=true;
+        if(!prefs.getString(getString(R.string.pref_temporada_key),"").equals("2016-17"))temporadaActual=false;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Partidos");
         query.whereEqualTo("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
         query.orderByAscending("Jornada");
