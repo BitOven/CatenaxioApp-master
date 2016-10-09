@@ -254,8 +254,8 @@ public class CalendarioActivity extends Activity {
 
     private void cargarCalendario(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs.getString(getString(R.string.pref_temporada_key),"").equals("2016-17"))temporadaActual=true;
-        if(!prefs.getString(getString(R.string.pref_temporada_key),"").equals("2016-17"))temporadaActual=false;
+        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17"))temporadaActual=true;
+        if(!prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17"))temporadaActual=false;
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Partidos");
         query.whereEqualTo("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
         query.orderByAscending("Jornada");
