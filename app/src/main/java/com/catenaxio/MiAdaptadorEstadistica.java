@@ -71,42 +71,76 @@ public class MiAdaptadorEstadistica extends BaseAdapter {
         //lista porcentaje goles
         TextView textViewPorcentajeGoles=(TextView)view.findViewById(R.id.porcentaje_goles);
         textViewPorcentajeGoles.setText(lista_porcentajeGoles.get(position));
-        //System.out.println("Copio: "+lista_porcentajeGoles.get(position));
 
-
-
-        //lista jornada
+        //lista jornada FIREBASE
         ImageView imagenJugador=(ImageView)view.findViewById(R.id.imagenJugadorEstadistica);
-        if(position==0){ //juanito
-            imagenJugador.setImageResource(R.drawable.juanito);
+        if(position==0){ //abel
+            imagenJugador.setImageResource(R.drawable.abel);
         }
-        else if(position==1){ //juanma
-            imagenJugador.setImageResource(R.drawable.juanma);
+        else if(position==1){ //dorado
+            imagenJugador.setImageResource(R.drawable.dorado);
         }
-        else if(position==2){ //hugo4
-            imagenJugador.setImageResource(R.drawable.hugo4);
-        }
-        else if(position==3){ //meri
-            imagenJugador.setImageResource(R.drawable.meri);
-        }
-        else if(position==8){ //abel
-          imagenJugador.setImageResource(R.drawable.abel);
-        }
-        else if(position==4){ //hector
-            imagenJugador.setImageResource(R.drawable.hector);
-        }
-        else if(position==5){ //anton
+        else if(position==2){ //anton
             imagenJugador.setImageResource(R.drawable.anton);
         }
-        else if(position==6){ //jordan
+        else if(position==3){ //hector
+            imagenJugador.setImageResource(R.drawable.hector);
+        }
+        else if(position==4){ //hugo4
+            imagenJugador.setImageResource(R.drawable.hugo4);
+        }
+        else if(position==5){ //jordan
             imagenJugador.setImageResource(R.drawable.jordan);
         }
-        else if(position==7){ //dorado
-            imagenJugador.setImageResource(R.drawable.dorado);
+        else if(position==6){ //juanito
+            imagenJugador.setImageResource(R.drawable.juanito);
+        }
+        else if(position==7){ //juanma
+            imagenJugador.setImageResource(R.drawable.juanma);
+        }
+        else if(position==8){ //meri
+            imagenJugador.setImageResource(R.drawable.meri);
         }
         else if(position==9){//invitado
             imagenJugador.setImageResource(R.drawable.invitado);
         }
+
+        //System.out.println("Copio: "+lista_porcentajeGoles.get(position));
+
+
+
+//        //lista jornada PARSE
+//        ImageView imagenJugador=(ImageView)view.findViewById(R.id.imagenJugadorEstadistica);
+//        if(position==0){ //juanito
+//            imagenJugador.setImageResource(R.drawable.juanito);
+//        }
+//        else if(position==1){ //juanma
+//            imagenJugador.setImageResource(R.drawable.juanma);
+//        }
+//        else if(position==2){ //hugo4
+//            imagenJugador.setImageResource(R.drawable.hugo4);
+//        }
+//        else if(position==3){ //meri
+//            imagenJugador.setImageResource(R.drawable.meri);
+//        }
+//        else if(position==8){ //abel
+//          imagenJugador.setImageResource(R.drawable.abel);
+//        }
+//        else if(position==4){ //hector
+//            imagenJugador.setImageResource(R.drawable.hector);
+//        }
+//        else if(position==5){ //anton
+//            imagenJugador.setImageResource(R.drawable.anton);
+//        }
+//        else if(position==6){ //jordan
+//            imagenJugador.setImageResource(R.drawable.jordan);
+//        }
+//        else if(position==7){ //dorado
+//            imagenJugador.setImageResource(R.drawable.dorado);
+//        }
+//        else if(position==9){//invitado
+//            imagenJugador.setImageResource(R.drawable.invitado);
+//        }
 
         ImageView imageViewBaja=(ImageView)view.findViewById(R.id.imageBaja);
 

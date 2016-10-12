@@ -18,6 +18,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.catenaxio.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -59,8 +64,13 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
     //private DownloadFilesTask hiloDescarga;
     //private DownloadFilesTaskGrafica hiloDescargaGrafica;
     //private String[] nombres={"Abel","Anton","Cano","Hugo","Javi","Jordan","Juanito","Meri","Fer"};
-    private String[] nombres={"Juan","Juanma","Hugo","Meri","Cano","Anton","Jordan","AbelD", "AbelG","Invitado"};
+//    private String[] nombres={"Juan","Juanma","Hugo","Meri","Cano","Anton","Jordan","AbelD", "AbelG","Invitado"};//Parse
+    private String[] nombres={"AbelG","AbelD","Anton","Cano","Hugo","Jordan","Juan","Juanma","Meri","Invitado"};//FireBase
     public MiAdaptadorEstadistica adapter;
+
+    //firebase
+    private DatabaseReference mDatabase;
+
     public static final String PREFS_NAME = "Preferencias";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,18 +137,34 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
 ////            hiloDescarga = new DownloadFilesTask();
 ////            hiloDescarga.execute("http://hidandroid.hol.es/catenaxio/obtener_estadisticas.php");
 //        }
-        if(view==botonGrafica){
+//        if(view==botonGrafica){//parse
+//
+//            Intent i =new Intent(this, QuesitoActivity.class);
+//            i.putExtra("Juan",pctg_goles.get(0));
+//            i.putExtra("Juanma",pctg_goles.get(1));
+//            i.putExtra("Hugo",pctg_goles.get(2));
+//            i.putExtra("Meri",pctg_goles.get(3));
+//            i.putExtra("Cano",pctg_goles.get(4));
+//            i.putExtra("Anton",pctg_goles.get(5));
+//            i.putExtra("Jordan",pctg_goles.get(6));
+//            i.putExtra("AbelD",pctg_goles.get(7));
+//            i.putExtra("AbelG",pctg_goles.get(8));
+//            i.putExtra("Invitado", pctg_goles.get(9));
+//            startActivity(i);
+//
+//        }
+        if(view==botonGrafica){//firebase
 
             Intent i =new Intent(this, QuesitoActivity.class);
-            i.putExtra("Juan",pctg_goles.get(0));
-            i.putExtra("Juanma",pctg_goles.get(1));
-            i.putExtra("Hugo",pctg_goles.get(2));
-            i.putExtra("Meri",pctg_goles.get(3));
-            i.putExtra("Cano",pctg_goles.get(4));
-            i.putExtra("Anton",pctg_goles.get(5));
-            i.putExtra("Jordan",pctg_goles.get(6));
-            i.putExtra("AbelD",pctg_goles.get(7));
-            i.putExtra("AbelG",pctg_goles.get(8));
+            i.putExtra("AbelG",pctg_goles.get(0));
+            i.putExtra("AbelD",pctg_goles.get(1));
+            i.putExtra("Anton",pctg_goles.get(2));
+            i.putExtra("Cano",pctg_goles.get(3));
+            i.putExtra("Hugo",pctg_goles.get(4));
+            i.putExtra("Jordan",pctg_goles.get(5));
+            i.putExtra("Juan",pctg_goles.get(6));
+            i.putExtra("Juanma",pctg_goles.get(7));
+            i.putExtra("Meri",pctg_goles.get(8));
             i.putExtra("Invitado", pctg_goles.get(9));
             startActivity(i);
 
@@ -184,54 +210,101 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
                 editor.putString(nombres[i]+"partidosGanados", lista_partidosGanados.get(i));//PG
                 editor.putString(nombres[i]+"porcentajeGoles", lista_porcentajeGoles.get(i));
                 editor.putInt(nombres[i]+"pctgGoles", pctg_goles.get(i));
-                editor.commit();
+                editor.apply();
             }
             return null;
         }
     }
-    private void cargarEstadisticas(){
-        golesTotales=0.0;
-        //if(buttonAct)Toast.makeText(this,"Actualizando...",Toast.LENGTH_SHORT).show();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Jugadores").whereMatches("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
-        //query.whereEqualTo("playerName", "Dan Stemkoski");
-        query.orderByAscending("createdAt");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> players, ParseException e) {
-                if (e == null) {
-                    Log.d("score", "Recibidos " + players.size() + " jugadores");
-                    for (int j = 0; j < players.size(); j++) {
-                        golesTotales += players.get(j).getDouble("Goles");
-                        Log.d("score", "Goles totales: " + golesTotales);
-                    }
-                    limpiarArrays();
-                    for (int i = 0; i < players.size(); i++) {
-                        lista_partidos.add(Integer.toString(players.get(i).getInt("PJ")));
-                        lista_titulares.add(Integer.toString(players.get(i).getInt("PT")));
-                        lista_goles.add(Integer.toString(players.get(i).getInt("Goles")));
-                        pctg_goles.add(players.get(i).getInt("Goles"));
-                        lista_asistencias.add(Integer.toString(players.get(i).getInt("Asistencias")));
-                        lista_partidosGanados.add(Integer.toString(players.get(i).getInt("PG")));
-                        double pctgG = Double.parseDouble(lista_goles.get(i));
-                        pctgG = (pctgG / golesTotales) * 100;
-                        DecimalFormat decimales = new DecimalFormat("0.0");
-                        lista_porcentajeGoles.add(decimales.format(pctgG));
-                    }
-                    adapter.notifyDataSetChanged();
-                    //Toast.makeText(getApplicationContext(), "Actualizado", Toast.LENGTH_SHORT).show();
-                    new GuardarPrefTask().execute();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Activa los datos, tacaño", Toast.LENGTH_LONG).show();
-                    Log.d("score", "Error: " + e.getMessage());
-                }
-            }
-        });
-    }
+//    private void cargarEstadisticas(){
+//        golesTotales=0.0;
+//        //if(buttonAct)Toast.makeText(this,"Actualizando...",Toast.LENGTH_SHORT).show();
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Jugadores").whereMatches("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
+//        //query.whereEqualTo("playerName", "Dan Stemkoski");
+//        query.orderByAscending("createdAt");
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            public void done(List<ParseObject> players, ParseException e) {
+//                if (e == null) {
+//                    Log.d("score", "Recibidos " + players.size() + " jugadores");
+//                    for (int j = 0; j < players.size(); j++) {
+//                        golesTotales += players.get(j).getDouble("Goles");
+//                        Log.d("score", "Goles totales: " + golesTotales);
+//                    }
+//                    limpiarArrays();
+//                    for (int i = 0; i < players.size(); i++) {
+//                        lista_partidos.add(Integer.toString(players.get(i).getInt("PJ")));
+//                        lista_titulares.add(Integer.toString(players.get(i).getInt("PT")));
+//                        lista_goles.add(Integer.toString(players.get(i).getInt("Goles")));
+//                        pctg_goles.add(players.get(i).getInt("Goles"));
+//                        lista_asistencias.add(Integer.toString(players.get(i).getInt("Asistencias")));
+//                        lista_partidosGanados.add(Integer.toString(players.get(i).getInt("PG")));
+//                        double pctgG = Double.parseDouble(lista_goles.get(i));
+//                        pctgG = (pctgG / golesTotales) * 100;
+//                        DecimalFormat decimales = new DecimalFormat("0.0");
+//                        lista_porcentajeGoles.add(decimales.format(pctgG));
+//                    }
+//                    adapter.notifyDataSetChanged();
+//                    //Toast.makeText(getApplicationContext(), "Actualizado", Toast.LENGTH_SHORT).show();
+//                    new GuardarPrefTask().execute();
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "Activa los datos, tacaño", Toast.LENGTH_LONG).show();
+//                    Log.d("score", "Error: " + e.getMessage());
+//                }
+//            }
+//        });
+//    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        cargarEstadisticas();
+        //cargarEstadisticas();
+        cargarFirebase();
+    }
+
+    private void cargarFirebase(){
+        //Aqui se decide, segun lo elegido en el menu Settings, que temporada cargar
+        String statsElegidas="Jugadores2016";
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
+            statsElegidas="Jugadores2016";
+        }
+        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2015-16")){
+            statsElegidas="Jugadores2015";
+        }
+        //selecciono la rama de firebase adecuada
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Estadisticas").child(statsElegidas);
+        golesTotales=0.0;
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot jugador : dataSnapshot.getChildren()){
+                    golesTotales+=Double.parseDouble(jugador.child("Goles").getValue().toString());
+                }
+                limpiarArrays();
+                int i=0;
+                for(DataSnapshot jugador : dataSnapshot.getChildren()){
+                    lista_partidos.add(jugador.child("PJ").getValue().toString());
+                    lista_partidosGanados.add(jugador.child("PG").getValue().toString());
+                    lista_asistencias.add(jugador.child("Asistencias").getValue().toString());
+                    lista_goles.add(jugador.child("Goles").getValue().toString());
+                    lista_titulares.add("20");
+                    pctg_goles.add(Integer.parseInt(jugador.child("Goles").getValue().toString()));
+
+                    double pctgG = Double.parseDouble(lista_goles.get(i));
+                    pctgG = (pctgG / golesTotales) * 100;
+                    DecimalFormat decimales = new DecimalFormat("0.0");
+                    lista_porcentajeGoles.add(decimales.format(pctgG));
+                    i++;
+                }
+                adapter.notifyDataSetChanged();
+                new GuardarPrefTask().execute();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     //clase asyntask de recibir

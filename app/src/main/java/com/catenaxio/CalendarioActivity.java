@@ -373,7 +373,7 @@ public class CalendarioActivity extends Activity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
             }
         });
     }
