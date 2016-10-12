@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,12 @@ import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
 import com.catenaxio.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -37,6 +44,11 @@ import android.widget.Button;
 public class ClasificacionActivity extends Activity {
     private ImageView imagen;
     private Bitmap bitmap;
+
+    //firebase storage instance
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
+    private DatabaseReference mDatabase;
 //    private ProgressDialog pDialog;
 //    private LoadImage hiloDescarga;
 //    private Button clasificacion;
@@ -52,7 +64,8 @@ public class ClasificacionActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        cargarClasif();
+        //cargarClasif();
+        cargarFireBase();
     }
 
     @Override
@@ -75,32 +88,60 @@ public class ClasificacionActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void cargarClasif(){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Clasificacion").whereMatches("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> imageList, ParseException e) {
-                if (e == null) {
-                    Log.d("score", "Retrieved " + imageList.size() + " images");
-                    ParseFile applicantResume = (ParseFile) imageList.get(0).get("imagen");
-                    applicantResume.getDataInBackground(new GetDataCallback() {
-                        public void done(byte[] data, ParseException e) {
-                            if (e == null) {
-                                // data has the bytes for the resume
-                                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                                imagen.setImageBitmap(bitmap);
+//    private void cargarClasif(){
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Clasificacion").whereMatches("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            public void done(List<ParseObject> imageList, ParseException e) {
+//                if (e == null) {
+//                    Log.d("score", "Retrieved " + imageList.size() + " images");
+//                    ParseFile applicantResume = (ParseFile) imageList.get(0).get("imagen");
+//                    applicantResume.getDataInBackground(new GetDataCallback() {
+//                        public void done(byte[] data, ParseException e) {
+//                            if (e == null) {
+//                                // data has the bytes for the resume
+//                                bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                                imagen.setImageBitmap(bitmap);
+//
+//                            } else {
+//                                // something went wrong
+//                            }
+//                        }
+//                    });
+//                } else {
+//                    Log.d("score", "Error: " + e.getMessage());
+//                }
+//            }
+//        });
+//    }
 
-                            } else {
-                                // something went wrong
-                            }
-                        }
-                    });
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
+    private void cargarFireBase(){
+
+        String clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
+            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
+        }
+        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2015-16")){
+            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion15.png";
+        }
+        //selecciono la rama de firebase adecuada
+        StorageReference storageRef = storage.getReferenceFromUrl(clasifElegida);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imagen.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
             }
         });
     }
+
 //    @Override
 //    public void onClick(View view) {
 //        if(view==clasificacion){
