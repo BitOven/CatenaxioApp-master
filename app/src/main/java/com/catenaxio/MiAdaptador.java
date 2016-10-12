@@ -72,7 +72,7 @@ public class MiAdaptador extends BaseAdapter {
         switch (lista_estadio.get(position)){
             case 0:
 
-                view.setBackgroundColor(context.getResources().getColor(R.color.darkdarkblue));
+                view.setBackgroundColor(context.getResources().getColor(R.color.darkblue));
                 break;
             case 1:
 
@@ -80,18 +80,28 @@ public class MiAdaptador extends BaseAdapter {
                 break;
 
             case 2:
-
+//ganados
                 view.setBackgroundColor(context.getResources().getColor(R.color.green));
                 break;
 
             case 3:
-
+//empates
                 view.setBackgroundColor(context.getResources().getColor(R.color.orange));
                 break;
 
             case 4:
-
+//derrotas
                 view.setBackgroundColor(context.getResources().getColor(R.color.red));
+                break;
+
+            case 5:
+//descanso
+                view.setBackgroundColor(context.getResources().getColor(R.color.black));
+                break;
+
+            case 6:
+//aplazado
+                view.setBackgroundColor(context.getResources().getColor(R.color.purple));
                 break;
 
 

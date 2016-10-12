@@ -15,6 +15,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.catenaxio.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -46,6 +51,9 @@ public class CalendarioActivity extends Activity {
 
     private ListView miLista;
     private MiAdaptador adapter;
+
+    //firebase
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -229,7 +237,8 @@ public class CalendarioActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        cargarCalendario();
+        //cargarCalendario();
+        cargarCalendarioFirebase();
     }
 
     @Override
@@ -252,63 +261,136 @@ public class CalendarioActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void cargarCalendario(){
+//    private void cargarCalendario(){
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17"))temporadaActual=true;
+//        if(!prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17"))temporadaActual=false;
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Partidos");
+//        query.whereEqualTo("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
+//        query.orderByAscending("Jornada");
+//        query.findInBackground(new FindCallback<ParseObject>() {
+//            public void done(List<ParseObject> scoreList, ParseException e) {
+//                if (e == null) {
+//                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
+//                    for (int i = 0; i < scoreList.size(); i++) {
+//                        if(scoreList.get(i).getString("Indice").equals("X")){
+//                            String resultadoo = "N/A";
+//                            int coloor = i%2;
+//                            lista_result.setElementAt(resultadoo, i);
+//                            lista_estadios.setElementAt(coloor,i);
+//                            lista_rival.setElementAt(scoreList.get(i).getString("Rival"),i);
+//                            lista_fecha.setElementAt(scoreList.get(i).getString("Fecha"),i);
+//                            lista_hora.setElementAt(scoreList.get(i).getString("Hora"),i);
+//                            lista_lugar.setElementAt(scoreList.get(i).getString("Campo"),i);
+//                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = settings.edit();
+//                            editor.putString("jornada"+(i+1), resultadoo);
+//                            editor.putInt("color"+(i+1),coloor);
+//                            editor.putString("rivalPref"+(i+1),scoreList.get(i).getString("Rival"));
+//                            editor.putString("fechaPref"+(i+1),scoreList.get(i).getString("Fecha"));
+//                            editor.putString("horaPref"+(i+1),scoreList.get(i).getString("Hora"));
+//                            editor.putString("campoPref"+(i+1),scoreList.get(i).getString("Campo"));
+//                            editor.apply();
+//                        }else{
+//                            String resultadoo = scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC");
+//                            int coloor = scoreList.get(i).getInt("Intindice");
+//                            lista_result.setElementAt(resultadoo, i);
+//                            lista_estadios.setElementAt(coloor,i);
+//                            lista_rival.setElementAt(scoreList.get(i).getString("Rival"),i);
+//                            lista_fecha.setElementAt(scoreList.get(i).getString("Fecha"),i);
+//                            lista_hora.setElementAt(scoreList.get(i).getString("Hora"),i);
+//                            lista_lugar.setElementAt(scoreList.get(i).getString("Campo"),i);
+//                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+//                            SharedPreferences.Editor editor = settings.edit();
+//                            editor.putString("jornada"+(i+1), resultadoo);
+//                            editor.putInt("color"+(i+1),coloor);
+//                            editor.putString("rivalPref"+(i+1),lista_rival.get(i));
+//                            editor.putString("fechaPref"+(i+1),lista_fecha.get(i));
+//                            editor.putString("horaPref"+(i+1),lista_hora.get(i));
+//                            editor.putString("campoPref"+(i+1),lista_lugar.get(i));
+//                            editor.apply();
+//                        }
+//                        //Log.d("score", "Jornada numero: " + scoreList.get(i).getNumber("Jornada") + "resultado: " + scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC"));
+//                    }
+//                    adapter.notifyDataSetChanged();
+//                } else {
+//                    Log.d("score", "Error: " + e.getMessage());
+//                }
+//            }
+//        });
+//    }
+
+    private void cargarCalendarioFirebase(){
+        String calendarioElegido="Calendario2016";
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17"))temporadaActual=true;
-        if(!prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17"))temporadaActual=false;
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Partidos");
-        query.whereEqualTo("Temporada",prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
-        query.orderByAscending("Jornada");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> scoreList, ParseException e) {
-                if (e == null) {
-                    Log.d("score", "Retrieved " + scoreList.size() + " scores");
-                    for (int i = 0; i < scoreList.size(); i++) {
-                        if(scoreList.get(i).getString("Indice").equals("X")){
-                            String resultadoo = "N/A";
-                            int coloor = i%2;
-                            lista_result.setElementAt(resultadoo, i);
-                            lista_estadios.setElementAt(coloor,i);
-                            lista_rival.setElementAt(scoreList.get(i).getString("Rival"),i);
-                            lista_fecha.setElementAt(scoreList.get(i).getString("Fecha"),i);
-                            lista_hora.setElementAt(scoreList.get(i).getString("Hora"),i);
-                            lista_lugar.setElementAt(scoreList.get(i).getString("Campo"),i);
-                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString("jornada"+(i+1), resultadoo);
-                            editor.putInt("color"+(i+1),coloor);
-                            editor.putString("rivalPref"+(i+1),scoreList.get(i).getString("Rival"));
-                            editor.putString("fechaPref"+(i+1),scoreList.get(i).getString("Fecha"));
-                            editor.putString("horaPref"+(i+1),scoreList.get(i).getString("Hora"));
-                            editor.putString("campoPref"+(i+1),scoreList.get(i).getString("Campo"));
-                            editor.apply();
-                        }else{
-                            String resultadoo = scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC");
-                            int coloor = scoreList.get(i).getInt("Intindice");
-                            lista_result.setElementAt(resultadoo, i);
-                            lista_estadios.setElementAt(coloor,i);
-                            lista_rival.setElementAt(scoreList.get(i).getString("Rival"),i);
-                            lista_fecha.setElementAt(scoreList.get(i).getString("Fecha"),i);
-                            lista_hora.setElementAt(scoreList.get(i).getString("Hora"),i);
-                            lista_lugar.setElementAt(scoreList.get(i).getString("Campo"),i);
-                            SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString("jornada"+(i+1), resultadoo);
-                            editor.putInt("color"+(i+1),coloor);
-                            editor.putString("rivalPref"+(i+1),scoreList.get(i).getString("Rival"));
-                            editor.putString("fechaPref"+(i+1),scoreList.get(i).getString("Fecha"));
-                            editor.putString("horaPref"+(i+1),scoreList.get(i).getString("Hora"));
-                            editor.putString("campoPref"+(i+1),scoreList.get(i).getString("Campo"));
-                            editor.apply();
-                        }
-                        //Log.d("score", "Jornada numero: " + scoreList.get(i).getNumber("Jornada") + "resultado: " + scoreList.get(i).getNumber("GF") + "-" + scoreList.get(i).getNumber("GC"));
+        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
+            temporadaActual=true;
+            calendarioElegido="Calendario2016";
+        }
+        if(!prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
+            temporadaActual=false;
+            calendarioElegido="Calendario2015";
+        }
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child(calendarioElegido);
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int i=0;
+                for(DataSnapshot jornada : dataSnapshot.getChildren()){
+                    String resultadoo = jornada.child("Resultado").getValue().toString();
+                    lista_result.setElementAt(resultadoo,i);
+                    lista_rival.setElementAt(jornada.child("Rival").getValue().toString(),i);
+                    lista_lugar.setElementAt(jornada.child("Lugar").getValue().toString(),i);
+
+                    //parseamos la fecha
+                    String fechaYhora[]  = parsearHora(jornada.child("Hora").getValue().toString());
+                    lista_fecha.setElementAt(fechaYhora[0],i);
+                    lista_hora.setElementAt(fechaYhora[1],i);
+
+                    //obtenemos color de celda
+                    int coloor;
+                    if(colorResultado(jornada.child("KeyResultado").getValue().toString())==1){
+                        coloor = i%2;
+                    }else{
+                        coloor=colorResultado(jornada.child("KeyResultado").getValue().toString());
                     }
+                    lista_estadios.setElementAt(coloor,i);
+                    SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("jornada"+(i+1), resultadoo);
+                    editor.putInt("color"+(i+1),coloor);
+                    editor.putString("rivalPref"+(i+1),lista_rival.get(i));
+                    editor.putString("fechaPref"+(i+1),lista_fecha.get(i));
+                    editor.putString("horaPref"+(i+1),lista_hora.get(i));
+                    editor.putString("campoPref"+(i+1),lista_lugar.get(i));
+                    editor.apply();
+                    i++;
                     adapter.notifyDataSetChanged();
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
                 }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
+    private String[] parsearHora(String fechaYhora){
+        String resultado[] = fechaYhora.split(" ");
+        return resultado;
+    }
 
+    private int colorResultado (String keyResultado){
+        int color=0;
+        if(keyResultado.equalsIgnoreCase("X"))color=1;
+        if(keyResultado.equalsIgnoreCase("G"))color=2;
+        if(keyResultado.equalsIgnoreCase("E"))color=3;
+        if(keyResultado.equalsIgnoreCase("P"))color=4;
+        if(keyResultado.equalsIgnoreCase("D"))color=5;
+        if(keyResultado.equalsIgnoreCase("A"))color=6;
+
+        return color;
+    }
 }
