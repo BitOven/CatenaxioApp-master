@@ -64,6 +64,7 @@ public class ClasificacionActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        Toast.makeText(getApplicationContext(), "Cargando...", Toast.LENGTH_SHORT).show();
         //cargarClasif();
         cargarFireBase();
     }

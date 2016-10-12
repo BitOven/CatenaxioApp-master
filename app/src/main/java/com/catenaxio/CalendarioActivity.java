@@ -49,6 +49,7 @@ public class CalendarioActivity extends Activity {
     private static final String SECTOR3_LOCATION = "https://www.google.es/maps/place/Complejo+Deportivo+Sector+3+Alh%C3%B3ndiga/@40.3147782,-3.7444435,116m/data=!3m1!1e3!4m5!3m4!1s0x0:0x8f0474c33198fb69!8m2!3d40.3148757!4d-3.7437737";
     private static final String M4_LOCATION = "https://www.google.es/maps/place/Av+Francisco+Fernandez+Ordo%C3%B1ez,+10,+28903+Getafe,+Madrid/@40.3151358,-3.7154767,111m/data=!3m1!1e3!4m5!3m4!1s0xd4220c37afa6da1:0xed094409cc05dcc2!8m2!3d40.3152065!4d-3.7150857";
 
+
     private ListView miLista;
     private MiAdaptador adapter;
 
@@ -73,28 +74,28 @@ public class CalendarioActivity extends Activity {
         //pongo jugador por defecto
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
-        lista_jornada.add("1");
-        lista_jornada.add("2");
-        lista_jornada.add("3");
-        lista_jornada.add("4");
-        lista_jornada.add("5");
-        lista_jornada.add("6");
-        lista_jornada.add("7");
-        lista_jornada.add("8");
-        lista_jornada.add("9");
-        lista_jornada.add("10");
-        lista_jornada.add("11");
-        lista_jornada.add("12");
-        lista_jornada.add("13");
-        lista_jornada.add("14");
-        lista_jornada.add("15");
-        lista_jornada.add("16");
-        lista_jornada.add("17");
-        lista_jornada.add("18");
-        lista_jornada.add("19");
-        lista_jornada.add("20");
-        lista_jornada.add("21");
-        lista_jornada.add("22");
+        lista_jornada.add(sharedPref.getString("jornadaPref"+1,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+2,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+3,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+4,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+5,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+6,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+7,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+8,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+9,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+10,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+11,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+12,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+13,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+14,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+15,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+16,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+17,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+18,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+19,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+20,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+21,"0"));
+        lista_jornada.add(sharedPref.getString("jornadaPref"+22,"0"));
 
         lista_fecha.add(sharedPref.getString("fechaPref"+1,"01/10/16"));
         lista_fecha.add(sharedPref.getString("fechaPref"+2,"08/10/16"));
@@ -192,28 +193,28 @@ public class CalendarioActivity extends Activity {
         lista_lugar.add(sharedPref.getString("campoPref"+21,"SECTOR III"));
         lista_lugar.add(sharedPref.getString("campoPref"+22,"JUAN DE LA CIERVA"));
 
-        lista_maps.add(Uri.parse(JUANDE_LOCATION));
-        lista_maps.add(Uri.parse(PERALES_LOCATION));
-        lista_maps.add(Uri.parse(JUANDE_LOCATION));
-        lista_maps.add(Uri.parse(GINER_LOCATION));
-        lista_maps.add(Uri.parse(SECTOR3_LOCATION));
-        lista_maps.add(Uri.parse(GINER_LOCATION));
-        lista_maps.add(Uri.parse(M4_LOCATION));
-        lista_maps.add(Uri.parse(M4_LOCATION));
-        lista_maps.add(Uri.parse(GINER_LOCATION));
-        lista_maps.add(Uri.parse(SECTOR3_LOCATION));
-        lista_maps.add(Uri.parse(JUANDE_LOCATION));
-        lista_maps.add(Uri.parse(JUANDE_LOCATION));
-        lista_maps.add(Uri.parse(PERALES_LOCATION));
-        lista_maps.add(Uri.parse(JUANDE_LOCATION));
-        lista_maps.add(Uri.parse(GINER_LOCATION));
-        lista_maps.add(Uri.parse(SECTOR3_LOCATION));
-        lista_maps.add(Uri.parse(GINER_LOCATION));
-        lista_maps.add(Uri.parse(JUANDE_LOCATION));
-        lista_maps.add(Uri.parse(M4_LOCATION));
-        lista_maps.add(Uri.parse(GINER_LOCATION));
-        lista_maps.add(Uri.parse(SECTOR3_LOCATION));
-        lista_maps.add(Uri.parse(JUANDE_LOCATION));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+1,JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+2,PERALES_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+3,JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+4,GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+5,SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+6,GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+7,M4_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+8,M4_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+9,GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+10,SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+11,JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+12,JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+13,PERALES_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+14,JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+15,GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+16,SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+17,GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+18,JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+19,M4_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+20,GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+21,SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+22,JUANDE_LOCATION)));
 
         for(int i=1; i<23; i++){
             lista_result.add(sharedPref.getString("jornada"+i, "N/A"));
@@ -225,7 +226,7 @@ public class CalendarioActivity extends Activity {
         miLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(temporadaActual) {
+                if(temporadaActual && lista_jornada.get(position).equals("0")) {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(lista_maps.get(position));
                     startActivity(intent);
@@ -355,12 +356,23 @@ public class CalendarioActivity extends Activity {
                         coloor = i%2;
                     }else{
                         coloor=colorResultado(jornada.child("KeyResultado").getValue().toString());
+                        //caso de jornadas aplazadas o descartadas
+                        if(jornada.child("KeyResultado").getValue().toString().equals("A") && jornada.child("URLCampo").exists()){
+                            lista_maps.setElementAt(Uri.parse(jornada.child("URLCampo").getValue().toString()), i);
+                        }
+                        if(jornada.child("KeyResultado").getValue().toString().equals("D")){
+                            lista_jornada.setElementAt("1",i);
+                        }
                     }
                     lista_estadios.setElementAt(coloor,i);
                     SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("jornada"+(i+1), resultadoo);
                     editor.putInt("color"+(i+1),coloor);
+                    //en caso de que cambie la ubicacion del partido
+                    if(coloor==6 && jornada.child("URLCampo").exists())editor.putString("mapsPref"+(i+1),jornada.child("URLCampo").getValue().toString());
+                    //en caso de partido descartado
+                    if(coloor==5)editor.putString("jornadaPref"+(i+1),lista_jornada.get(i));
                     editor.putString("rivalPref"+(i+1),lista_rival.get(i));
                     editor.putString("fechaPref"+(i+1),lista_fecha.get(i));
                     editor.putString("horaPref"+(i+1),lista_hora.get(i));
