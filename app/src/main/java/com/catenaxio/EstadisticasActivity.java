@@ -70,6 +70,7 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
 
     //firebase
     private DatabaseReference mDatabase;
+    private String partidosTotStr="20";
 
     public static final String PREFS_NAME = "Preferencias";
     @Override
@@ -267,9 +268,11 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
             statsElegidas="Jugadores2016";
+            partidosTotStr="20";
         }
         if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2015-16")){
             statsElegidas="Jugadores2015";
+            partidosTotStr="22";
         }
         //selecciono la rama de firebase adecuada
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Estadisticas").child(statsElegidas);
@@ -287,7 +290,7 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
                     lista_partidosGanados.add(jugador.child("PG").getValue().toString());
                     lista_asistencias.add(jugador.child("Asistencias").getValue().toString());
                     lista_goles.add(jugador.child("Goles").getValue().toString());
-                    lista_titulares.add("20");
+                    lista_titulares.add(partidosTotStr);
                     pctg_goles.add(Integer.parseInt(jugador.child("Goles").getValue().toString()));
 
                     double pctgG = Double.parseDouble(lista_goles.get(i));
