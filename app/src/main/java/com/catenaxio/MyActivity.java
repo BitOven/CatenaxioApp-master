@@ -23,8 +23,8 @@ public class MyActivity extends Activity implements View.OnClickListener{
         botonEstadistica=(Button)findViewById(R.id.botonEstadisticas);
         botonX=(Button)findViewById(R.id.botonX);
         botonCalendario.setOnClickListener(this);
-//        botonConvocatoria.setOnClickListener(this);
-        botonConvocatoria.setClickable(false);
+        botonConvocatoria.setOnClickListener(this);
+        botonConvocatoria.setOnClickListener(this);
         botonEstadistica.setOnClickListener(this);
         botonX.setOnClickListener(this);
 
@@ -56,10 +56,10 @@ public class MyActivity extends Activity implements View.OnClickListener{
             Intent lanzarActividad=new Intent(this,CalendarioActivity.class);
             startActivity(lanzarActividad);
         }
-//        else if(view==botonConvocatoria){
-//            Intent lanzarActividad=new Intent(this,ConvocatoriaActivity.class);
-//            startActivity(lanzarActividad);
-//        }
+        else if(view==botonConvocatoria){
+            Intent lanzarActividad=new Intent(this,ConvocatoriaActivity.class);
+            startActivity(lanzarActividad);
+        }
         else if(view==botonEstadistica){
             Intent lanzarActividad=new Intent(this,EstadisticasActivity.class);
             startActivity(lanzarActividad);

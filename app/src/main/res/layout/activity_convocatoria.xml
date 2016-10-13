@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/listViewConvocatoria"
         android:layout_gravity="center_horizontal"
-
         android:layout_weight="1.0"/>
     <LinearLayout
         android:orientation="horizontal"
@@ -35,27 +34,28 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.03"
         android:background="@color/black">
+        <!--
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray"
+                    android:layout_gravity="center_vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/gray"
-            android:layout_gravity="center_vertical">
+                    <Spinner
+                        android:layout_width="105dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spinnerJugador"
+                        android:layout_gravity="center_vertical"
+                        android:spinnerMode="dropdown"
+                        android:layout_marginRight="10dp"
+                        android:entries="@array/jugadores"
+                        android:prompt="@string/Jugador"
 
-            <Spinner
-                android:layout_width="105dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinnerJugador"
-                android:layout_gravity="center_vertical"
-                android:spinnerMode="dropdown"
-                android:layout_marginRight="10dp"
-                android:entries="@array/jugadores"
-                android:prompt="@string/Jugador"
+                        />
 
-                />
         </LinearLayout>
-
+-->
         <RadioGroup
             android:layout_width="96dp"
             android:layout_height="wrap_content"
@@ -90,16 +90,15 @@
             android:layout_height="fill_parent">
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Enviar"
                 android:id="@+id/botonEnviarConvocatoria"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:background="@color/darkblue"
                 android:layout_marginTop="3dp" />
-
+<!--
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -110,6 +109,7 @@
                 android:textColor="@color/white"
                 android:background="@color/darkblue"
                 android:layout_marginTop="3dp" />
+                -->
         </LinearLayout>
 
     </LinearLayout>

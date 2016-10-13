@@ -65,6 +65,13 @@ public class ParseaFechas {
         return postFormater.format(calendar.getTime());
     }
 
+    public static String getFechaHoyStringShort(){
+        TimeZone timeZone = TimeZone.getTimeZone("UTC");
+        Calendar calendar = Calendar.getInstance(timeZone);
+        SimpleDateFormat postFormater = new SimpleDateFormat("dd/MM/yy");
+        return postFormater.format(calendar.getTime());
+    }
+
     public static String getFechaHoyUnixString(){
         TimeZone timeZone = TimeZone.getTimeZone("UTC");
         Calendar calendar = Calendar.getInstance(timeZone);
