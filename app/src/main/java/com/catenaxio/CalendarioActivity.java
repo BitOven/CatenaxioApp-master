@@ -229,9 +229,13 @@ public class CalendarioActivity extends Activity {
         miLista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = createShareForecastIntent(lista_maps.get(position).toString());
-                startActivity(intent);
-                return false;
+                if(temporadaActual && lista_jornada.get(position).equals("0")) {
+                    Intent intent = createShareForecastIntent(lista_maps.get(position).toString());
+                    startActivity(intent);
+                    return true;
+                }else {
+                    return false;
+                }
             }
         });
     }
