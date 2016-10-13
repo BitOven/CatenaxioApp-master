@@ -226,6 +226,14 @@ public class CalendarioActivity extends Activity {
                 }
             }
         });
+        miLista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = createShareForecastIntent(lista_maps.get(position).toString());
+                startActivity(intent);
+                return false;
+            }
+        });
     }
 
     @Override
@@ -337,5 +345,12 @@ public class CalendarioActivity extends Activity {
         if(keyResultado.equalsIgnoreCase("A"))color=6;
 
         return color;
+    }
+    private Intent createShareForecastIntent(String enlaceGMaps){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, enlaceGMaps);
+        return shareIntent;
     }
 }

@@ -1,11 +1,8 @@
 package com.catenaxio;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,28 +15,7 @@ import android.content.SharedPreferences;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.*;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.*;
-import org.apache.http.impl.client.DefaultHttpClient;
-import java.io.UnsupportedEncodingException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import java.io.IOException;
-import org.apache.http.client.ClientProtocolException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.InputStream;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Date;
 import java.util.List;
-import org.apache.http.message.BasicNameValuePair;
-import com.catenaxio.R;
 
 import com.parse.FindCallback;
 import com.parse.ParseObject;
@@ -63,9 +39,6 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
 
     private Vector<Integer> lista_bajas;
     private Vector<String> lista_fechasAct;
-    //private DownloadFilesTask hiloDescarga;
-    //private UpLoadFilesTask hiloSubida;
-    //public Vector<Integer> lista_bajas_actualizado;
 
     public MiAdaptadorConvocatoria adapter;
     @Override
@@ -182,15 +155,10 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
                     }
                 }
             });
-            //hiloSubida=new UpLoadFilesTask();
-            //hiloSubida.execute("http://hidandroid.hol.es/catenaxio/modificar_convocatoria.php");
         }
         else if(view==refresh){
             Log.d("mostrar", "muestro refresh");
             updateBajas();
-            //hiloDescarga=new DownloadFilesTask();
-            //hiloDescarga.execute("http://hidandroid.hol.es/catenaxio/ejemploJSON.php");
-            //new DownloadFilesTask().execute("www.google");
         }
     }
 
@@ -230,196 +198,4 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
             }
         });
     }
-
-
-    //clase asyntask de recibir
-    /*
-    class DownloadFilesTask extends AsyncTask<String,Integer,Integer> {
-
-        private ProgressDialog progreso;
-        @Override
-        protected void onPreExecute(){
-            Log.d("background","inicio ");
-
-            progreso=new ProgressDialog(ConvocatoriaActivity.this);
-            progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progreso.setMessage("Contactando con la federacion, updating");
-            progreso.setCancelable(false);
-            progreso.show();
-
-
-        }
-
-        @Override
-        protected Integer doInBackground(String... urls) {
-            String urlString=urls[0];
-
-            Log.d("background","mi url: "+urlString);
-            for(int i=0;i<2;i++){
-                Log.d("background","cuenta:"+i);
-                SystemClock.sleep(1000);
-            }
-
-
-            InputStream is = null;
-            String result = "";
-            JSONObject json = null;
-            try{
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpGet httppost = new HttpGet(urlString);
-                //aadir url al post si quiero enviar la fecha
-                //HttpPost httppost = new HttpPost(serverUrl);
-                //List<NameValuePair> params = new ArrayList<NameValuePair>();
-                //  params.add(new BasicNameValuePair("iddevice", regId));
-                //httppost.setEntity(new UrlEncodedFormEntity(params));
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                is = entity.getContent();
-
-            }
-            catch(Exception e){
-                Log.d("background","error "+e);
-                return 1;
-            }
-
-
-            try{
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                is.close();
-                result=sb.toString();
-            } catch(Exception e){ return 1;}
-
-            try{
-                json = new JSONObject(result);
-            }catch(JSONException e){return 1;}
-
-            try {
-                Log.d("background","resultado: "+json.getJSONArray("datos"));
-
-                if(lista_bajas_actualizado.capacity()!=0){
-                    lista_bajas_actualizado.removeAllElements();
-                }
-                for(int i=0;i<=8;i++){
-
-                    String nombre=json.getJSONArray("datos").getJSONObject(i).getString("jugador");
-                    String resultado=json.getJSONArray("datos").getJSONObject(i).getString("resultado");
-                    lista_bajas_actualizado.add(Integer.parseInt(resultado));
-                    Log.d("background","Filtrando nombre "+nombre+" y resultado "+resultado);
-
-                    SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.putInt(nombre, Integer.parseInt(resultado));
-                    editor.commit();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-            return 0;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            //setProgressPercent(progress[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            Log.d("backgorund","terminado");
-            if(result==0){
-                progreso.dismiss();
-                int b=0;
-                for(int a : lista_bajas_actualizado){
-                    Log.d("resultados","tengo: "+a);
-                    lista_bajas.setElementAt(a,b);
-                    b++;
-                }
-                adapter.notifyDataSetChanged();
-            }
-            else{
-                progreso.dismiss();
-                Toast.makeText(getApplicationContext(),"Esta la federacion como para atenderte",Toast.LENGTH_LONG).show();
-            }
-
-        }
-    }
-
-    //clase asyntask de recibir
-    class UpLoadFilesTask extends AsyncTask<String,Integer,Integer> {
-
-        private ProgressDialog progreso;
-        @Override
-        protected void onPreExecute(){
-            Log.d("background","inicio ");
-
-            progreso=new ProgressDialog(ConvocatoriaActivity.this);
-            progreso.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progreso.setMessage("Enviando informacion a la federacion, suerte");
-            progreso.setCancelable(false);
-            progreso.show();
-
-
-        }
-
-
-        @Override
-        protected Integer doInBackground(String... urls) {
-            String urlString=urls[0];
-
-            Log.d("background","mi url: "+urlString);
-            for(int i=0;i<2;i++){
-                Log.d("background","cuenta:"+i);
-                SystemClock.sleep(1000);
-            }
-
-            String serverUrl =  urlString;
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("jugador", jugadorString));
-            //params.add(new BasicNameValuePair("nombre", UtilidadesGCM.SENDER_ID));
-            params.add(new BasicNameValuePair("resultado", Integer.toString(resultado_enviar)));
-
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(serverUrl);
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(params));
-                HttpResponse response = httpclient.execute(httppost);
-                Log.d("subida","exito");
-                return 0;
-            } catch (IOException e) {
-                Log.d("subida" ,"error "+e);
-                return 1;
-            }
-
-
-
-
-
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            //setProgressPercent(progress[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            Log.d("backgorund","terminado");
-            if(result==0){
-                progreso.dismiss();
-                hiloDescarga=new DownloadFilesTask();
-                hiloDescarga.execute("http://hidandroid.hol.es/catenaxio/ejemploJSON.php");
-            }
-            else{
-                progreso.dismiss();
-                Toast.makeText(getApplicationContext(),"La federacion esta cerrada, mira a ver si tienes internet anda",Toast.LENGTH_LONG).show();
-            }
-
-        }
-    }*/
 }
