@@ -2,6 +2,6 @@
     <item android:state_pressed="true"
         android:drawable="@drawable/convocatoria_off" /> <!-- pressed -->
     <item android:state_focused="true"
-        android:drawable="@drawable/convocatoria" /> <!-- focused -->
-    <item android:drawable="@drawable/convocatoria" /> <!-- default -->
+        android:drawable="@drawable/convocatoria_off" /> <!-- focused -->
+    <item android:drawable="@drawable/convocatoria_off" /> <!-- default -->
 </selector>

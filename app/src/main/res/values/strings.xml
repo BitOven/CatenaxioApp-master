@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Catenaxio</string>
+    <string name="app_name">Capptenaxio</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_calendario">Calendario</string>
@@ -20,8 +20,8 @@
         <item>Meri</item>
     </string-array>
 
-    <string name="title_activity_estadisticas">Estadisticas</string>
-    <string name="title_activity_clasificacion">Clasificacion</string>
+    <string name="title_activity_estadisticas">Estadísticas</string>
+    <string name="title_activity_clasificacion">Clasificación</string>
     <string name="title_activity_activitiy_tab_liga">ActivitiyTabLiga</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>

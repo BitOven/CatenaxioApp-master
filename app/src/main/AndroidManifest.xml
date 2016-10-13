@@ -37,22 +37,22 @@
         </activity>
         <activity
             android:name=".CalendarioActivity"
-            android:label="Calendario"
+            android:label="@string/title_activity_calendario"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ConvocatoriaActivity"
-            android:label="Convocatorias"
+            android:label="@string/title_activity_convocatoria"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".EstadisticasActivity"
-            android:label="Estadisticas"
+            android:label="@string/title_activity_estadisticas"
             android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ClasificacionActivity"
-            android:label="Clasificacion/Resultados"
+            android:label="@string/title_activity_clasificacion"
             android:screenOrientation="portrait" >
         </activity>
         <activity
@@ -90,6 +90,7 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MyActivity">
         </activity>
         <activity
