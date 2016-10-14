@@ -29,6 +29,8 @@
     <string name="title_activity_resultados">Resultados</string>
     <string name="title_activity_quesito">Grafica Goles</string>
 
+    <string name="elegir_perfil_usuario">Selecciona tu perfil de usuario:</string>
+
     <string name="pref_temporada_key">temporada</string>
     <string name="pref_temporada_label">Temporada</string>
     <string name="pref_temporada_default">2016-17</string>

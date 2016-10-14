@@ -2,7 +2,9 @@ package com.catenaxio;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,17 +18,22 @@ public class MyActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+            setContentView(R.layout.activity_my);
+            botonCalendario = (Button) findViewById(R.id.botonCalendario);
+            botonConvocatoria = (Button) findViewById(R.id.BotonConvocatoria);
+            botonEstadistica = (Button) findViewById(R.id.botonEstadisticas);
+            botonX = (Button) findViewById(R.id.botonX);
+            botonCalendario.setOnClickListener(this);
+            botonConvocatoria.setOnClickListener(this);
+            botonConvocatoria.setOnClickListener(this);
+            botonEstadistica.setOnClickListener(this);
+            botonX.setOnClickListener(this);
 
-        botonCalendario=(Button)findViewById(R.id.botonCalendario);
-        botonConvocatoria=(Button)findViewById(R.id.BotonConvocatoria);
-        botonEstadistica=(Button)findViewById(R.id.botonEstadisticas);
-        botonX=(Button)findViewById(R.id.botonX);
-        botonCalendario.setOnClickListener(this);
-        botonConvocatoria.setOnClickListener(this);
-        botonConvocatoria.setOnClickListener(this);
-        botonEstadistica.setOnClickListener(this);
-        botonX.setOnClickListener(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getInt("prefsInt",-1)==-1){
+            Intent lanzarAct = new Intent(this,ListProfiles.class);
+            startActivity(lanzarAct);
+        }
 
     }
 

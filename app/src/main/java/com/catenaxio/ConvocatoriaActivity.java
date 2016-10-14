@@ -3,6 +3,7 @@ package com.catenaxio;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,8 +56,9 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
 
         //pongo jugador del perfil
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 //        int jugador=sharedPref.getInt("jugadorNombre", 1);
-        perfilInt=sharedPref.getInt("perfilPref",3);
+        perfilInt=prefs.getInt("prefsInt",20);
 
         textoAsistConf.setText(sharedPref.getString("Asistencias","Asistencias Confirmadas: 0"));
         //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)

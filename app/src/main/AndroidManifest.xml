@@ -97,6 +97,11 @@
             android:name=".QuesitoActivity"
             android:label="@string/title_activity_quesito" >
         </activity>
+        <activity
+            android:name=".ListProfiles"
+            android:label="Usuarios"
+            android:screenOrientation="portrait" >
+        </activity>
         <service android:name="com.parse.PushService" />
         <receiver android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
