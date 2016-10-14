@@ -57,8 +57,9 @@
         </LinearLayout>
 -->
         <RadioGroup
-            android:layout_width="96dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -83,34 +84,26 @@
                 android:textColor="@color/white"
                 />
         </RadioGroup>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Usuario"
+            android:id="@+id/textUsuario"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="Enviar"
                 android:id="@+id/botonEnviarConvocatoria"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:background="@color/darkblue"
                 android:layout_marginTop="3dp" />
-<!--
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Update"
-                android:id="@+id/botonRefresh"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:background="@color/darkblue"
-                android:layout_marginTop="3dp" />
-                -->
-        </LinearLayout>
 
     </LinearLayout>
 

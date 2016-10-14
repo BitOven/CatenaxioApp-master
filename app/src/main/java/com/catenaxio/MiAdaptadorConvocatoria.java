@@ -51,7 +51,7 @@ public class MiAdaptadorConvocatoria extends BaseAdapter {
             imagenJugador.setImageResource(R.drawable.meri);
         }
         else if(position==8){ //abel
-            imagenJugador.setImageResource(R.drawable.abel);
+            imagenJugador.setImageResource(R.drawable.dorado);
         }
         else if(position==4){ //hector
             imagenJugador.setImageResource(R.drawable.hector);
@@ -63,7 +63,7 @@ public class MiAdaptadorConvocatoria extends BaseAdapter {
             imagenJugador.setImageResource(R.drawable.jordan);
         }
         else if(position==7){ //dorado
-            imagenJugador.setImageResource(R.drawable.dorado);
+            imagenJugador.setImageResource(R.drawable.abel);
         }
 
         ImageView imageViewBaja=(ImageView)convocView.findViewById(R.id.imageBaja);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,45 +44,142 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_convocatoria);
-
-        //uno mi interface
-        textoAsistConf=(TextView) findViewById(R.id.textAsistencias);
-        listaConvocatoria=(ListView)findViewById(R.id.listViewConvocatoria);
-        botonConvocatoria=(Button)findViewById(R.id.botonEnviarConvocatoria);
-        botonConvocatoria.setOnClickListener(this);
-        eleccionConvocatoria=(RadioGroup)findViewById(R.id.radioEleccion);
-
-        //pongo jugador del perfil
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
-
-        textoAsistConf.setText(sharedPref.getString("Asistencias","Asistencias Confirmadas: 0"));
-        //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)
-
-        lista_bajas=new Vector<Integer>();
-        lista_bajas.add(sharedPref.getInt("Juan", 2));
-        lista_bajas.add(sharedPref.getInt("Juanma", 2));
-        lista_bajas.add(sharedPref.getInt("Hugo", 2));
-        lista_bajas.add(sharedPref.getInt("Meri", 2));
-        lista_bajas.add(sharedPref.getInt("Cano", 2));
-        lista_bajas.add(sharedPref.getInt("Anton", 2));
-        lista_bajas.add(sharedPref.getInt("Jordan", 2));
-        lista_bajas.add(sharedPref.getInt("AbelD", 2));
-        lista_bajas.add(sharedPref.getInt("AbelG", 1));
-        //lista_bajas_actualizado=new Vector<Integer>();
-        lista_fechasAct=new Vector<String>();
-        for(int i=0; i<9;i++){
-            lista_fechasAct.add(sharedPref.getString("FechaAct"+i,"Actualizado:\n01/01/2015"));
-        }
-
-        adapter=new MiAdaptadorConvocatoria(this,lista_bajas, lista_fechasAct);
-        listaConvocatoria.setAdapter(adapter);
-
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        String prefUser = prefs.getString(getString(R.string.pref_usuarios_key),getString(R.string.pref_usuarios_default));
+//        if(!prefUser.equals("20") && !prefUser.equals("21")) {
+//            setContentView(R.layout.activity_convocatoria);
+//            //uno mi interface
+//            textoAsistConf = (TextView) findViewById(R.id.textAsistencias);
+//            listaConvocatoria = (ListView) findViewById(R.id.listViewConvocatoria);
+//            botonConvocatoria = (Button) findViewById(R.id.botonEnviarConvocatoria);
+//            botonConvocatoria.setOnClickListener(this);
+//            eleccionConvocatoria = (RadioGroup) findViewById(R.id.radioEleccion);
+//
+//            //pongo jugador del perfil
+//            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
+//            textoAsistConf.setText(sharedPref.getString("Asistencias", "Asistencias Confirmadas: 0"));
+//            //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)
+//
+//            lista_bajas = new Vector<Integer>();
+//            lista_bajas.add(sharedPref.getInt("Juan", 2));
+//            lista_bajas.add(sharedPref.getInt("Juanma", 2));
+//            lista_bajas.add(sharedPref.getInt("Hugo", 2));
+//            lista_bajas.add(sharedPref.getInt("Meri", 2));
+//            lista_bajas.add(sharedPref.getInt("Cano", 2));
+//            lista_bajas.add(sharedPref.getInt("Anton", 2));
+//            lista_bajas.add(sharedPref.getInt("Jordan", 2));
+//            lista_bajas.add(sharedPref.getInt("AbelD", 2));
+//            lista_bajas.add(sharedPref.getInt("AbelG", 1));
+//            //lista_bajas_actualizado=new Vector<Integer>();
+//            lista_fechasAct = new Vector<String>();
+//            for (int i = 0; i < 9; i++) {
+//                lista_fechasAct.add(sharedPref.getString("FechaAct" + i, "Actualizado:\n01/01/2015"));
+//            }
+//
+//            adapter = new MiAdaptadorConvocatoria(this, lista_bajas, lista_fechasAct);
+//            listaConvocatoria.setAdapter(adapter);
+//
+//        }else{
+//            setContentView(R.layout.activity_convocatoria_inv);
+//
+//            textoAsistConf = (TextView) findViewById(R.id.textAsistenciasInv);
+//            listaConvocatoria = (ListView) findViewById(R.id.listViewConvocatoriaInv);
+//
+//            //pongo jugador del perfil
+//            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
+//            textoAsistConf.setText(sharedPref.getString("Asistencias", "Asistencias Confirmadas: 0"));
+//            //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)
+//
+//            lista_bajas = new Vector<Integer>();
+//            lista_bajas.add(sharedPref.getInt("Juan", 2));
+//            lista_bajas.add(sharedPref.getInt("Juanma", 2));
+//            lista_bajas.add(sharedPref.getInt("Hugo", 2));
+//            lista_bajas.add(sharedPref.getInt("Meri", 2));
+//            lista_bajas.add(sharedPref.getInt("Cano", 2));
+//            lista_bajas.add(sharedPref.getInt("Anton", 2));
+//            lista_bajas.add(sharedPref.getInt("Jordan", 2));
+//            lista_bajas.add(sharedPref.getInt("AbelD", 2));
+//            lista_bajas.add(sharedPref.getInt("AbelG", 1));
+//            //lista_bajas_actualizado=new Vector<Integer>();
+//            lista_fechasAct = new Vector<String>();
+//            for (int i = 0; i < 9; i++) {
+//                lista_fechasAct.add(sharedPref.getString("FechaAct" + i, "Actualizado:\n01/01/2015"));
+//            }
+//
+//            adapter = new MiAdaptadorConvocatoria(this, lista_bajas, lista_fechasAct);
+//            listaConvocatoria.setAdapter(adapter);
+//        }
     }
-
     @Override
     protected void onStart() {
         super.onStart();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String prefUser = prefs.getString(getString(R.string.pref_usuarios_key),getString(R.string.pref_usuarios_default));
+        if(!prefUser.equals("20") && !prefUser.equals("21")) {
+            setContentView(R.layout.activity_convocatoria);
+            //uno mi interface
+            textoAsistConf = (TextView) findViewById(R.id.textAsistencias);
+            listaConvocatoria = (ListView) findViewById(R.id.listViewConvocatoria);
+            botonConvocatoria = (Button) findViewById(R.id.botonEnviarConvocatoria);
+            botonConvocatoria.setOnClickListener(this);
+            eleccionConvocatoria = (RadioGroup) findViewById(R.id.radioEleccion);
+            TextView textUser = (TextView) findViewById(R.id.textUsuario);
+            textUser.setText(getUsuarioStr(Integer.parseInt(prefUser)));
+
+            //pongo jugador del perfil
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
+            textoAsistConf.setText(sharedPref.getString("Asistencias", "Asistencias Confirmadas: 0"));
+            //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)
+
+            lista_bajas = new Vector<Integer>();
+            lista_bajas.add(sharedPref.getInt("Juan", 2));
+            lista_bajas.add(sharedPref.getInt("Juanma", 2));
+            lista_bajas.add(sharedPref.getInt("Hugo", 2));
+            lista_bajas.add(sharedPref.getInt("Meri", 2));
+            lista_bajas.add(sharedPref.getInt("Cano", 2));
+            lista_bajas.add(sharedPref.getInt("Anton", 2));
+            lista_bajas.add(sharedPref.getInt("Jordan", 2));
+            lista_bajas.add(sharedPref.getInt("AbelG", 2));
+            lista_bajas.add(sharedPref.getInt("AbelD", 1));
+
+            lista_fechasAct = new Vector<String>();
+            for (int i = 0; i < 9; i++) {
+                lista_fechasAct.add(sharedPref.getString("FechaAct" + i, "Actualizado:\n01/01/2015"));
+            }
+
+            adapter = new MiAdaptadorConvocatoria(this, lista_bajas, lista_fechasAct);
+            listaConvocatoria.setAdapter(adapter);
+
+        }else{
+            setContentView(R.layout.activity_convocatoria_inv);
+
+            textoAsistConf = (TextView) findViewById(R.id.textAsistenciasInv);
+            listaConvocatoria = (ListView) findViewById(R.id.listViewConvocatoriaInv);
+
+            //pongo jugador del perfil
+            SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
+            textoAsistConf.setText(sharedPref.getString("Asistencias", "Asistencias Confirmadas: 0"));
+            //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)
+
+            lista_bajas = new Vector<Integer>();
+            lista_bajas.add(sharedPref.getInt("Juan", 2));
+            lista_bajas.add(sharedPref.getInt("Juanma", 2));
+            lista_bajas.add(sharedPref.getInt("Hugo", 2));
+            lista_bajas.add(sharedPref.getInt("Meri", 2));
+            lista_bajas.add(sharedPref.getInt("Cano", 2));
+            lista_bajas.add(sharedPref.getInt("Anton", 2));
+            lista_bajas.add(sharedPref.getInt("Jordan", 2));
+            lista_bajas.add(sharedPref.getInt("AbelG", 2));
+            lista_bajas.add(sharedPref.getInt("AbelD", 1));
+
+            lista_fechasAct = new Vector<String>();
+            for (int i = 0; i < 9; i++) {
+                lista_fechasAct.add(sharedPref.getString("FechaAct" + i, "Actualizado:\n01/01/2015"));
+            }
+
+            adapter = new MiAdaptadorConvocatoria(this, lista_bajas, lista_fechasAct);
+            listaConvocatoria.setAdapter(adapter);
+        }
         updateBajasFB();
     }
 
@@ -162,5 +260,42 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
                 Toast.makeText(getApplicationContext(),"Róbale Wifi al vecino",Toast.LENGTH_LONG).show();
             }
         });
+    }
+    private String getUsuarioStr(int position){
+        String user="Usuario";
+        if(position==0){ //juanito
+            user="Juan";
+        }
+        else if(position==1){ //juanma
+            user="Juanma";
+        }
+        else if(position==2){ //hugo4
+            user="Hugo";
+        }
+        else if(position==3){ //meri
+            user="Meri";
+        }
+        else if(position==8){ //abelD
+            user="Dorado";
+        }
+        else if(position==4){ //hector
+            user="Cano";
+        }
+        else if(position==5){ //anton
+            user="Anton";
+        }
+        else if(position==6){ //jordan
+            user="Jordan";
+        }
+        else if(position==7){ //abelG
+            user="AbelG";
+        }
+        else if(position==20){
+            user="Ex-jugador";
+        }
+        else if(position==21){
+            user="Simpatizante";
+        }
+        return user;
     }
 }

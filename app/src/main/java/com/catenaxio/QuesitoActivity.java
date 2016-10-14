@@ -115,6 +115,7 @@ public class QuesitoActivity extends Activity {
     protected void onStart() {
         super.onStart();
         webView.loadUrl("file:///android_asset/ejemplo32.html");
+        Toast.makeText(this,"Cargando...",Toast.LENGTH_SHORT).show();
         CargarQuesito cargarQueso = new CargarQuesito();
         cargarQueso.execute();
     }
@@ -123,7 +124,7 @@ public class QuesitoActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
