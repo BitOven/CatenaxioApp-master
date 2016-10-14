@@ -45,35 +45,38 @@ public class MiAdaptadorEstadistica extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         //System.out.println("cargo position"+position);
-        LayoutInflater inflater = actividad.getLayoutInflater();
-        View view = inflater.inflate(R.layout.cellestadisticas, null, true);
-
+        View statsView;
+        if(convertView==null){
+            statsView=View.inflate(actividad,R.layout.cellestadisticas,null);
+        }else{
+            statsView=convertView;
+        }
         //lista jornada
-        TextView textViewJornada =(TextView)view.findViewById(R.id.partidosJugados);
+        TextView textViewJornada =(TextView)statsView.findViewById(R.id.partidosJugados);
         textViewJornada.setText(lista_partidos.get(position));
 
         //lista fecha
-        TextView textViewFecha =(TextView)view.findViewById(R.id.partidoTitular);
+        TextView textViewFecha =(TextView)statsView.findViewById(R.id.partidoTitular);
         textViewFecha.setText(lista_titulares.get(position));
 
         //lista hora
-        TextView textViewHora=(TextView)view.findViewById(R.id.goles);
+        TextView textViewHora=(TextView)statsView.findViewById(R.id.goles);
         textViewHora.setText(lista_goles.get(position));
 
         //lista rival
-        TextView textViewRival=(TextView)view.findViewById(R.id.asistencias);
+        TextView textViewRival=(TextView)statsView.findViewById(R.id.asistencias);
         textViewRival.setText(lista_asistencias.get(position));
 
         //lista partidos ganados
-        TextView textViewPartidoGanados=(TextView)view.findViewById(R.id.partidosGanados);
+        TextView textViewPartidoGanados=(TextView)statsView.findViewById(R.id.partidosGanados);
         textViewPartidoGanados.setText(lista_partidosGanados.get(position));
 
         //lista porcentaje goles
-        TextView textViewPorcentajeGoles=(TextView)view.findViewById(R.id.porcentaje_goles);
+        TextView textViewPorcentajeGoles=(TextView)statsView.findViewById(R.id.porcentaje_goles);
         textViewPorcentajeGoles.setText(lista_porcentajeGoles.get(position));
 
         //lista jornada FIREBASE
-        ImageView imagenJugador=(ImageView)view.findViewById(R.id.imagenJugadorEstadistica);
+        ImageView imagenJugador=(ImageView)statsView.findViewById(R.id.imagenJugadorEstadistica);
         if(position==0){ //abel
             imagenJugador.setImageResource(R.drawable.abel);
         }
@@ -142,10 +145,10 @@ public class MiAdaptadorEstadistica extends BaseAdapter {
 //            imagenJugador.setImageResource(R.drawable.invitado);
 //        }
 
-        ImageView imageViewBaja=(ImageView)view.findViewById(R.id.imageBaja);
+        ImageView imageViewBaja=(ImageView)statsView.findViewById(R.id.imageBaja);
 
 
-        return view;
+        return statsView;
     }
 
     public int getCount() {
@@ -158,5 +161,10 @@ public class MiAdaptadorEstadistica extends BaseAdapter {
 
     public long getItemId(int position) {
         return position;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }

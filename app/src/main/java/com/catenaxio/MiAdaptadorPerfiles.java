@@ -52,4 +52,9 @@ public class MiAdaptadorPerfiles extends BaseAdapter {
 
         return perfilesView;
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
 }

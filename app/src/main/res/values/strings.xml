@@ -72,4 +72,6 @@
         <item>21</item>
     </string-array>
 
+    <string name="shared_pref_key">Preferencias</string>
+
 </resources>

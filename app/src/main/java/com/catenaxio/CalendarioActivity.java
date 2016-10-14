@@ -33,8 +33,6 @@ public class CalendarioActivity extends Activity {
     private Vector<Uri> lista_maps;
     private boolean temporadaActual;
 
-    public static final String PREFS_NAME = "Preferencias";
-
     //url de los campos
     private static final String JUANDE_LOCATION = "https://www.google.es/maps/place/Polideportivo+Municipal+Juan+De+La+Cierva/@40.3183028,-3.7196404,303m/data=!3m1!1e3!4m5!3m4!1s0x0:0x61fc5377228ef5df!8m2!3d40.3183003!4d-3.7186662";
     private static final String PERALES_LOCATION = "https://www.google.es/maps/place/Calle+de+Groenlandia,+8,+28909+Getafe,+Madrid/@40.323022,-3.6628751,193m/data=!3m2!1e3!4b1!4m5!3m4!1s0xd4223fd57232aef:0x175882019e4f8968!8m2!3d40.323022!4d-3.6620753";
@@ -65,7 +63,7 @@ public class CalendarioActivity extends Activity {
         lista_maps=new Vector<Uri>();
 
         //pongo jugador por defecto
-        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
 
         lista_jornada.add(sharedPref.getString("jornadaPref"+1,"0"));
         lista_jornada.add(sharedPref.getString("jornadaPref"+2,"0"));
@@ -310,7 +308,7 @@ public class CalendarioActivity extends Activity {
                         }
                     }
                     lista_estadios.setElementAt(coloor,i);
-                    SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                    SharedPreferences settings = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("jornada"+(i+1), resultadoo);
                     editor.putInt("color"+(i+1),coloor);
@@ -324,8 +322,8 @@ public class CalendarioActivity extends Activity {
                     editor.putString("campoPref"+(i+1),lista_lugar.get(i));
                     editor.apply();
                     i++;
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override

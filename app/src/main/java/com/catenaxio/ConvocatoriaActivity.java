@@ -30,7 +30,6 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
 
     private TextView textoAsistConf;
 
-    public static final String PREFS_NAME = "Preferencias";
     public int resultado_enviar;
 
     private Vector<Integer> lista_bajas;
@@ -54,7 +53,7 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
         eleccionConvocatoria=(RadioGroup)findViewById(R.id.radioEleccion);
 
         //pongo jugador del perfil
-        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
 
         textoAsistConf.setText(sharedPref.getString("Asistencias","Asistencias Confirmadas: 0"));
         //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)
@@ -138,7 +137,7 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i=0;
                 int numAsistConf=0;
-                SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                SharedPreferences settings = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
                 SharedPreferences.Editor editor = settings.edit();
 
                 for(DataSnapshot jugador : dataSnapshot.getChildren()){

@@ -27,14 +27,17 @@ public class MiAdaptadorConvocatoria extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        //System.out.println("cargo position"+position);
-        LayoutInflater inflater = actividad.getLayoutInflater();
-        View view = inflater.inflate(R.layout.celdaconvocatoria, null, true);
+        View convocView;
+        if(convertView==null){
+            convocView=View.inflate(actividad,R.layout.celdaconvocatoria,null);
+        }else{
+            convocView=convertView;
+        }
         //lista jornada
-        TextView textoFech = (TextView) view.findViewById(R.id.textFechaAct);
+        TextView textoFech = (TextView) convocView.findViewById(R.id.textFechaAct);
         textoFech.setText(lista_fechas.get(position));
 
-        ImageView imagenJugador=(ImageView)view.findViewById(R.id.imagenConvocatoria);
+        ImageView imagenJugador=(ImageView)convocView.findViewById(R.id.imagenConvocatoria);
         if(position==0){ //juanito
             imagenJugador.setImageResource(R.drawable.juanito);
         }
@@ -63,7 +66,7 @@ public class MiAdaptadorConvocatoria extends BaseAdapter {
             imagenJugador.setImageResource(R.drawable.dorado);
         }
 
-        ImageView imageViewBaja=(ImageView)view.findViewById(R.id.imageBaja);
+        ImageView imageViewBaja=(ImageView)convocView.findViewById(R.id.imageBaja);
 
         //segun el estadio introduzco la imagen
         switch (lista_resultado.get(position)){
@@ -81,7 +84,7 @@ public class MiAdaptadorConvocatoria extends BaseAdapter {
                 imageViewBaja.setImageResource(R.drawable.estadiogetafe);
                 break;
         }
-        return view;
+        return convocView;
     }
 
     public int getCount() {
@@ -94,6 +97,11 @@ public class MiAdaptadorConvocatoria extends BaseAdapter {
 
     public long getItemId(int position) {
         return position;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }
 

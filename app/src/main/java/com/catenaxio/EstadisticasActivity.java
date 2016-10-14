@@ -42,13 +42,12 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
     private DatabaseReference mDatabase;
     private String partidosTotStr="20";
 
-    public static final String PREFS_NAME = "Preferencias";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estadisticas);
 
-        SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
         lista_partidos=new Vector<String>();
         lista_titulares=new Vector<String>();
         lista_goles=new Vector<String>();
@@ -148,7 +147,7 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
 
         @Override
         protected Void doInBackground(Void... params) {
-            SharedPreferences settings = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+            SharedPreferences settings = getSharedPreferences(getString(R.string.shared_pref_key), MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
             for(int i=0;i<10;i++){
                 editor.putString(nombres[i]+"partidos", lista_partidos.get(i));//PT

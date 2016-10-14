@@ -39,31 +39,36 @@ public class MiAdaptador extends BaseAdapter {
         this.lista_resultados=result;
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //System.out.println("cargo position"+position);
-        LayoutInflater inflater = actividad.getLayoutInflater();
-        View view = inflater.inflate(R.layout.cellcalendario, null, true);
+
+        View calendarioView;
+        if(convertView==null){
+            calendarioView=View.inflate(actividad,R.layout.cellcalendario,null);
+        }else{
+            calendarioView=convertView;
+        }
         //lista jornada
         //TextView textViewJornada =(TextView)view.findViewById(R.id.labelJornada);
         //textViewJornada.setText(lista_jornada.elementAt(position));
 
         //lista fecha
-        TextView textViewFecha =(TextView)view.findViewById(R.id.labelFecha);
+        TextView textViewFecha =(TextView)calendarioView.findViewById(R.id.labelFecha);
         textViewFecha.setText(lista_fecha.get(position));
 
         //lista hora
-        TextView textViewHora=(TextView)view.findViewById(R.id.labelHora);
+        TextView textViewHora=(TextView)calendarioView.findViewById(R.id.labelHora);
         textViewHora.setText(lista_hora.get(position));
 
         //lista rival
-        TextView textViewRival=(TextView)view.findViewById(R.id.labelRival);
+        TextView textViewRival=(TextView)calendarioView.findViewById(R.id.labelRival);
         textViewRival.setText(lista_rival.get(position));
 
         //lista lugar
-        TextView textViewLugar=(TextView)view.findViewById(R.id.labelEstadio);
+        TextView textViewLugar=(TextView)calendarioView.findViewById(R.id.labelEstadio);
         textViewLugar.setText(lista_lugar.get(position));
 
-        TextView textViewJornada =(TextView)view.findViewById(R.id.labelResultado);
+        TextView textViewJornada =(TextView)calendarioView.findViewById(R.id.labelResultado);
         textViewJornada.setText(lista_resultados.get(position));
 
         //ImageView imageView=(ImageView)view.findViewById(R.id.imagenEstadio);
@@ -72,55 +77,60 @@ public class MiAdaptador extends BaseAdapter {
         switch (lista_estadio.get(position)){
             case 0:
 
-                view.setBackgroundColor(context.getResources().getColor(R.color.darkblue));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.darkblue));
                 break;
             case 1:
 
-                view.setBackgroundColor(context.getResources().getColor(R.color.blueLigth));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.blueLigth));
                 break;
 
             case 2:
 //ganados
-                view.setBackgroundColor(context.getResources().getColor(R.color.green));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.green));
                 break;
 
             case 3:
 //empates
-                view.setBackgroundColor(context.getResources().getColor(R.color.orange));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.orange));
                 break;
 
             case 4:
 //derrotas
-                view.setBackgroundColor(context.getResources().getColor(R.color.red));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.red));
                 break;
 
             case 5:
 //descanso
-                view.setBackgroundColor(context.getResources().getColor(R.color.black));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.black));
                 break;
 
             case 6:
 //aplazado
-                view.setBackgroundColor(context.getResources().getColor(R.color.purple));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.purple));
                 break;
 
 
             default:
-                view.setBackgroundColor(context.getResources().getColor(R.color.blueLigth));
+                calendarioView.setBackgroundColor(context.getResources().getColor(R.color.blueLigth));
                 break;
         }
-        return view;
+        return calendarioView;
     }
-
+    @Override
     public int getCount() {
         return lista_jornada.size();
     }
-
-    public Object getItem(int arg0) {
-        return lista_jornada.elementAt(arg0);
+    @Override
+    public Object getItem(int position) {
+        return lista_jornada.get(position);
     }
-
+    @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }
