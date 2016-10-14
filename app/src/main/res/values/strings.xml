@@ -41,8 +41,8 @@
     <string name="elegir_perfil_usuario">Selecciona tu perfil de usuario:</string>
 
     <string name="pref_usuarios_key">prefsUsuario</string>
-    <string name="pref_usuarios_label">Usuarios</string>
-    <string name="pref_usuarios_default">20</string>
+    <string name="pref_usuarios_label">Usuario</string>
+    <string name="pref_usuarios_default">21</string>
 
     <string-array name="string_array_usuarios_label">
         <item>Juan</item>
@@ -69,7 +69,7 @@
         <item>7</item>
         <item>8</item>
         <item>20</item>
-        <item>20</item>
+        <item>21</item>
     </string-array>
 
 </resources>

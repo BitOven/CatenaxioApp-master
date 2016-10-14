@@ -55,9 +55,11 @@ public class ListProfiles extends Activity {
                 if(position<9){ //compruebo que es jugador y no invitado
                     editor.putString(getString(R.string.pref_usuarios_key),String.valueOf(position));
                     editor.apply();
-                }else{//asigno el 20 para invitados
-                    int defaultNum=20;
-                    editor.putString(getString(R.string.pref_usuarios_key),String.valueOf(defaultNum));
+                }else if (position==10){//asigno el 20 para invitados
+                    editor.putString(getString(R.string.pref_usuarios_key),getString(R.string.pref_usuarios_default));
+                    editor.apply();
+                }else if (position==9){
+                    editor.putString(getString(R.string.pref_usuarios_key),"20");
                     editor.apply();
                 }
 
