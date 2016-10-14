@@ -40,7 +40,6 @@ public class CalendarioActivity extends Activity {
     private static final String SECTOR3_LOCATION = "https://www.google.es/maps/place/Complejo+Deportivo+Sector+3+Alh%C3%B3ndiga/@40.3147782,-3.7444435,116m/data=!3m1!1e3!4m5!3m4!1s0x0:0x8f0474c33198fb69!8m2!3d40.3148757!4d-3.7437737";
     private static final String M4_LOCATION = "https://www.google.es/maps/place/Av+Francisco+Fernandez+Ordo%C3%B1ez,+10,+28903+Getafe,+Madrid/@40.3151358,-3.7154767,111m/data=!3m1!1e3!4m5!3m4!1s0xd4220c37afa6da1:0xed094409cc05dcc2!8m2!3d40.3152065!4d-3.7150857";
 
-
     private ListView miLista;
     private MiAdaptador adapter;
 
