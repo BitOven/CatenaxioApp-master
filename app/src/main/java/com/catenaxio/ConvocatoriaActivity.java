@@ -31,7 +31,7 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
     private TextView textoAsistConf;
 
     public static final String PREFS_NAME = "Preferencias";
-    public int perfilInt;
+    public String perfilString;
     public int resultado_enviar=0;
 
     private Vector<Integer> lista_bajas;
@@ -58,7 +58,7 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
         SharedPreferences sharedPref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 //        int jugador=sharedPref.getInt("jugadorNombre", 1);
-        perfilInt=prefs.getInt("prefsInt",20);
+        perfilString=prefs.getString(getString(R.string.pref_usuarios_key),"20");
 
         textoAsistConf.setText(sharedPref.getString("Asistencias","Asistencias Confirmadas: 0"));
         //ver las preferencias de jugadores anterior a la carga (para cuando no tenga internet que sea el usuario cuando decida conectar)
@@ -125,10 +125,10 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
             }
 
             //subo dato del jugador si no es perfil de Invitado
-            if(perfilInt!=20){
+            if(!perfilString.equals("20")){
                 mDatabase = FirebaseDatabase.getInstance().getReference().child("Convocatoria");
-                mDatabase.child(String.valueOf(perfilInt)).child("KeyStatus").setValue(resultado_enviar);
-                mDatabase.child(String.valueOf(perfilInt)).child("Fecha").setValue(ParseaFechas.getFechaHoyStringShort());
+                mDatabase.child(perfilString).child("KeyStatus").setValue(resultado_enviar);
+                mDatabase.child(perfilString).child("Fecha").setValue(ParseaFechas.getFechaHoyStringShort());
             }
         }
     }

@@ -11,4 +11,12 @@
         android:entryValues="@array/string_array_temporada"
         android:defaultValue="@string/pref_temporada_default" />
 
+    <ListPreference
+        android:key="@string/pref_usuarios_key"
+        android:title="@string/pref_usuarios_label"
+        android:dialogTitle="@string/pref_usuarios_label"
+        android:entries="@array/string_array_usuarios_label"
+        android:entryValues="@array/string_array_usuarios_value"
+        android:defaultValue="@string/pref_usuarios_default" />
+
 </PreferenceScreen>

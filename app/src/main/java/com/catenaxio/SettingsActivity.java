@@ -17,6 +17,7 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         addPreferencesFromResource(R.xml.pref_general);
 
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_temporada_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_usuarios_key)));
     }
     private void bindPreferenceSummaryToValue(Preference preference) {
         // Set the listener to watch for value changes.

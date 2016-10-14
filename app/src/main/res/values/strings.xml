@@ -29,8 +29,6 @@
     <string name="title_activity_resultados">Resultados</string>
     <string name="title_activity_quesito">Grafica Goles</string>
 
-    <string name="elegir_perfil_usuario">Selecciona tu perfil de usuario:</string>
-
     <string name="pref_temporada_key">temporada</string>
     <string name="pref_temporada_label">Temporada</string>
     <string name="pref_temporada_default">2016-17</string>
@@ -38,6 +36,40 @@
     <string-array name="string_array_temporada">
         <item>2015-16</item>
         <item>2016-17</item>
+    </string-array>
+
+    <string name="elegir_perfil_usuario">Selecciona tu perfil de usuario:</string>
+
+    <string name="pref_usuarios_key">prefsUsuario</string>
+    <string name="pref_usuarios_label">Usuarios</string>
+    <string name="pref_usuarios_default">20</string>
+
+    <string-array name="string_array_usuarios_label">
+        <item>Juan</item>
+        <item>Juanma</item>
+        <item>Hugo</item>
+        <item>Meri</item>
+        <item>Cano</item>
+        <item>Anton</item>
+        <item>Jordan</item>
+        <item>AbelG</item>
+        <item>Dorado</item>
+        <item>Ex-jugador</item>
+        <item>Simpatizante</item>
+    </string-array>
+
+    <string-array name="string_array_usuarios_value">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>20</item>
+        <item>20</item>
     </string-array>
 
 </resources>

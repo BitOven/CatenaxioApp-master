@@ -30,7 +30,7 @@ public class ListProfiles extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_profiles);
 
-        lista_perfiles = new Vector<String>();
+        lista_perfiles = new Vector<String>();//si se añaden o quitan, modificar tambien string_array_usuarios para menu Settings
         lista_perfiles.add("Juan");
         lista_perfiles.add("Juanma");
         lista_perfiles.add("Hugo");
@@ -53,10 +53,11 @@ public class ListProfiles extends Activity {
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
                     SharedPreferences.Editor editor = prefs.edit();
                 if(position<9){ //compruebo que es jugador y no invitado
-                    editor.putInt("prefsInt",position);
+                    editor.putString(getString(R.string.pref_usuarios_key),String.valueOf(position));
                     editor.apply();
                 }else{//asigno el 20 para invitados
-                    editor.putInt("prefsInt",20);
+                    int defaultNum=20;
+                    editor.putString(getString(R.string.pref_usuarios_key),String.valueOf(defaultNum));
                     editor.apply();
                 }
 

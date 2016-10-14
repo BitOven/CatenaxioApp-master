@@ -30,7 +30,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
             botonX.setOnClickListener(this);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs.getInt("prefsInt",-1)==-1){
+        if(prefs.getString(getString(R.string.pref_usuarios_key),"-1").equals("-1")){
             Intent lanzarAct = new Intent(this,ListProfiles.class);
             startActivity(lanzarAct);
         }
