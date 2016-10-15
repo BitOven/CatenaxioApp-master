@@ -115,7 +115,7 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
         super.onStart();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String prefUser = prefs.getString(getString(R.string.pref_usuarios_key),getString(R.string.pref_usuarios_default));
-        if(!prefUser.equals("20") && !prefUser.equals("21")) {
+        if(Integer.parseInt(prefUser)<20) {//compruebo que es jugador activo
             setContentView(R.layout.activity_convocatoria);
             //uno mi interface
             textoAsistConf = (TextView) findViewById(R.id.textAsistencias);
@@ -289,6 +289,9 @@ public class ConvocatoriaActivity extends Activity implements View.OnClickListen
         }
         else if(position==7){ //abelG
             user="AbelG";
+        }
+        else if(position==22){
+            user="Fer";
         }
         else if(position==20){
             user="Ex-jugador";

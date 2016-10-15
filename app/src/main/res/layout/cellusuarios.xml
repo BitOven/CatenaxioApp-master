@@ -7,7 +7,11 @@
     android:padding="5dp"
     android:background="#4334ff"
     android:gravity="center_vertical">
-
+   <ImageView
+       android:layout_width="54dp"
+       android:layout_height="65dp"
+       android:id="@+id/imagenJugadorUsuarios"
+       android:layout_marginRight="10dp"/>
    <TextView
         android:layout_width="match_parent"
         android:layout_height="65dp"

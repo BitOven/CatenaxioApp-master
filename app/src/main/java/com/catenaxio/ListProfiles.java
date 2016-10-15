@@ -40,6 +40,7 @@ public class ListProfiles extends Activity {
         lista_perfiles.add("Jordan");
         lista_perfiles.add("AbelG");
         lista_perfiles.add("Dorado");
+        lista_perfiles.add("Fer");
         lista_perfiles.add("Ex-jugador");
         lista_perfiles.add("Simpatizante");
 
@@ -55,11 +56,14 @@ public class ListProfiles extends Activity {
                 if(position<9){ //compruebo que es jugador y no invitado
                     editor.putString(getString(R.string.pref_usuarios_key),String.valueOf(position));
                     editor.apply();
-                }else if (position==10){//asigno el 20 para invitados
+                }else if (position==11){//asigno el 21 para simpatizantes
                     editor.putString(getString(R.string.pref_usuarios_key),getString(R.string.pref_usuarios_default));
                     editor.apply();
-                }else if (position==9){
+                }else if (position==10){//asigno el 20 para exjugadores
                     editor.putString(getString(R.string.pref_usuarios_key),"20");
+                    editor.apply();
+                }else if (position==9){//incluyo a Fer
+                    editor.putString(getString(R.string.pref_usuarios_key),"22");
                     editor.apply();
                 }
 
