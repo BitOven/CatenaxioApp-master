@@ -294,15 +294,16 @@ public class CalendarioActivity extends Activity {
 
                     //obtenemos color de celda
                     int coloor;
-                    if(colorResultado(jornada.child("KeyResultado").getValue().toString())==1){
+                    int colorResultado=colorResultado(jornada.child("KeyResultado").getValue().toString());
+                    if(colorResultado==1){
                         coloor = i%2;
                     }else{
-                        coloor=colorResultado(jornada.child("KeyResultado").getValue().toString());
+                        coloor=colorResultado;
                         //caso de jornadas aplazadas o descartadas
-                        if(jornada.child("KeyResultado").getValue().toString().equals("A") && jornada.child("URLCampo").exists()){
+                        if((colorResultado==6) && jornada.child("URLCampo").exists()){
                             lista_maps.setElementAt(Uri.parse(jornada.child("URLCampo").getValue().toString()), i);
                         }
-                        if(jornada.child("KeyResultado").getValue().toString().equals("D")){
+                        if((colorResultado >=2) && (colorResultado <=5)){
                             lista_jornada.setElementAt("1",i);
                         }
                     }
@@ -312,9 +313,9 @@ public class CalendarioActivity extends Activity {
                     editor.putString("jornada"+(i+1), resultadoo);
                     editor.putInt("color"+(i+1),coloor);
                     //en caso de que cambie la ubicacion del partido
-                    if(coloor==6 && jornada.child("URLCampo").exists())editor.putString("mapsPref"+(i+1),jornada.child("URLCampo").getValue().toString());
+                    if((coloor==6) && (jornada.child("URLCampo").exists()))editor.putString("mapsPref"+(i+1),jornada.child("URLCampo").getValue().toString());
                     //en caso de partido descartado
-                    if(coloor==5)editor.putString("jornadaPref"+(i+1),lista_jornada.get(i));
+                    if((coloor>=2) && (coloor<=5))editor.putString("jornadaPref"+(i+1),lista_jornada.get(i));
                     editor.putString("rivalPref"+(i+1),lista_rival.get(i));
                     editor.putString("fechaPref"+(i+1),lista_fecha.get(i));
                     editor.putString("horaPref"+(i+1),lista_hora.get(i));
