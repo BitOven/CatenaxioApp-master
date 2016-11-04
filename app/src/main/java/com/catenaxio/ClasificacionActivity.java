@@ -40,7 +40,9 @@ public class ClasificacionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clasificacion);
         imagen=(ImageView)findViewById(R.id.imagenClasificacion);
-        //boton flotante y descargar clasificacion con él
+
+        //boton flotante y descargar clasificacion con él:
+
 //        String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
 //        String fileName= "clasificacion.pdf";
 //        new DownloadFile().execute(fileUrl, fileName);
