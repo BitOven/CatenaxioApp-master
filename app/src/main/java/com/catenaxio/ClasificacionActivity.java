@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -16,10 +18,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
+import com.catenaxio.utils.PDFDownloader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class ClasificacionActivity extends Activity {
@@ -34,12 +40,16 @@ public class ClasificacionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clasificacion);
         imagen=(ImageView)findViewById(R.id.imagenClasificacion);
+        //boton flotante y descargar clasificacion con él
+//        String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
+//        String fileName= "clasificacion.pdf";
+//        new DownloadFile().execute(fileUrl, fileName);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(getApplicationContext(), "Cargando...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Descargando imagen...", Toast.LENGTH_SHORT).show();
         cargarFireBase();
     }
 
@@ -88,6 +98,34 @@ public class ClasificacionActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private class DownloadFile extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
+            String fileName = strings[1];  // -> maven.pdf
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            File folder = new File(extStorageDirectory, "Download");
+            folder.mkdir();
+
+            File pdfFile = new File(folder, fileName);
+
+            try{
+                pdfFile.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            PDFDownloader.downloadFile(fileUrl, pdfFile);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(getApplicationContext(), "PDF de clasificación descargado en la carpeta Download", Toast.LENGTH_LONG).show();
+        }
     }
 
 //    private void cargarUrlPdfFederacion(){
