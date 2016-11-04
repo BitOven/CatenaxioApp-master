@@ -294,16 +294,19 @@ public class CalendarioActivity extends Activity {
 
                     //obtenemos color de celda
                     int coloor;
-                    int colorResultado=colorResultado(jornada.child("KeyResultado").getValue().toString());
+                    int colorResultado=colorResultadoFunc(jornada.child("KeyResultado").getValue().toString());
                     if(colorResultado==1){
                         coloor = i%2;
+                        lista_jornada.setElementAt("0",i);
                     }else{
                         coloor=colorResultado;
                         //caso de jornadas aplazadas o descartadas
-                        if((colorResultado==6) && jornada.child("URLCampo").exists()){
-                            lista_maps.setElementAt(Uri.parse(jornada.child("URLCampo").getValue().toString()), i);
+                        if(colorResultado==6){
+                            if(jornada.child("URLCampo").exists()) {
+                                lista_maps.setElementAt(Uri.parse(jornada.child("URLCampo").getValue().toString()), i);
+                            }
                         }
-                        if((colorResultado >=2) && (colorResultado <=5)){
+                        else{
                             lista_jornada.setElementAt("1",i);
                         }
                     }
@@ -312,10 +315,8 @@ public class CalendarioActivity extends Activity {
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("jornada"+(i+1), resultadoo);
                     editor.putInt("color"+(i+1),coloor);
-                    //en caso de que cambie la ubicacion del partido
-                    if((coloor==6) && (jornada.child("URLCampo").exists()))editor.putString("mapsPref"+(i+1),jornada.child("URLCampo").getValue().toString());
-                    //en caso de partido descartado
-                    if((coloor>=2) && (coloor<=5))editor.putString("jornadaPref"+(i+1),lista_jornada.get(i));
+                    editor.putString("mapsPref"+(i+1),lista_maps.get(i).toString());
+                    editor.putString("jornadaPref"+(i+1),lista_jornada.get(i));
                     editor.putString("rivalPref"+(i+1),lista_rival.get(i));
                     editor.putString("fechaPref"+(i+1),lista_fecha.get(i));
                     editor.putString("horaPref"+(i+1),lista_hora.get(i));
@@ -337,7 +338,7 @@ public class CalendarioActivity extends Activity {
         return resultado;
     }
 
-    private int colorResultado (String keyResultado){
+    private int colorResultadoFunc (String keyResultado){
         int color=0;
         if(keyResultado.equalsIgnoreCase("X"))color=1;
         if(keyResultado.equalsIgnoreCase("G"))color=2;

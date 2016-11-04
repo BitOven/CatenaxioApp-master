@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 
 import android.graphics.Bitmap;
@@ -33,7 +34,6 @@ public class ClasificacionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clasificacion);
         imagen=(ImageView)findViewById(R.id.imagenClasificacion);
-
     }
 
     @Override
@@ -89,4 +89,8 @@ public class ClasificacionActivity extends Activity {
             }
         });
     }
+
+//    private void cargarUrlPdfFederacion(){
+//
+//    }
 }
