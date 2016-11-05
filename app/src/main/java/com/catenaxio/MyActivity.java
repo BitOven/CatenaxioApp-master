@@ -19,6 +19,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.catenaxio.utils.PDFDownloader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +39,10 @@ public class MyActivity extends Activity implements View.OnClickListener{
     NotificationCompat.Builder mBuilder = null;
     Intent intent = null;
     PendingIntent pIntent = null;
+    String urlPDF=null;
+
+    //firebase
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +63,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
             Intent lanzarAct = new Intent(this,ListProfiles.class);
             startActivity(lanzarAct);
         }
-
+        cargarFirebase();
     }
 
     @Override
@@ -101,10 +110,26 @@ public class MyActivity extends Activity implements View.OnClickListener{
                     .setContentText("Descarga en progreso")
                     .setSmallIcon(R.drawable.ic_file_download_black_24dp);
 
-            String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
+//            String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
             String fileName= "clasificacion.pdf";
-            new DownloadFile().execute(fileUrl, fileName);
+            new DownloadFile().execute(urlPDF, fileName);
         }
+    }
+
+    private void cargarFirebase(){
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Clasificacion");
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                urlPDF = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private class DownloadFile extends AsyncTask<String, Void, Void> {
