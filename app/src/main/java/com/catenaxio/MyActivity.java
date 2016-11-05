@@ -1,19 +1,39 @@
 package com.catenaxio;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.catenaxio.utils.PDFDownloader;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class MyActivity extends Activity implements View.OnClickListener{
 
     Button botonCalendario,botonEstadistica,botonX,botonConvocatoria;
+
+    int id=1;
+
+    NotificationManager mNotifyManager = null;
+    NotificationCompat.Builder mBuilder = null;
+    Intent intent = null;
+    PendingIntent pIntent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +92,63 @@ public class MyActivity extends Activity implements View.OnClickListener{
             startActivity(lanzarActividad);
         }
         else if(view==botonX){
-             Intent lanzarActividad=new Intent(this,ClasificacionActivity.class);
-             startActivity(lanzarActividad);
+//             Intent lanzarActividad=new Intent(this,ClasificacionActivity.class);
+//             startActivity(lanzarActividad);
+            mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            mBuilder = new NotificationCompat.Builder(this);
+
+            mBuilder.setContentTitle("Descarga de Clasificación")
+                    .setContentText("Descarga en progreso")
+                    .setSmallIcon(R.drawable.ic_file_download_black_24dp);
+
+            String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
+            String fileName= "clasificacion.pdf";
+            new DownloadFile().execute(fileUrl, fileName);
+        }
+    }
+
+    private class DownloadFile extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
+            String fileName = strings[1];  // -> maven.pdf
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            File folder = new File(extStorageDirectory, "Download");
+            folder.mkdir();
+            File pdfFile = new File(folder, fileName);
+            try{
+                pdfFile.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            //preparo el intent de la notificacion para abrir el pdf
+            intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(pdfFile));
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+//            intent.setAction(android.content.Intent.ACTION_VIEW);
+//            intent.setDataAndType(Uri.fromFile(pdfFile), "Download/*");
+            pIntent = PendingIntent.getActivity(getApplicationContext(), id, intent, PendingIntent.FLAG_ONE_SHOT);
+
+            //preparo la notificacion en progreso
+            mBuilder.setProgress(0, 0, true)
+                    .setContentIntent(pIntent);
+            mNotifyManager.notify(id, mBuilder.build());
+
+            PDFDownloader.downloadFile(fileUrl, pdfFile);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mBuilder.setContentText("Descarga completada")
+                    // Removes the progress bar
+                    .setProgress(0,0,false)
+                    .setAutoCancel(true);
+            mNotifyManager.notify(id, mBuilder.build());
+
+            Toast.makeText(getApplicationContext(), "PDF de clasificación descargado en la carpeta Download", Toast.LENGTH_LONG).show();
         }
     }
 }
