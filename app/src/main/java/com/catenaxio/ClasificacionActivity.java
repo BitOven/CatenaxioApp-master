@@ -2,13 +2,19 @@ package com.catenaxio;
 import android.app.Activity;
 
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +38,16 @@ public class ClasificacionActivity extends Activity {
     private ImageView imagen;
     private Bitmap bitmap;
 
+    int id=1;
+
+    NotificationManager mNotifyManager = null;
+    NotificationCompat.Builder mBuilder = null;
+    Intent intent = null;
+    PendingIntent pIntent = null;
+//    NotificationManager mNotifyManager =
+//            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+
     //firebase storage instance
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
@@ -41,17 +57,23 @@ public class ClasificacionActivity extends Activity {
         setContentView(R.layout.activity_clasificacion);
         imagen=(ImageView)findViewById(R.id.imagenClasificacion);
 
+        mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mBuilder = new NotificationCompat.Builder(this);
+
+        mBuilder.setContentTitle("Descarga de Clasificación")
+                .setContentText("Descarga en progreso")
+                .setSmallIcon(R.drawable.ic_file_download_black_24dp);
         //boton flotante y descargar clasificacion con él:
 
-//        String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
-//        String fileName= "clasificacion.pdf";
-//        new DownloadFile().execute(fileUrl, fileName);
+        String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
+        String fileName= "clasificacion.pdf";
+        new DownloadFile().execute(fileUrl, fileName);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Toast.makeText(getApplicationContext(), "Descargando imagen...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Cargando...", Toast.LENGTH_SHORT).show();
         cargarFireBase();
     }
 
@@ -111,22 +133,39 @@ public class ClasificacionActivity extends Activity {
             String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
             File folder = new File(extStorageDirectory, "Download");
             folder.mkdir();
-
             File pdfFile = new File(folder, fileName);
-
             try{
                 pdfFile.createNewFile();
             }catch (IOException e){
                 e.printStackTrace();
             }
+            //preparo el intent de la notificacion para abrir el pdf
+            intent = new Intent(Intent.ACTION_VIEW,Uri.fromFile(pdfFile));
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+//            intent.setAction(android.content.Intent.ACTION_VIEW);
+//            intent.setDataAndType(Uri.fromFile(pdfFile), "Download/*");
+            pIntent = PendingIntent.getActivity(getApplicationContext(), id, intent, PendingIntent.FLAG_ONE_SHOT);
+
+            //preparo la notificacion en progreso
+            mBuilder.setProgress(0, 0, true)
+                    .setContentIntent(pIntent);
+            mNotifyManager.notify(id, mBuilder.build());
+
             PDFDownloader.downloadFile(fileUrl, pdfFile);
+
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(getApplicationContext(), "PDF de clasificación descargado en la carpeta Download", Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), "PDF de clasificación descargado en la carpeta Download", Toast.LENGTH_LONG).show();
+
+            mBuilder.setContentText("Descarga completada")
+                    // Removes the progress bar
+                    .setProgress(0,0,false)
+            .setAutoCancel(true);
+            mNotifyManager.notify(id, mBuilder.build());
         }
     }
 
