@@ -102,7 +102,7 @@ public class ClasificacionActivity extends Activity {
         String clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
-            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
+            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.PNG";
         }
         if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2015-16")){
             clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion15.png";

@@ -103,6 +103,8 @@ public class MyActivity extends Activity implements View.OnClickListener{
         else if(view==botonX){
 //             Intent lanzarActividad=new Intent(this,ClasificacionActivity.class);
 //             startActivity(lanzarActividad);
+            Toast.makeText(getApplicationContext(), "Conectando con el servidor...", Toast.LENGTH_SHORT).show();
+
             mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             mBuilder = new NotificationCompat.Builder(this);
 
@@ -173,7 +175,8 @@ public class MyActivity extends Activity implements View.OnClickListener{
                     .setAutoCancel(true);
             mNotifyManager.notify(id, mBuilder.build());
 
-            Toast.makeText(getApplicationContext(), "PDF de clasificación descargado en la carpeta Download", Toast.LENGTH_LONG).show();
+            Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity.class);
+            startActivity(lanzarActividad);
         }
     }
 }
