@@ -38,17 +38,6 @@ public class ClasificacionActivity extends Activity {
     private ImageView imagen;
     private Bitmap bitmap;
 
-    int id=1;
-
-    NotificationManager mNotifyManager = null;
-    NotificationCompat.Builder mBuilder = null;
-    Intent intent = null;
-    PendingIntent pIntent = null;
-//    NotificationManager mNotifyManager =
-//            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-
-    //firebase storage instance
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
     @Override
@@ -56,18 +45,6 @@ public class ClasificacionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clasificacion);
         imagen=(ImageView)findViewById(R.id.imagenClasificacion);
-
-        mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(this);
-
-        mBuilder.setContentTitle("Descarga de Clasificación")
-                .setContentText("Descarga en progreso")
-                .setSmallIcon(R.drawable.ic_file_download_black_24dp);
-        //boton flotante y descargar clasificacion con él:
-
-        String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
-        String fileName= "clasificacion.pdf";
-        new DownloadFile().execute(fileUrl, fileName);
     }
 
     @Override
@@ -102,7 +79,7 @@ public class ClasificacionActivity extends Activity {
         String clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
-            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.PNG";
+            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
         }
         if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2015-16")){
             clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion15.png";
@@ -119,57 +96,8 @@ public class ClasificacionActivity extends Activity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "¡Tenemos el servidor colapsado!", Toast.LENGTH_LONG).show();
             }
         });
     }
-
-    private class DownloadFile extends AsyncTask<String, Void, Void> {
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
-            String fileName = strings[1];  // -> maven.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-            File folder = new File(extStorageDirectory, "Download");
-            folder.mkdir();
-            File pdfFile = new File(folder, fileName);
-            try{
-                pdfFile.createNewFile();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            //preparo el intent de la notificacion para abrir el pdf
-            intent = new Intent(Intent.ACTION_VIEW,Uri.fromFile(pdfFile));
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-//            intent.setAction(android.content.Intent.ACTION_VIEW);
-//            intent.setDataAndType(Uri.fromFile(pdfFile), "Download/*");
-            pIntent = PendingIntent.getActivity(getApplicationContext(), id, intent, PendingIntent.FLAG_ONE_SHOT);
-
-            //preparo la notificacion en progreso
-            mBuilder.setProgress(0, 0, true)
-                    .setContentIntent(pIntent);
-            mNotifyManager.notify(id, mBuilder.build());
-
-            PDFDownloader.downloadFile(fileUrl, pdfFile);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-//            Toast.makeText(getApplicationContext(), "PDF de clasificación descargado en la carpeta Download", Toast.LENGTH_LONG).show();
-
-            mBuilder.setContentText("Descarga completada")
-                    // Removes the progress bar
-                    .setProgress(0,0,false)
-            .setAutoCancel(true);
-            mNotifyManager.notify(id, mBuilder.build());
-        }
-    }
-
-//    private void cargarUrlPdfFederacion(){
-//
-//    }
 }
