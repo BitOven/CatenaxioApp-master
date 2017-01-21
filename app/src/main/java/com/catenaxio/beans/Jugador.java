@@ -4,6 +4,7 @@ import com.catenaxio.utils.Validador;
 
 /**
  * Created by Antonio on 20/01/2017.
+ * @author Antonio "BitOven" Merillas
  */
 
 public class Jugador {
@@ -16,6 +17,7 @@ public class Jugador {
     private int goles;
     private static int partidosTotales;
     private static int golesTotales;
+    private int convocatoria;
 
     static{
         partidosTotales=0;
@@ -40,7 +42,9 @@ public class Jugador {
     }
 
     public void setPartidosJugados(int partidosJugados) {
-        this.partidosJugados = partidosJugados;
+        if(Validador.validarNumPositivo(partidosJugados)){
+            this.partidosJugados = partidosJugados;
+        }
     }
 
     public int getDorsal() {
@@ -85,16 +89,9 @@ public class Jugador {
         return goles;
     }
 
-    public boolean setGoles(int goles) {//seteo goles y actualizo golesTotales
-        if(Validador.validarNumPositivo(goles)){
-            if(this.goles!=goles){
-                golesTotales-=this.goles;
-                this.goles=goles;
-                golesTotales+=this.goles;
-            }
-            return true;
-        }else{
-            return false;
+    public void setGoles(int goles) {//seteo goles y actualizo golesTotales
+        if(Validador.validarNumPositivo(goles)) {
+            this.goles = goles;
         }
     }
 
@@ -103,7 +100,9 @@ public class Jugador {
     }
 
     public static void setPartidosTotales(int partidosTotales) {
-        Jugador.partidosTotales = partidosTotales;
+        if(Validador.validarNumPositivo(partidosTotales)){
+            Jugador.partidosTotales = partidosTotales;
+        }
     }
 
     public static void resetPartidosTotales() {
@@ -115,10 +114,20 @@ public class Jugador {
     }
 
     public static void setGolesTotales(int golesTotales) {
-        Jugador.golesTotales = golesTotales;
+        if(Validador.validarNumPositivo(golesTotales)){
+            Jugador.golesTotales = golesTotales;
+        }
     }
 
     public static void resetGolesTotales() {
         Jugador.golesTotales = 0;
+    }
+
+    public int getConvocatoria() {
+        return convocatoria;
+    }
+
+    public void setConvocatoria(int convocatoria) {
+        this.convocatoria = convocatoria;
     }
 }

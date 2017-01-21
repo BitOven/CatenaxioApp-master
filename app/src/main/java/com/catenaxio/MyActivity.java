@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.catenaxio.activities.CalendarioActivity2;
 import com.catenaxio.utils.PDFDownloader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -89,7 +90,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if(view==botonCalendario){
-            Intent lanzarActividad=new Intent(this,CalendarioActivity.class);
+            Intent lanzarActividad=new Intent(this,CalendarioActivity2.class);
             startActivity(lanzarActividad);
         }
         else if(view==botonConvocatoria){
@@ -134,6 +135,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
         });
     }
 
+//TODO cambiar a otra clase esta clase y sus metodos
     private class DownloadFile extends AsyncTask<String, Void, Void> {
 
         @Override

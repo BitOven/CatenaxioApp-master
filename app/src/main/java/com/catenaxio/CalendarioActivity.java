@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.catenaxio.utils.Constantes;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,13 +33,6 @@ public class CalendarioActivity extends Activity {
     private Vector<String> lista_result;
     private Vector<Uri> lista_maps;
     private boolean temporadaActual;
-
-    //url de los campos
-    private static final String JUANDE_LOCATION = "https://www.google.es/maps/place/Polideportivo+Municipal+Juan+De+La+Cierva/@40.3183028,-3.7196404,303m/data=!3m1!1e3!4m5!3m4!1s0x0:0x61fc5377228ef5df!8m2!3d40.3183003!4d-3.7186662";
-    private static final String PERALES_LOCATION = "https://www.google.es/maps/place/Calle+de+Groenlandia,+8,+28909+Getafe,+Madrid/@40.323022,-3.6628751,193m/data=!3m2!1e3!4b1!4m5!3m4!1s0xd4223fd57232aef:0x175882019e4f8968!8m2!3d40.323022!4d-3.6620753";
-    private static final String GINER_LOCATION = "https://www.google.es/maps/place/Polideportivo+Giner+de+los+Rios/@40.3137777,-3.7400741,165m/data=!3m1!1e3!4m5!3m4!1s0x0:0x17a2613a734b7759!8m2!3d40.3138204!4d-3.7395425";
-    private static final String SECTOR3_LOCATION = "https://www.google.es/maps/place/Complejo+Deportivo+Sector+3+Alh%C3%B3ndiga/@40.3147782,-3.7444435,116m/data=!3m1!1e3!4m5!3m4!1s0x0:0x8f0474c33198fb69!8m2!3d40.3148757!4d-3.7437737";
-    private static final String M4_LOCATION = "https://www.google.es/maps/place/Av+Francisco+Fernandez+Ordo%C3%B1ez,+10,+28903+Getafe,+Madrid/@40.3151358,-3.7154767,111m/data=!3m1!1e3!4m5!3m4!1s0xd4220c37afa6da1:0xed094409cc05dcc2!8m2!3d40.3152065!4d-3.7150857";
 
     private ListView miLista;
     private MiAdaptador adapter;
@@ -183,28 +177,28 @@ public class CalendarioActivity extends Activity {
         lista_lugar.add(sharedPref.getString("campoPref"+21,"SECTOR III"));
         lista_lugar.add(sharedPref.getString("campoPref"+22,"JUAN DE LA CIERVA"));
 
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+1,JUANDE_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+2,PERALES_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+3,JUANDE_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+4,GINER_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+5,SECTOR3_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+6,GINER_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+7,M4_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+8,M4_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+9,GINER_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+10,SECTOR3_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+11,JUANDE_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+12,JUANDE_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+13,PERALES_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+14,JUANDE_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+15,GINER_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+16,SECTOR3_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+17,GINER_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+18,JUANDE_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+19,M4_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+20,GINER_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+21,SECTOR3_LOCATION)));
-        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+22,JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+1, Constantes.JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+2,Constantes.PERALES_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+3,Constantes.JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+4,Constantes.GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+5,Constantes.SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+6,Constantes.GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+7,Constantes.M4_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+8,Constantes.M4_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+9,Constantes.GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+10,Constantes.SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+11,Constantes.JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+12,Constantes.JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+13,Constantes.PERALES_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+14,Constantes.JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+15,Constantes.GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+16,Constantes.SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+17,Constantes.GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+18,Constantes.JUANDE_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+19,Constantes.M4_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+20,Constantes.GINER_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+21,Constantes.SECTOR3_LOCATION)));
+        lista_maps.add(Uri.parse(sharedPref.getString("mapsPref"+22,Constantes.JUANDE_LOCATION)));
 
         for(int i=1; i<23; i++){
             lista_result.add(sharedPref.getString("jornada"+i, "N/A"));

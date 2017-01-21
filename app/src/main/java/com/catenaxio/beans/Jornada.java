@@ -13,9 +13,9 @@ public class Jornada {
     private String hora;
     private String lugar;
     private String rival;
-    private int resultado;
+    private String resultado;
     private String marcador;
-    private String urlCampo;
+    private String urlCampo=" ";
 
 
     public int getNumJornada() {
@@ -60,14 +60,12 @@ public class Jornada {
         this.rival = rival;
     }
 
-    public int getResultado() {
+    public String getResultado() {
         return resultado;
     }
 
-    public void setResultado(int resultado) {
-        if(Validador.validarNumPositivo(resultado)){
+    public void setResultado(String resultado) {
             this.resultado = resultado;
-        }
     }
 
     public String getMarcador() {

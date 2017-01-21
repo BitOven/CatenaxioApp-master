@@ -42,6 +42,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.CalendarioActivity2"
+            android:label="@string/title_activity_calendario"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".ConvocatoriaActivity"
             android:label="@string/title_activity_convocatoria"
             android:screenOrientation="portrait" >

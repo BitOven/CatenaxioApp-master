@@ -19,6 +19,10 @@ public class Jornadas {
         return jornadas;
     }
 
+    public Jornada getJornadas(int idx){
+        return jornadas.get(idx);
+    }
+
     public void setJornadas(List<Jornada> jornadas) {
         this.jornadas = jornadas;
     }
@@ -29,5 +33,9 @@ public class Jornadas {
 
     public void addJornada(Jornada jornad){
         jornadas.add(jornad);
+    }
+
+    public int size(){
+        return jornadas.size();
     }
 }

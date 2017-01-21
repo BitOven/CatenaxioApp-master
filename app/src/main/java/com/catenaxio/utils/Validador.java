@@ -2,6 +2,7 @@ package com.catenaxio.utils;
 
 /**
  * Created by Antonio on 21/01/2017.
+ * @author Antonio "BitOven" Merillas
  */
 
 public class Validador {
