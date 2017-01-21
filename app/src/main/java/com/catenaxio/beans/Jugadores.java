@@ -10,6 +10,17 @@ import java.util.Vector;
 public class Jugadores {
 
     private List<Jugador> jugadores;
+    private String temporada;
+
+
+
+    public String getTemporada() {
+        return temporada;
+    }
+
+    public void setTemporada(String temporada) {
+        this.temporada = temporada;
+    }
 
     public Jugadores(){
         jugadores = new Vector<Jugador>();
@@ -23,10 +34,15 @@ public class Jugadores {
         return jugadores;
     }
 
-    public Jugador getJugador(int idx) {
+    public Jugador getJugadores(int idx) {
         return jugadores.get(idx);
     }
 
+    /**
+     *
+     * @param name
+     * @return null if notFound, first Jugador with nombre=name otherwise
+     */
     public Jugador getJugador(String name) {
         Jugador player=null;
         for(int i=0; i<jugadores.size(); i++){
@@ -42,7 +58,19 @@ public class Jugadores {
         this.jugadores = jugadores;
     }
 
+    public void resetJugadores() {
+        jugadores = new Vector<Jugador>();
+    }
+
     public void addJugador(Jugador jug){
         this.jugadores.add(jug);
+    }
+
+    public int getPartidosTotales(){
+        return Jugador.getPartidosTotales();
+    }
+
+    public int getGolesTotales(){
+        return Jugador.getGolesTotales();
     }
 }

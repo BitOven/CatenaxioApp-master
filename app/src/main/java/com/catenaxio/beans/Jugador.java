@@ -1,5 +1,7 @@
 package com.catenaxio.beans;
 
+import com.catenaxio.utils.Validador;
+
 /**
  * Created by Antonio on 20/01/2017.
  */
@@ -14,6 +16,11 @@ public class Jugador {
     private int goles;
     private static int partidosTotales;
     private static int golesTotales;
+
+    static{
+        partidosTotales=0;
+        golesTotales=0;
+    }
 
     //metodos
 
@@ -38,11 +45,12 @@ public class Jugador {
 
     public int getDorsal() {
         return dorsal;
-
     }
 
     public void setDorsal(int dorsal) {
-        this.dorsal = dorsal;
+        if(Validador.validarNumPositivo(dorsal)){
+            this.dorsal = dorsal;
+        }
     }
 
     public String getNombre() {
@@ -58,7 +66,9 @@ public class Jugador {
     }
 
     public void setPartidosGanados(int partidosGanados) {
-        this.partidosGanados = partidosGanados;
+        if(Validador.validarNumPositivo(partidosGanados)){
+            this.partidosGanados = partidosGanados;
+        }
     }
 
     public int getAsistencias() {
@@ -66,15 +76,26 @@ public class Jugador {
     }
 
     public void setAsistencias(int asistencias) {
-        this.asistencias = asistencias;
+        if(Validador.validarNumPositivo(asistencias)){
+            this.asistencias = asistencias;
+        }
     }
 
     public int getGoles() {
         return goles;
     }
 
-    public void setGoles(int goles) {
-        this.goles = goles;
+    public boolean setGoles(int goles) {//seteo goles y actualizo golesTotales
+        if(Validador.validarNumPositivo(goles)){
+            if(this.goles!=goles){
+                golesTotales-=this.goles;
+                this.goles=goles;
+                golesTotales+=this.goles;
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static int getPartidosTotales() {
@@ -85,11 +106,19 @@ public class Jugador {
         Jugador.partidosTotales = partidosTotales;
     }
 
+    public static void resetPartidosTotales() {
+        Jugador.partidosTotales = 0;
+    }
+
     public static int getGolesTotales() {
         return golesTotales;
     }
 
     public static void setGolesTotales(int golesTotales) {
         Jugador.golesTotales = golesTotales;
+    }
+
+    public static void resetGolesTotales() {
+        Jugador.golesTotales = 0;
     }
 }
