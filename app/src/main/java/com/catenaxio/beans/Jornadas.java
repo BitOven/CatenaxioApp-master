@@ -28,7 +28,7 @@ public class Jornadas {
     }
 
     public void resetJornadas() {
-        this.jornadas = new Vector<Jornada>();
+        this.jornadas.clear();
     }
 
     public void addJornada(Jornada jornad){

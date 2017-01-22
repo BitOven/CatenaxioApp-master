@@ -28,6 +28,11 @@ public class MiParseador {
         return calendario;
     }
 
+    /**
+     *
+     * @param cntx
+     * @return año de inicio de la temporada
+     */
     public static String parsearTemporadaAYear(Context cntx){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
         String strTemporada = prefs.getString(cntx.getString(R.string.pref_temporada_key),cntx.getString(R.string.pref_temporada_default));

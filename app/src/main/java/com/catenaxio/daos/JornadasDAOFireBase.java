@@ -46,12 +46,9 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
 
     @Override
     public void downloadJornadas(String temporada) {
-        jornadasRet.resetJornadas();//vacío la lista antes de descargarla de nuevo
         conn = new ConexionFirebase();
         mDatabase = (DatabaseReference)conn.conectar();
         mDatabase = mDatabase.child(temporada);
-        Preferencias.cargarPreferenciasCalendario(appContext, jornadasRet, MiParseador.parsearTemporadaAYear(appContext));
-        adapter.notifyDataSetChanged();
         descargarJornadas();//asincrono
     }
 
@@ -87,7 +84,7 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
                     jornadasRet.addJornada(contenedor);
                     i++;
                 }
-                Preferencias.guardarPreferenciasCalendario(appContext,jornadasRet,MiParseador.parsearTemporadaAYear(appContext));
+                Preferencias.guardarPreferenciasCalendario(appContext,jornadasRet);
                 adapter.notifyDataSetChanged();
                 conn.desconectar();
             }

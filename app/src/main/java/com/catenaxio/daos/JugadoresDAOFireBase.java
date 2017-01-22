@@ -7,7 +7,7 @@ import com.catenaxio.interfaces.daos.JugadoresDAOInterfaz;
  * Created by Antonio on 21/01/2017.
  */
 
-public class JugadoresDAO implements JugadoresDAOInterfaz {
+public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
 
     @Override
     public Jugadores downloadJugadores() {

@@ -16,9 +16,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.catenaxio.MiAdaptador;
 import com.catenaxio.R;
 import com.catenaxio.SettingsActivity;
 import com.catenaxio.adapters.MiAdaptador2;
@@ -27,17 +24,10 @@ import com.catenaxio.daos.JornadasDAOFireBase;
 import com.catenaxio.interfaces.daos.JornadasDAOInterfaz;
 import com.catenaxio.utils.MiParseador;
 import com.catenaxio.utils.Preferencias;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.Vector;
 
 public class CalendarioActivity2 extends Activity {
-
-    private boolean temporadaActual;
 
     private ListView miLista;
     private BaseAdapter adapter;
@@ -56,13 +46,12 @@ public class CalendarioActivity2 extends Activity {
         adapter= new MiAdaptador2(this, jornadas);
         miLista=(ListView)findViewById(R.id.listView);
         miLista.setAdapter(adapter);
-        jorDAO = new JornadasDAOFireBase(this, jornadas, adapter);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
+        jorDAO = new JornadasDAOFireBase(this, jornadas, adapter);
         miLista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -89,6 +78,8 @@ public class CalendarioActivity2 extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
+        Preferencias.cargarPreferenciasCalendario(this, jornadas);
+        adapter.notifyDataSetChanged();
         jorDAO.downloadJornadas(getCalendarioByTemporada());
     }
 

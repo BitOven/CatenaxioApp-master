@@ -15,9 +15,16 @@ public class Preferencias {
 
     private static final int JORNADAS_STANDARD = 22;
 
-    public static void cargarPreferenciasCalendario(Context cntx, Jornadas jornadasCalendario, String temporadaParseada){
+    /**
+     *
+     * @param cntx
+     * @param jornadasCalendario
+     */
+    public static void cargarPreferenciasCalendario(Context cntx, Jornadas jornadasCalendario){
         Jornadas jornadas=jornadasCalendario;
+        jornadas.resetJornadas();
         SharedPreferences sharedPref = cntx.getSharedPreferences(cntx.getString(R.string.shared_pref_key), cntx.MODE_PRIVATE);
+        String temporadaParseada = MiParseador.parsearTemporadaAYear(cntx);
 
         for(int i=0; i<JORNADAS_STANDARD; i++){
             Jornada contenedor = new Jornada();
@@ -37,11 +44,11 @@ public class Preferencias {
      *
      * @param cntx
      * @param jornadasCalendario
-     * @param temporadaParseada
      */
-    public static void guardarPreferenciasCalendario(Context cntx, Jornadas jornadasCalendario, String temporadaParseada){
+    public static void guardarPreferenciasCalendario(Context cntx, Jornadas jornadasCalendario){
         SharedPreferences settings = cntx.getSharedPreferences(cntx.getString(R.string.shared_pref_key), cntx.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
+        String temporadaParseada = MiParseador.parsearTemporadaAYear(cntx);
 
         for(int i=0; i<jornadasCalendario.size(); i++){
             editor.putInt(Constantes.PREF_JORNADA+temporadaParseada+i, jornadasCalendario.getJornadas(i).getNumJornada());
