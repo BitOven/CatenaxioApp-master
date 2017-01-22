@@ -13,6 +13,7 @@ import com.catenaxio.interfaces.conexion.ConexionDB;
 import com.catenaxio.interfaces.daos.JornadasDAOInterfaz;
 import com.catenaxio.utils.ConexionFirebase;
 import com.catenaxio.utils.MiParseador;
+import com.catenaxio.utils.Preferencias;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +50,8 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
         conn = new ConexionFirebase();
         mDatabase = (DatabaseReference)conn.conectar();
         mDatabase = mDatabase.child(temporada);
+        Preferencias.cargarPreferenciasCalendario(appContext, jornadasRet, MiParseador.parsearTemporadaAYear(appContext));
+        adapter.notifyDataSetChanged();
         descargarJornadas();//asincrono
     }
 
@@ -63,7 +66,7 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i=0;
-
+                jornadasRet.resetJornadas();
                 for(DataSnapshot jornada : dataSnapshot.getChildren()){
                     Jornada contenedor = new Jornada();
                     contenedor.setMarcador(jornada.child("Resultado").getValue().toString());
@@ -77,11 +80,14 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
 
                     if(jornada.child("URLCampo").exists()) {
                         contenedor.setUrlCampo(jornada.child("URLCampo").getValue().toString());
+                    }else{
+                        contenedor.setUrlCampo(MiParseador.urlCampoFinder(contenedor.getLugar()));
                     }
                     contenedor.setNumJornada(i+1);
                     jornadasRet.addJornada(contenedor);
                     i++;
                 }
+                Preferencias.guardarPreferenciasCalendario(appContext,jornadasRet,MiParseador.parsearTemporadaAYear(appContext));
                 adapter.notifyDataSetChanged();
                 conn.desconectar();
             }

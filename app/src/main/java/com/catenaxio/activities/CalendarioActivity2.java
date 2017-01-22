@@ -26,6 +26,7 @@ import com.catenaxio.beans.Jornadas;
 import com.catenaxio.daos.JornadasDAOFireBase;
 import com.catenaxio.interfaces.daos.JornadasDAOInterfaz;
 import com.catenaxio.utils.MiParseador;
+import com.catenaxio.utils.Preferencias;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,7 +52,6 @@ public class CalendarioActivity2 extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_calendario);
-
         jornadas= new Jornadas();
         adapter= new MiAdaptador2(this, jornadas);
         miLista=(ListView)findViewById(R.id.listView);
