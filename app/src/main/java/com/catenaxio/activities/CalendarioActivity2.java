@@ -33,9 +33,8 @@ public class CalendarioActivity2 extends Activity {
     private BaseAdapter adapter;
 
     //firebase
-    private DatabaseReference mDatabase;
     private Jornadas jornadas;
-    JornadasDAOInterfaz jorDAO;
+    private JornadasDAOInterfaz jorDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

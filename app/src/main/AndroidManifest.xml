@@ -47,6 +47,11 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activities.EstadisticasActivity2"
+            android:label="@string/title_activity_estadisticas"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
             android:name=".ConvocatoriaActivity"
             android:label="@string/title_activity_convocatoria"
             android:screenOrientation="portrait" >

@@ -65,11 +65,13 @@ public class Jugadores {
     }
 
     public void resetJugadores() {
-        jugadores = new Vector<Jugador>();
+        Jugador.resetGolesTotales();
+        Jugador.resetPartidosTotales();
+        jugadores.clear();
     }
 
     public void addJugador(Jugador jug){
-        int golesT=0;
+        int golesT;
         golesT=Jugador.getGolesTotales();
         golesT+=jug.getGoles();
         Jugador.setGolesTotales(golesT);
@@ -77,7 +79,7 @@ public class Jugadores {
     }
 
     public void removeJugador(int idx){
-        int golesT=0;
+        int golesT;
         golesT=Jugador.getGolesTotales();
         golesT-=jugadores.get(idx).getGoles();
         Jugador.setGolesTotales(golesT);
@@ -94,5 +96,9 @@ public class Jugadores {
 
     public int getGolesTotales(){
         return Jugador.getGolesTotales();
+    }
+
+    public int size(){
+        return jugadores.size();
     }
 }

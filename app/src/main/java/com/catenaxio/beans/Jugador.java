@@ -1,6 +1,19 @@
 package com.catenaxio.beans;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import com.catenaxio.utils.Constantes;
+import com.catenaxio.utils.MiParseador;
 import com.catenaxio.utils.Validador;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.Map;
 
 /**
  * Created by Antonio on 20/01/2017.
@@ -11,27 +24,32 @@ public class Jugador {
 
     private String nombre;
     private int dorsal;
+    private int convocatoria;
+    private Bitmap imagen;
+    private int imageResource;
     private int partidosGanados;
     private int partidosJugados;
     private int asistencias;
     private int goles;
-    private static int partidosTotales;
-    private static int golesTotales;
-    private int convocatoria;
 
-    static{
-        partidosTotales=0;
+    private static int golesTotales;
+    private static int partidosTotales;
+
+    static {
         golesTotales=0;
+        partidosTotales=0;
     }
 
     //metodos
 
-    public float getPorcentajeGoles(){
+
+    public String getPorcentajeGoles(){
         float result;
         if(golesTotales!=0){
-         return result = (float)goles/(float)golesTotales;
+         result = (float)goles/(float)golesTotales *100;
+            return MiParseador.parsearFormatoPorcentaje(result);
         }else {
-            return 0;
+            return "0";
         }
     }
 
@@ -89,7 +107,7 @@ public class Jugador {
         return goles;
     }
 
-    public void setGoles(int goles) {//seteo goles y actualizo golesTotales
+    public void setGoles(int goles) {
         if(Validador.validarNumPositivo(goles)) {
             this.goles = goles;
         }
@@ -129,5 +147,21 @@ public class Jugador {
 
     public void setConvocatoria(int convocatoria) {
         this.convocatoria = convocatoria;
+    }
+
+    public Bitmap getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(Bitmap imagen) {
+        this.imagen = imagen;
+    }
+
+    public int getImageResource() {
+        return imageResource;
+    }
+
+    public void setImageResource(int imageResource) {
+        this.imageResource = imageResource;
     }
 }

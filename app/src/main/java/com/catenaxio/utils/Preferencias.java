@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.catenaxio.R;
 import com.catenaxio.beans.Jornada;
 import com.catenaxio.beans.Jornadas;
+import com.catenaxio.beans.Jugadores;
 
 /**
  * Created by Antonio on 22/01/2017.
@@ -60,6 +61,32 @@ public class Preferencias {
             editor.putString(Constantes.PREF_URLCAMPO+temporadaParseada+i,jornadasCalendario.getJornadas(i).getUrlCampo());
             editor.putString(Constantes.PREF_RESULTADO+temporadaParseada+i,jornadasCalendario.getJornadas(i).getResultado());
             editor.apply();
+        }
+
+
+    }
+
+    /**
+     *
+     * @param cntx
+     * @param jugadoresEstadisticas
+     */
+    public static void guardarPreferenciasJugadores(Context cntx, Jugadores jugadoresEstadisticas){
+        SharedPreferences settings = cntx.getSharedPreferences(cntx.getString(R.string.shared_pref_key), cntx.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        String temporadaParseada = MiParseador.parsearTemporadaAYear(cntx);
+
+        for(int i=0; i<jugadoresEstadisticas.size(); i++){
+            //TODO implementar
+//            editor.putInt(Constantes.PREF_JORNADA+temporadaParseada+i, jornadasCalendario.getJornadas(i).getNumJornada());
+//            editor.putString(Constantes.PREF_FECHA+temporadaParseada+i,jornadasCalendario.getJornadas(i).getFecha());
+//            editor.putString(Constantes.PREF_HORA+temporadaParseada+i,jornadasCalendario.getJornadas(i).getHora());
+//            editor.putString(Constantes.PREF_RIVAL+temporadaParseada+i,jornadasCalendario.getJornadas(i).getRival());
+//            editor.putString(Constantes.PREF_LUGAR+temporadaParseada+i,jornadasCalendario.getJornadas(i).getLugar());
+//            editor.putString(Constantes.PREF_MARCADOR+temporadaParseada+i,jornadasCalendario.getJornadas(i).getMarcador());
+//            editor.putString(Constantes.PREF_URLCAMPO+temporadaParseada+i,jornadasCalendario.getJornadas(i).getUrlCampo());
+//            editor.putString(Constantes.PREF_RESULTADO+temporadaParseada+i,jornadasCalendario.getJornadas(i).getResultado());
+//            editor.apply();
         }
 
 

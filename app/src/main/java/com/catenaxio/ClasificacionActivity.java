@@ -24,6 +24,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
+import com.catenaxio.utils.Constantes;
+import com.catenaxio.utils.MiParseador;
 import com.catenaxio.utils.PDFDownloader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,17 +77,9 @@ public class ClasificacionActivity extends Activity {
     }
 
     private void cargarFireBase(){
-
-        String clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2016-17")){
-            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion.png";
-        }
-        if(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)).equals("2015-16")){
-            clasifElegida="gs://catenaxio-dd230.appspot.com/clasificacion/clasificacion15.png";
-        }
+        String clasifElegida = MiParseador.parsearTemporadaAYear(this);
         //selecciono la rama de firebase adecuada
-        StorageReference storageRef = storage.getReferenceFromUrl(clasifElegida);
+        StorageReference storageRef = storage.getReference().child(Constantes.FRBS_CLASIFICACION).child(Constantes.FRBS_CLASIFICACION+clasifElegida+Constantes.PNG_EXTENSION);
         final long ONE_MEGABYTE = 1024 * 1024;
         storageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override

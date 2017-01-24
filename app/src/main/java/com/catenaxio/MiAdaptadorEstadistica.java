@@ -90,7 +90,7 @@ public class MiAdaptadorEstadistica extends BaseAdapter {
             imagenJugador.setImageResource(R.drawable.hector);
         }
         else if(position==4){ //hugo4
-            imagenJugador.setImageResource(R.drawable.hugo4);
+            imagenJugador.setImageResource(R.drawable.hugo);
         }
         else if(position==5){ //jordan
             imagenJugador.setImageResource(R.drawable.jordan);

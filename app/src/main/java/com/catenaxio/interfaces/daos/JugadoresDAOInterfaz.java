@@ -8,7 +8,10 @@ import com.catenaxio.beans.Jugadores;
 
 public interface JugadoresDAOInterfaz {
 
-    public Jugadores downloadJugadores();
+    /**
+     *
+     */
+    public void downloadJugadores();
 
     public boolean updateJugadores(Jugadores jugadores);
 }

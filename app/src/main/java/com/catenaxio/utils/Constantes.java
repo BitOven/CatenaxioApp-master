@@ -1,5 +1,10 @@
 package com.catenaxio.utils;
 
+import com.catenaxio.R;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Antonio on 21/01/2017.
  */
@@ -31,5 +36,36 @@ public class Constantes {
     public static final String PREF_MARCADOR = "marcadorPref";
     public static final String PREF_URLCAMPO = "urlcampoPref";
     public static final String PREF_RESULTADO = "resultadoPref";
+
+    //firebase
+    public static final String FRBS_ESTADISTICAS = "Estadisticas";
+    public static final String FRBS_JUGADORES = "Jugadores";
+    public static final String FRBS_ASISTENCIAS = "Asistencias";
+    public static final String FRBS_GOLES = "Goles";
+    public static final String FRBS_NOMBREJUGADORES = "Nombre";
+    public static final String FRBS_PARTIDOSGANADOS = "PG";
+    public static final String FRBS_PARTIDOSJUGADOS = "PJ";
+    public static final String FRBS_PARTIDOSTOTALES = "PJ";
+
+    //storage firebase
+    public static final String FRBS_CLASIFICACION = "clasificacion";
+    public static final String PNG_EXTENSION = ".png";
+    public static final String JPG_EXTENSION = ".jpg";
+    public static final String JUGADORES_STORAGE = "jugadores";
+
+    public static final Map<String, Integer> IMG_JUGADORES= new HashMap<String, Integer>();
+
+    static{
+        IMG_JUGADORES.put("abel", R.drawable.abel);
+        IMG_JUGADORES.put("dorado", R.drawable.dorado);
+        IMG_JUGADORES.put("anton", R.drawable.anton);
+        IMG_JUGADORES.put("hector", R.drawable.hector);
+        IMG_JUGADORES.put("hugo", R.drawable.hugo);
+        IMG_JUGADORES.put("jordan", R.drawable.jordan);
+        IMG_JUGADORES.put("juanito", R.drawable.juanito);
+        IMG_JUGADORES.put("juanma", R.drawable.juanma);
+        IMG_JUGADORES.put("meri", R.drawable.meri);
+        IMG_JUGADORES.put("invitado", R.drawable.invitado);
+    }
 
 }

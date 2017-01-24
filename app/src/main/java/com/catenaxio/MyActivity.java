@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.catenaxio.activities.CalendarioActivity2;
+import com.catenaxio.activities.EstadisticasActivity2;
+import com.catenaxio.utils.DownloadFile;
 import com.catenaxio.utils.PDFDownloader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,11 +46,13 @@ public class MyActivity extends Activity implements View.OnClickListener{
 
     //firebase
     private DatabaseReference mDatabase;
+    boolean ready;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_my);
+            ready=false;
             botonCalendario = (Button) findViewById(R.id.botonCalendario);
             botonConvocatoria = (Button) findViewById(R.id.BotonConvocatoria);
             botonEstadistica = (Button) findViewById(R.id.botonEstadisticas);
@@ -98,24 +102,26 @@ public class MyActivity extends Activity implements View.OnClickListener{
             startActivity(lanzarActividad);
         }
         else if(view==botonEstadistica){
-            Intent lanzarActividad=new Intent(this,EstadisticasActivity.class);
+            Intent lanzarActividad=new Intent(this,EstadisticasActivity2.class);
             startActivity(lanzarActividad);
         }
         else if(view==botonX){
-//             Intent lanzarActividad=new Intent(this,ClasificacionActivity.class);
-//             startActivity(lanzarActividad);
-            Toast.makeText(getApplicationContext(), "Conectando con el servidor...", Toast.LENGTH_SHORT).show();
+            if(ready){
+                mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                mBuilder = new NotificationCompat.Builder(this);
 
-            mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            mBuilder = new NotificationCompat.Builder(this);
+                mBuilder.setContentTitle("Descarga de Clasificación")
+                        .setContentText("Descarga en progreso")
+                        .setSmallIcon(R.drawable.ic_file_download_black_24dp);
 
-            mBuilder.setContentTitle("Descarga de Clasificación")
-                    .setContentText("Descarga en progreso")
-                    .setSmallIcon(R.drawable.ic_file_download_black_24dp);
-
-//            String fileUrl="http://www.femafusa.com/uploads/archivo_delegacion_resultados_3485.pdf";
-            String fileName= "clasificacion.pdf";
-            new DownloadFile().execute(urlPDF, fileName);
+                String fileName= "clasificacion.pdf";
+                new DownloadFile(id, mNotifyManager, mBuilder, intent, pIntent, this).execute(urlPDF, fileName);
+                Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity.class);
+                startActivity(lanzarActividad);
+            }else{
+                Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity.class);
+                startActivity(lanzarActividad);
+            }
         }
     }
 
@@ -126,59 +132,13 @@ public class MyActivity extends Activity implements View.OnClickListener{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 urlPDF = dataSnapshot.getValue().toString();
+                ready=true;
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
+               ready=false;
             }
         });
-    }
-
-//TODO cambiar a otra clase esta clase y sus metodos
-    private class DownloadFile extends AsyncTask<String, Void, Void> {
-
-        @Override
-        protected Void doInBackground(String... strings) {
-            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
-            String fileName = strings[1];  // -> maven.pdf
-            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-            File folder = new File(extStorageDirectory, "Download");
-            folder.mkdir();
-            File pdfFile = new File(folder, fileName);
-            try{
-                pdfFile.createNewFile();
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            //preparo el intent de la notificacion para abrir el pdf
-            intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(pdfFile));
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-//            intent.setAction(android.content.Intent.ACTION_VIEW);
-//            intent.setDataAndType(Uri.fromFile(pdfFile), "Download/*");
-            pIntent = PendingIntent.getActivity(getApplicationContext(), id, intent, PendingIntent.FLAG_ONE_SHOT);
-
-            //preparo la notificacion en progreso
-            mBuilder.setProgress(0, 0, true)
-                    .setContentIntent(pIntent);
-            mNotifyManager.notify(id, mBuilder.build());
-
-            PDFDownloader.downloadFile(fileUrl, pdfFile);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            mBuilder.setContentText("Descarga completada")
-                    // Removes the progress bar
-                    .setProgress(0,0,false)
-                    .setAutoCancel(true);
-            mNotifyManager.notify(id, mBuilder.build());
-
-            Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity.class);
-            startActivity(lanzarActividad);
-        }
     }
 }

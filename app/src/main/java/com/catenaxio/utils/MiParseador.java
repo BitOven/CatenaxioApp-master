@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 import com.catenaxio.R;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by Antonio on 21/01/2017.
  */
@@ -22,10 +24,22 @@ public class MiParseador {
         }
     }
 
+    /**
+     *
+     * @param strTemporada devuelve formato "Calendario2016"
+     * @return
+     */
     public static String parsearCalendarioElegido(String strTemporada){
         String[] calendarioArr = strTemporada.split("-");
         String calendario = "Calendario"+calendarioArr[0];
         return calendario;
+    }
+
+    public static String parsearJugadoresPorTemporada(Context cntx){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
+        String strTemporada = prefs.getString(cntx.getString(R.string.pref_temporada_key),cntx.getString(R.string.pref_temporada_default));
+        String[] temporada = strTemporada.split("-");
+        return temporada[0];
     }
 
     /**
@@ -36,8 +50,14 @@ public class MiParseador {
     public static String parsearTemporadaAYear(Context cntx){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
         String strTemporada = prefs.getString(cntx.getString(R.string.pref_temporada_key),cntx.getString(R.string.pref_temporada_default));
-        String[] calendarioArr = strTemporada.split("-");
-        return calendarioArr[0];
+        String[] calendario = strTemporada.split("-");
+        return calendario[0];
+    }
+
+    public static String getTemporadaEnPreferencias(Context cntx){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
+        String strTemporada = prefs.getString(cntx.getString(R.string.pref_temporada_key),cntx.getString(R.string.pref_temporada_default));
+        return strTemporada;
     }
 
     /**
@@ -60,5 +80,10 @@ public class MiParseador {
             return Constantes.BUENAVISTA_LOCATION;
         }
         return " ";
+    }
+
+    public static String parsearFormatoPorcentaje(float resultado){
+        DecimalFormat decimales = new DecimalFormat("0.0");
+        return (decimales.format(resultado));
     }
 }
