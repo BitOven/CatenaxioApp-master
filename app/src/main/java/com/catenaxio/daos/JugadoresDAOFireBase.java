@@ -51,9 +51,7 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
         mDatabase = (DatabaseReference) conn.conectar();
         //entro en el nodo estadisticas
         mDatabase = mDatabase.child(Constantes.FRBS_ESTADISTICAS);
-    //TODO conectar con firebase y setear cada campo, incluido imágenes de perfil
         descargarJugadores();
-//        descargarImagenes();
     }
 
     @Override
@@ -86,9 +84,11 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
                     jugadores.addJugador(contenedor);
                     i++;
                 }
-                Preferencias.guardarPreferenciasJugadores(appContext,jugadores);
                 adapter.notifyDataSetChanged();
                 conn.desconectar();
+                //guardo en SQLite
+                JugadoresDAO_SQLite guardarSQL = new JugadoresDAO_SQLite(appContext);
+                guardarSQL.insertNewPlayers(jugadores);
             }
 
             @Override
@@ -128,16 +128,4 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
             adapter.notifyDataSetChanged();
         }
     }
-//
-//    new OnSuccessListener<byte[]>() {
-//
-//        @Override
-//        public void onSuccess(byte[] bytes) {
-//            jugador.setImagen(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-//        }
-//    }).addOnFailureListener(new OnFailureListener() {
-//        @Override
-//        public void onFailure(@NonNull Exception e) {
-//        }
-//    }
 }
