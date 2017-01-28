@@ -109,6 +109,10 @@
             android:label="@string/title_activity_quesito" >
         </activity>
         <activity
+            android:name=".activities.QuesitoActivity2"
+            android:label="@string/title_activity_quesito" >
+        </activity>
+        <activity
             android:name=".ListProfiles"
             android:label="Usuarios"
             android:screenOrientation="portrait" >

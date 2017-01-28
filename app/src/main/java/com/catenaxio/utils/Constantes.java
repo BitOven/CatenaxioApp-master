@@ -1,8 +1,12 @@
 package com.catenaxio.utils;
 
+import android.graphics.Color;
+
 import com.catenaxio.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,6 +59,24 @@ public class Constantes {
 
     public static final Map<String, Integer> IMG_JUGADORES= new HashMap<String, Integer>();
 
+    private static final int [] colores = {
+            Color.BLUE,
+            Color.CYAN,
+            Color.argb(255, 200, 100, 100),
+            Color.argb(255, 200, 200, 100),
+            Color.argb(255, 100, 200, 100),
+            Color.argb(255, 100, 100, 200),
+            Color.GREEN,
+            Color.MAGENTA,
+            Color.YELLOW,
+            Color.RED,
+            R.color.darkdarkblue,
+            R.color.darkpurple,
+            R.color.gray,
+            R.color.white,
+            R.color.black,
+    };
+
     static{
         IMG_JUGADORES.put("abel", R.drawable.abel);
         IMG_JUGADORES.put("dorado", R.drawable.dorado);
@@ -66,6 +88,10 @@ public class Constantes {
         IMG_JUGADORES.put("juanma", R.drawable.juanma);
         IMG_JUGADORES.put("meri", R.drawable.meri);
         IMG_JUGADORES.put("invitado", R.drawable.invitado);
+    }
+
+    public static int getColor(int i){
+        return colores[i];
     }
 
 }

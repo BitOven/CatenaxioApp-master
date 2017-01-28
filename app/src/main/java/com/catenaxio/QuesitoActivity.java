@@ -36,12 +36,12 @@ public class QuesitoActivity extends Activity {
 
         if(getIntent()!=null){
             Bundle extras = getIntent().getExtras();
-            abelG=extras.getInt("AbelG");
-            abelD=extras.getInt("AbelD");
+            abelG=extras.getInt("Abel");
+            abelD=extras.getInt("Dorado");
 //            Log.d("dale", "Abel lleva " + abelD + " goles");
             jordan=extras.getInt("Jordan");
             anton=extras.getInt("Anton");
-            cano=extras.getInt("Cano");
+            cano=extras.getInt("Hector");
             meri=extras.getInt("Meri");
             hugo=extras.getInt("Hugo");
             juanma=extras.getInt("Juanma");
@@ -124,7 +124,7 @@ public class QuesitoActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(1800);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

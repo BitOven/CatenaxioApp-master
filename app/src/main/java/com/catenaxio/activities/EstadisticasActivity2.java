@@ -14,29 +14,15 @@ import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.catenaxio.MiAdaptadorEstadistica;
-import com.catenaxio.QuesitoActivity;
 import com.catenaxio.R;
 import com.catenaxio.SettingsActivity;
 import com.catenaxio.adapters.MiAdaptadorEstadistica2;
+
 import com.catenaxio.beans.Jugadores;
 import com.catenaxio.daos.JugadoresDAOFireBase;
 import com.catenaxio.interfaces.daos.JugadoresDAOInterfaz;
-import com.catenaxio.utils.Constantes;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.text.DecimalFormat;
-import java.util.Vector;
 
 /**
  * Created by Antonio on 22/01/2017.
@@ -96,26 +82,20 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-//TODO implementar
-//        if(view==botonGrafica){//firebase
-//
-//            Intent i =new Intent(this, QuesitoActivity.class);
-//            i.putExtra("AbelG",pctg_goles.get(0));
-//            i.putExtra("AbelD",pctg_goles.get(1));
-//            i.putExtra("Anton",pctg_goles.get(2));
-//            i.putExtra("Cano",pctg_goles.get(3));
-//            i.putExtra("Hugo",pctg_goles.get(4));
-//            i.putExtra("Jordan",pctg_goles.get(5));
-//            i.putExtra("Juan",pctg_goles.get(6));
-//            i.putExtra("Juanma",pctg_goles.get(7));
-//            i.putExtra("Meri",pctg_goles.get(8));
-//            i.putExtra("Invitado", pctg_goles.get(9));
-//            startActivity(i);
-//
-//        }
+//TODO implementar dinamicamente el quesito
+        if(view==botonGrafica){//firebase
+
+            Intent i = new Intent(this, QuesitoActivity2.class);
+
+            //impl dinamica
+            i.putExtra("jugadores", jugadores);
+            //fin impl dinamica
+            
+            startActivity(i);
+        }
     }
 
-    //asynk task para guardar preferencias
+    //asynk task para guardar preferencias (sustituido por sql)
 //    class GuardarPrefTask extends AsyncTask<Void,Void,Void> {
 //
 //        @Override
@@ -136,6 +116,7 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
 //        }
 //    }
 
+    //cambiado a DAO
 //    private void cargarFirebase(){
 //        //Aqui se decide, segun lo elegido en el menu Settings, que temporada cargar
 //        String statsElegidas="Jugadores2016";
@@ -180,23 +161,6 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
 //            @Override
 //            public void onCancelled(DatabaseError databaseError) {
 //                Toast.makeText(getApplicationContext(), "Nuestros servidores estan ocupados ahora", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//    }
-
-
-//    private void descargarImagen(){
-//        FirebaseStorage storage = FirebaseStorage.getInstance();
-//        StorageReference stRef = storage.getReference().child(Constantes.JUGADORES_STORAGE).child(nombre.toLowerCase()+Constantes.JPG_EXTENSION);
-//        final long ONE_MEGABYTE = 1024 * 1024;
-//        stRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                setImagen(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
 //            }
 //        });
 //    }

@@ -51,7 +51,7 @@ public class SQLiteJugadores extends SQLiteOpenHelper {
                     Columnas.COLUMN_TOTALGOLES + INT_TYPE + COMMA_SEP+
                     Columnas.COLUMN_TOTALPARTIDOS + INT_TYPE + COMMA_SEP+
                     Columnas.COLUMN_PORCENTGOLES + TEXT_TYPE + COMMA_SEP+
-                    Columnas.COLUMN_TEMPORADA + TEXT_TYPE + COMMA_SEP+" )";
+                    Columnas.COLUMN_TEMPORADA + TEXT_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Columnas.TABLE_NAME;

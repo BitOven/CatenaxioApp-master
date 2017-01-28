@@ -66,6 +66,7 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i=0;
                 jugadores.resetJugadores();
+                jugadores.setTemporada( MiParseador.parsearJugadoresPorTemporada(appContext));
                 Jugador.setPartidosTotales(dataSnapshot.child(Constantes.FRBS_PARTIDOSTOTALES).getValue(Integer.class));
 
                 //y selecciono la temporada correspondiente (formato "Jugadores2016")
@@ -86,9 +87,9 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
                 }
                 adapter.notifyDataSetChanged();
                 conn.desconectar();
-                //guardo en SQLite
-                JugadoresDAO_SQLite guardarSQL = new JugadoresDAO_SQLite(appContext);
-                guardarSQL.insertNewPlayers(jugadores);
+                //guardo en SQLite //TODO habilitar sql
+//                JugadoresDAO_SQLite guardarSQL = new JugadoresDAO_SQLite(appContext);
+//                guardarSQL.insertNewPlayers(jugadores);
             }
 
             @Override

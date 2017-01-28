@@ -1,7 +1,8 @@
 package com.catenaxio.beans;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 
 /**
@@ -11,7 +12,7 @@ import java.util.Vector;
  * The Jugador.golesTotatales param and the Jugador.partidosTotales param are reset
  * with each instance of this class
  */
-public class Jugadores {
+public class Jugadores implements Serializable{
 
     private List<Jugador> jugadores;
     private String temporada;
@@ -19,7 +20,7 @@ public class Jugadores {
     public Jugadores(){
         Jugador.resetGolesTotales();
         Jugador.resetPartidosTotales();
-        jugadores = new Vector<Jugador>();
+        jugadores = new ArrayList<Jugador>();
     }
 
     //metodos

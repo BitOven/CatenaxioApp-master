@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Map;
  * @author Antonio "BitOven" Merillas
  */
 
-public class Jugador {
+public class Jugador implements Serializable{
 
     private String nombre;
     private int dorsal;

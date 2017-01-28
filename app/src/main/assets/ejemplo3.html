@@ -14,23 +14,11 @@
             alert(parametro1+parametro2+'hugo');
         }
         
-        function drawChart(abelG,abelD,jordan,anton,cano,meri,hugo,juanma,juan,invitado,titulo) {
+        function drawChart(arrayQuesito,titulo) {
             //alert(abelG+'jj');
             //alert(abelD+'jj');
             
-            var data = google.visualization.arrayToDataTable([
-                                                              ['Task', titulo],
-                                                              ['abelG',     abelG],
-                                                              ['abelD',      abelD],
-                                                              ['jordan',  jordan],
-                                                              ['anton', anton],
-                                                              ['cano',    cano],
-                                                              ['meri',    meri],
-                                                              ['hugo',    hugo],
-                                                              ['juanma',   juanma],
-                                                              ['juan',    juan],
-                                                              ['invitado',    invitado]
-                                                              ]);
+            var data = google.visualization.arrayToDataTable(arrayQuesito);
                                                               
                                                               var options = {
                                                                   title: titulo+' %',
