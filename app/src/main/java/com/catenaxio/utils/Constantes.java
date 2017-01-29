@@ -78,16 +78,16 @@ public class Constantes {
     };
 
     static{
-        IMG_JUGADORES.put("abel", R.drawable.abel);
-        IMG_JUGADORES.put("dorado", R.drawable.dorado);
-        IMG_JUGADORES.put("anton", R.drawable.anton);
-        IMG_JUGADORES.put("hector", R.drawable.hector);
-        IMG_JUGADORES.put("hugo", R.drawable.hugo);
-        IMG_JUGADORES.put("jordan", R.drawable.jordan);
-        IMG_JUGADORES.put("juanito", R.drawable.juanito);
-        IMG_JUGADORES.put("juanma", R.drawable.juanma);
-        IMG_JUGADORES.put("meri", R.drawable.meri);
-        IMG_JUGADORES.put("invitado", R.drawable.invitado);
+//        IMG_JUGADORES.put("abel", R.drawable.abel);
+//        IMG_JUGADORES.put("dorado", R.drawable.dorado);
+//        IMG_JUGADORES.put("anton", R.drawable.anton);
+//        IMG_JUGADORES.put("hector", R.drawable.hector);
+//        IMG_JUGADORES.put("hugo", R.drawable.hugo);
+//        IMG_JUGADORES.put("jordan", R.drawable.jordan);
+//        IMG_JUGADORES.put("juanito", R.drawable.juanito);
+//        IMG_JUGADORES.put("juanma", R.drawable.juanma);
+//        IMG_JUGADORES.put("meri", R.drawable.meri);
+//        IMG_JUGADORES.put("invitado", R.drawable.invitado);
     }
 
     public static int getColor(int i){

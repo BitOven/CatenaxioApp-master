@@ -35,13 +35,6 @@ public class MiParseador {
         return calendario;
     }
 
-    public static String parsearJugadoresPorTemporada(Context cntx){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(cntx);
-        String strTemporada = prefs.getString(cntx.getString(R.string.pref_temporada_key),cntx.getString(R.string.pref_temporada_default));
-        String[] temporada = strTemporada.split("-");
-        return temporada[0];
-    }
-
     /**
      *
      * @param cntx

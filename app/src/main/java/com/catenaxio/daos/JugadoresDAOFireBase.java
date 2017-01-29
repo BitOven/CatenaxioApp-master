@@ -1,6 +1,7 @@
 package com.catenaxio.daos;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
@@ -8,11 +9,14 @@ import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import com.catenaxio.R;
 import com.catenaxio.beans.Jornadas;
 import com.catenaxio.beans.Jugador;
 import com.catenaxio.beans.Jugadores;
 import com.catenaxio.interfaces.conexion.ConexionDB;
 import com.catenaxio.interfaces.daos.JugadoresDAOInterfaz;
+import com.catenaxio.interfaces.daos.JugadoresDAO_SQLiteInterfaz;
+import com.catenaxio.managers.ConnectionManager;
 import com.catenaxio.utils.ConexionFirebase;
 import com.catenaxio.utils.Constantes;
 import com.catenaxio.utils.MiParseador;
@@ -66,11 +70,11 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int i=0;
                 jugadores.resetJugadores();
-                jugadores.setTemporada( MiParseador.parsearJugadoresPorTemporada(appContext));
+                jugadores.setTemporada( MiParseador.parsearTemporadaAYear(appContext));
                 Jugador.setPartidosTotales(dataSnapshot.child(Constantes.FRBS_PARTIDOSTOTALES).getValue(Integer.class));
-
+                //TODO partidos totales cambiar arriba segun temporada
                 //y selecciono la temporada correspondiente (formato "Jugadores2016")
-                for(DataSnapshot jugador : dataSnapshot.child(Constantes.FRBS_JUGADORES + MiParseador.parsearJugadoresPorTemporada(appContext)).getChildren()){
+                for(DataSnapshot jugador : dataSnapshot.child(Constantes.FRBS_JUGADORES + MiParseador.parsearTemporadaAYear(appContext)).getChildren()){
                     Jugador contenedor = new Jugador();
                     contenedor.setNombre(jugador.child(Constantes.FRBS_NOMBREJUGADORES).getValue().toString());
                     contenedor.setGoles(jugador.child(Constantes.FRBS_GOLES).getValue(Integer.class));
@@ -87,9 +91,12 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
                 }
                 adapter.notifyDataSetChanged();
                 conn.desconectar();
-                //guardo en SQLite //TODO habilitar sql
-//                JugadoresDAO_SQLite guardarSQL = new JugadoresDAO_SQLite(appContext);
-//                guardarSQL.insertNewPlayers(jugadores);
+
+                JugadoresDAO_SQLiteInterfaz guardarSQL = ConnectionManager.getJugadoresDAO_SQLite(appContext);
+                if(!guardarSQL.updatePlayers(jugadores)){
+                    Log.d(this.getClass().getSimpleName(), "algo fue mal en el guardado sql");
+                }
+                guardarSQL.closeDB();
             }
 
             @Override
@@ -113,6 +120,7 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
         });
     }
 
+    //descarga y setea la imagen descargada
     private class MiSuccessListener implements OnSuccessListener{
 
         Jugador jug;
@@ -126,6 +134,7 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
         public void onSuccess(Object o) {
             byte[] bytes = (byte[])o;
             jug.setImagen(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+            ConnectionManager.getJugadoresDAO_SQLite(appContext).updateImagePlayer(jug, bytes);
             adapter.notifyDataSetChanged();
         }
     }

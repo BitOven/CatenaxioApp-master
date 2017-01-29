@@ -34,7 +34,7 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
     private ListView miLista;
     private Button botonGrafica;
     private double golesTotales=0.0;
-    //TODO evitar hardcodeo
+
     private String[] nombres={"AbelG","AbelD","Anton","Cano","Hugo","Jordan","Juan","Juanma","Meri","Invitado"};//FireBase
     public MiAdaptadorEstadistica adapter;
 
@@ -101,7 +101,6 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
     public void onClick(View view) {
 
         if(view==botonGrafica){//firebase
-    //TODO recorrer con bucle de forma dinamica el objeto jugadores
 
             Intent i =new Intent(this, QuesitoActivity.class);
             i.putExtra("AbelG",pctg_goles.get(0));
@@ -118,7 +117,7 @@ public class EstadisticasActivity extends Activity implements View.OnClickListen
 
         }
     }
-//TODO eliminar cuando se haga POO
+
     private void limpiarArrays(){
         if(!lista_partidos.isEmpty()){
             lista_partidos.clear();

@@ -22,9 +22,7 @@ public class SQLiteJugadores extends SQLiteOpenHelper {
         public static final String COLUMN_GOLES = "goles";
         public static final String COLUMN_IMAGEN = "imagen";
         public static final String COLUMN_IMAGERESOURCE = "imageresource";
-        public static final String COLUMN_TOTALGOLES = "golestotales";
-        public static final String COLUMN_TOTALPARTIDOS = "partidostotales";
-        public static final String COLUMN_PORCENTGOLES = "porcentajegoles";
+        public static final String COLUMN_PT = "partidostotales";
         public static final String COLUMN_TEMPORADA = "temporada";
     }
 
@@ -33,14 +31,15 @@ public class SQLiteJugadores extends SQLiteOpenHelper {
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INT_TYPE = " INTEGER";
-    private static final String REAL_TYPE = "REAL";
+    private static final String REAL_TYPE = " REAL";
     private static final String BLOB_TYPE = " BLOB";
     private static final String NULL_TYPE = " NULL";
-    private static final String COMMA_SEP = ",";
+    private static final String COMMA_SEP = ", ";
+    private static final String PRIMARY_KEY = " PRIMARY KEY";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + Columnas.TABLE_NAME + " (" +
-                    Columnas._ID + " INTEGER PRIMARY KEY," +
+                    Columnas._ID + INT_TYPE+ PRIMARY_KEY + COMMA_SEP+
                     Columnas.COLUMN_PLAYERNAME + TEXT_TYPE + COMMA_SEP +
                     Columnas.COLUMN_PJ + INT_TYPE + COMMA_SEP +
                     Columnas.COLUMN_PG + INT_TYPE+ COMMA_SEP +
@@ -48,9 +47,7 @@ public class SQLiteJugadores extends SQLiteOpenHelper {
                     Columnas.COLUMN_GOLES + INT_TYPE + COMMA_SEP +
                     Columnas.COLUMN_IMAGEN + BLOB_TYPE + COMMA_SEP+
                     Columnas.COLUMN_IMAGERESOURCE + INT_TYPE + COMMA_SEP+
-                    Columnas.COLUMN_TOTALGOLES + INT_TYPE + COMMA_SEP+
-                    Columnas.COLUMN_TOTALPARTIDOS + INT_TYPE + COMMA_SEP+
-                    Columnas.COLUMN_PORCENTGOLES + TEXT_TYPE + COMMA_SEP+
+                    Columnas.COLUMN_PT + INT_TYPE + COMMA_SEP +
                     Columnas.COLUMN_TEMPORADA + TEXT_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =

@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Antonio on 20/01/2017.
  * @author Antonio "BitOven" Merillas
  * You should treat this like a singleton class.
- * The Jugador.golesTotatales param and the Jugador.partidosTotales param are reset
+ * The Jugador.golesTotales param and the Jugador.partidosTotales param are reset
  * with each instance of this class
  */
 public class Jugadores implements Serializable{

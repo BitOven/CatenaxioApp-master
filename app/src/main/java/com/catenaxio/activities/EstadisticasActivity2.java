@@ -19,9 +19,16 @@ import com.catenaxio.R;
 import com.catenaxio.SettingsActivity;
 import com.catenaxio.adapters.MiAdaptadorEstadistica2;
 
+import com.catenaxio.beans.Jugador;
+import com.catenaxio.beans.JugadorQuesito;
 import com.catenaxio.beans.Jugadores;
 import com.catenaxio.daos.JugadoresDAOFireBase;
 import com.catenaxio.interfaces.daos.JugadoresDAOInterfaz;
+import com.catenaxio.managers.ConnectionManager;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -44,6 +51,7 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
         setContentView(R.layout.activity_estadisticas);
 
         jugadores = new Jugadores();
+        ConnectionManager.getJugadoresDAO_SQLite(this).getJugadores(jugadores);
 
         miLista=(ListView)findViewById(R.id.listView);
         adapter=new MiAdaptadorEstadistica2(this,jugadores);
@@ -56,7 +64,8 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        jugDAO=new JugadoresDAOFireBase(this,jugadores,adapter);
+        //TODO no cargar imagenes de internet si ya estan en sql (peor exp de usuario)
+        jugDAO= ConnectionManager.getJugadoresDAO(this,jugadores,adapter);
         jugDAO.downloadJugadores();
     }
 
@@ -82,15 +91,16 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-//TODO implementar dinamicamente el quesito
-        if(view==botonGrafica){//firebase
 
+        if(view==botonGrafica){
             Intent i = new Intent(this, QuesitoActivity2.class);
+            List<JugadorQuesito> jugadoresQuesito = new ArrayList<JugadorQuesito>();
+            for(Jugador jug : jugadores.getJugadores()){
+                JugadorQuesito jQuesito = new JugadorQuesito(jug.getNombre(),jug.getGoles(),jug.getPorcentajeGoles());
+                jugadoresQuesito.add(jQuesito);
+            }
+            i.putExtra("jugadores", (Serializable) jugadoresQuesito);
 
-            //impl dinamica
-            i.putExtra("jugadores", jugadores);
-            //fin impl dinamica
-            
             startActivity(i);
         }
     }
