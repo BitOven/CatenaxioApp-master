@@ -66,7 +66,7 @@ public class CalendarioActivity2 extends Activity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 if (!jornadas.getJornadas(position).getUrlCampo().equals(" ")) {
-                    Intent intent = createShareForecastIntent(jornadas.getJornadas(position).getUrlCampo());
+                    Intent intent = createShareForecastIntent(jornadas.getJornadas(position).getGMaps());
                     startActivity(intent);
                     return true;
                 }

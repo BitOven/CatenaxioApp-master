@@ -83,4 +83,9 @@ public class Jornada {
     public void setUrlCampo(String urlCampo) {
         this.urlCampo = urlCampo;
     }
+
+    public String getGMaps(){
+        String gMaps="Jugamos el "+fecha+" a las "+hora+" en "+lugar+" contra "+rival+". ByCapptenaxio "+urlCampo;
+        return gMaps;
+    }
 }

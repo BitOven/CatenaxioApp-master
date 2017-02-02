@@ -38,4 +38,5 @@ public class Jornadas {
     public int size(){
         return jornadas.size();
     }
+
 }
