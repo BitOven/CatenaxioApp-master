@@ -90,6 +90,7 @@ public class Constantes {
         IMG_JUGADORES.put("juanma", R.drawable.juanma);
         IMG_JUGADORES.put("meri", R.drawable.meri);
         IMG_JUGADORES.put("invitado", R.drawable.invitado);
+        IMG_JUGADORES.put("fer",R.drawable.fer);
     }
 
     public static int getColor(int i){

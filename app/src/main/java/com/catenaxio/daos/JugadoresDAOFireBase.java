@@ -54,7 +54,7 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
         conn = new ConexionFirebase();
         mDatabase = (DatabaseReference) conn.conectar();
         //entro en el nodo Estadisticas/Jugadores2016(o la temporada seleccionada)
-        mDatabase = mDatabase.child(Constantes.FRBS_ESTADISTICAS).child(Constantes.FRBS_JUGADORES + MiParseador.parsearTemporadaAYear(appContext));
+        mDatabase = mDatabase.child(Constantes.FRBS_JUGADORES).child(Constantes.FRBS_JUGADORES + MiParseador.parsearTemporadaAYear(appContext));
         descargarJugadores();
     }
 
