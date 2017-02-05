@@ -12,6 +12,7 @@ import com.catenaxio.beans.Jornadas;
 import com.catenaxio.interfaces.conexion.ConexionDB;
 import com.catenaxio.interfaces.daos.JornadasDAOInterfaz;
 import com.catenaxio.utils.ConexionFirebase;
+import com.catenaxio.utils.Constantes;
 import com.catenaxio.utils.MiParseador;
 import com.catenaxio.utils.Preferencias;
 import com.google.firebase.database.DataSnapshot;
@@ -45,10 +46,10 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
     }
 
     @Override
-    public void downloadJornadas(String temporada) {
+    public void downloadJornadas() {
         conn = new ConexionFirebase();
         mDatabase = (DatabaseReference)conn.conectar();
-        mDatabase = mDatabase.child(temporada);
+        mDatabase = mDatabase.child(Constantes.FRBS_CALENDARIO).child(Constantes.FRBS_CALENDARIO+MiParseador.parsearTemporadaAYear(appContext));
         descargarJornadas();//asincrono
     }
 
@@ -56,7 +57,6 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
     public void uploadJornadas(Jornadas jornadas) {
 
     }
-
     private void descargarJornadas(){
 
         mDatabase.addValueEventListener(new ValueEventListener() {//metodo asincrono
@@ -70,7 +70,7 @@ public class JornadasDAOFireBase implements JornadasDAOInterfaz {
                     contenedor.setRival(jornada.child("Rival").getValue().toString());
                     contenedor.setLugar(jornada.child("Lugar").getValue().toString());
                     //parseamos la fecha
-                    String fechaYhora[]  = MiParseador.parsearFechaYHora(jornada.child("Hora").getValue().toString());
+                    String fechaYhora[] = MiParseador.parsearFechaYHora(jornada.child("Hora").getValue().toString());
                     contenedor.setFecha(fechaYhora[0]);
                     contenedor.setHora(fechaYhora[1]);
                     contenedor.setResultado(jornada.child("KeyResultado").getValue().toString());

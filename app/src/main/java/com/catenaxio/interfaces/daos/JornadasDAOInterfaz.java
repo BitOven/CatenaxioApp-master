@@ -8,12 +8,7 @@ import com.catenaxio.beans.Jornadas;
 
 public interface JornadasDAOInterfaz {
 
-    /**
-     *
-     * @param temporada
-     * @return null si no descargó nada
-     */
-    public void downloadJornadas(String temporada);
+    public void downloadJornadas();
 
     public void uploadJornadas(Jornadas jornadas);
 }

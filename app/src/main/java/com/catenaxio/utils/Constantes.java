@@ -49,7 +49,9 @@ public class Constantes {
     public static final String FRBS_NOMBREJUGADORES = "Nombre";
     public static final String FRBS_PARTIDOSGANADOS = "PG";
     public static final String FRBS_PARTIDOSJUGADOS = "PJ";
-    public static final String FRBS_PARTIDOSTOTALES = "PJ";
+    public static final String FRBS_PARTIDOSTOTALES = "PJ";//Está como PJ en el servidor, en distinto nivel de objeto
+
+    public static final String FRBS_CALENDARIO = "Calendario";
 
     //storage firebase
     public static final String FRBS_CLASIFICACION = "clasificacion";
@@ -78,16 +80,16 @@ public class Constantes {
     };
 
     static{
-//        IMG_JUGADORES.put("abel", R.drawable.abel);
-//        IMG_JUGADORES.put("dorado", R.drawable.dorado);
-//        IMG_JUGADORES.put("anton", R.drawable.anton);
-//        IMG_JUGADORES.put("hector", R.drawable.hector);
-//        IMG_JUGADORES.put("hugo", R.drawable.hugo);
-//        IMG_JUGADORES.put("jordan", R.drawable.jordan);
-//        IMG_JUGADORES.put("juanito", R.drawable.juanito);
-//        IMG_JUGADORES.put("juanma", R.drawable.juanma);
-//        IMG_JUGADORES.put("meri", R.drawable.meri);
-//        IMG_JUGADORES.put("invitado", R.drawable.invitado);
+        IMG_JUGADORES.put("abel", R.drawable.abel);
+        IMG_JUGADORES.put("dorado", R.drawable.dorado);
+        IMG_JUGADORES.put("anton", R.drawable.anton);
+        IMG_JUGADORES.put("hector", R.drawable.hector);
+        IMG_JUGADORES.put("hugo", R.drawable.hugo);
+        IMG_JUGADORES.put("jordan", R.drawable.jordan);
+        IMG_JUGADORES.put("juanito", R.drawable.juanito);
+        IMG_JUGADORES.put("juanma", R.drawable.juanma);
+        IMG_JUGADORES.put("meri", R.drawable.meri);
+        IMG_JUGADORES.put("invitado", R.drawable.invitado);
     }
 
     public static int getColor(int i){

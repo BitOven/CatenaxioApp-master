@@ -31,7 +31,7 @@ public class MiParseador {
      */
     public static String parsearCalendarioElegido(String strTemporada){
         String[] calendarioArr = strTemporada.split("-");
-        String calendario = "Calendario"+calendarioArr[0];
+        String calendario = Constantes.FRBS_CALENDARIO+calendarioArr[0];
         return calendario;
     }
 

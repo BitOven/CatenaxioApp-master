@@ -80,7 +80,7 @@ public class CalendarioActivity2 extends Activity {
         super.onResume();
         Preferencias.cargarPreferenciasCalendario(this, jornadas);
         adapter.notifyDataSetChanged();
-        jorDAO.downloadJornadas(getCalendarioByTemporada());
+        jorDAO.downloadJornadas();
     }
 
     @Override
@@ -101,17 +101,6 @@ public class CalendarioActivity2 extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * La temporada debe tener el formato "2015-16"
-     * El calendario asociado de firebase debe llamarse "Calendario2015"
-     * @return el string del calendario correspondiente
-     */
-    private String getCalendarioByTemporada(){
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String calendarioElegido=MiParseador.parsearCalendarioElegido(prefs.getString(getString(R.string.pref_temporada_key),getString(R.string.pref_temporada_default)));
-        return calendarioElegido;
     }
 
     private Intent createShareForecastIntent(String enlaceGMaps){

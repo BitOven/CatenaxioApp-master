@@ -61,7 +61,7 @@ public class MiAdaptadorEstadistica2 extends BaseAdapter {
 
         //porcentaje goles
         TextView textViewPorcentajeGoles=(TextView)statsView.findViewById(R.id.porcentaje_goles);
-        textViewPorcentajeGoles.setText(""+jugadores.getJugadores(position).getPorcentajeGoles());
+        textViewPorcentajeGoles.setText(jugadores.getJugadores(position).getPorcentajeGoles());
 
         //lista jornada FIREBASE
         ImageView imagenJugador=(ImageView)statsView.findViewById(R.id.imagenJugadorEstadistica);

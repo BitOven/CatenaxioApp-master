@@ -53,8 +53,8 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
     public void downloadJugadores() {
         conn = new ConexionFirebase();
         mDatabase = (DatabaseReference) conn.conectar();
-        //entro en el nodo estadisticas
-        mDatabase = mDatabase.child(Constantes.FRBS_ESTADISTICAS);
+        //entro en el nodo Estadisticas/Jugadores2016(o la temporada seleccionada)
+        mDatabase = mDatabase.child(Constantes.FRBS_ESTADISTICAS).child(Constantes.FRBS_JUGADORES + MiParseador.parsearTemporadaAYear(appContext));
         descargarJugadores();
     }
 
@@ -72,9 +72,8 @@ public class JugadoresDAOFireBase implements JugadoresDAOInterfaz {
                 jugadores.resetJugadores();
                 jugadores.setTemporada( MiParseador.parsearTemporadaAYear(appContext));
                 Jugador.setPartidosTotales(dataSnapshot.child(Constantes.FRBS_PARTIDOSTOTALES).getValue(Integer.class));
-                //TODO partidos totales cambiar arriba segun temporada
-                //y selecciono la temporada correspondiente (formato "Jugadores2016")
-                for(DataSnapshot jugador : dataSnapshot.child(Constantes.FRBS_JUGADORES + MiParseador.parsearTemporadaAYear(appContext)).getChildren()){
+
+                for(DataSnapshot jugador : dataSnapshot.child(Constantes.FRBS_JUGADORES).getChildren()){
                     Jugador contenedor = new Jugador();
                     contenedor.setNombre(jugador.child(Constantes.FRBS_NOMBREJUGADORES).getValue().toString());
                     contenedor.setGoles(jugador.child(Constantes.FRBS_GOLES).getValue(Integer.class));
