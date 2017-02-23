@@ -38,11 +38,11 @@ public class MyActivity extends Activity implements View.OnClickListener{
 
     int id=1;
 
-    NotificationManager mNotifyManager = null;
-    NotificationCompat.Builder mBuilder = null;
-    Intent intent = null;
-    PendingIntent pIntent = null;
-    String urlPDF=null;
+    NotificationManager mNotifyManager;
+    NotificationCompat.Builder mBuilder;
+    Intent intent;
+    PendingIntent pIntent;
+    String urlPDF;
 
     //firebase
     private DatabaseReference mDatabase;

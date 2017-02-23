@@ -5,9 +5,11 @@ import android.widget.BaseAdapter;
 
 import com.catenaxio.beans.Jornadas;
 import com.catenaxio.beans.Jugadores;
+import com.catenaxio.daos.ClasificacionDAO_SQLite;
 import com.catenaxio.daos.JornadasDAOFireBase;
 import com.catenaxio.daos.JugadoresDAOFireBase;
 import com.catenaxio.daos.JugadoresDAO_SQLite;
+import com.catenaxio.interfaces.daos.ClasificacionDAO_SQLiteInterfaz;
 import com.catenaxio.interfaces.daos.JornadasDAOInterfaz;
 import com.catenaxio.interfaces.daos.JugadoresDAOInterfaz;
 import com.catenaxio.interfaces.daos.JugadoresDAO_SQLiteInterfaz;
@@ -21,6 +23,7 @@ public class ConnectionManager {
     private static JugadoresDAOInterfaz jugadoresDAOfb;
     private static JornadasDAOFireBase jornadasDAO;
     private static JugadoresDAO_SQLite jugadoresDAO_sqLite;
+    private static ClasificacionDAO_SQLite clasificacionDAO_sqLite;
 
     public static JugadoresDAOInterfaz getJugadoresDAO(Context cnt, Jugadores jugadores, BaseAdapter adapter){
 
@@ -41,5 +44,12 @@ public class ConnectionManager {
         jugadoresDAO_sqLite= new JugadoresDAO_SQLite(cnt);
 
         return jugadoresDAO_sqLite;
+    }
+
+    public static ClasificacionDAO_SQLiteInterfaz getClasificacionDAO_SQLite(Context cnt){
+
+        clasificacionDAO_sqLite= new ClasificacionDAO_SQLite(cnt);
+
+        return clasificacionDAO_sqLite;
     }
 }

@@ -91,9 +91,11 @@ public class ClasificacionActivity extends Activity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                //TODO cargar imagen offline
                 Toast.makeText(getApplicationContext(), "¡Tenemos el servidor colapsado!", Toast.LENGTH_LONG).show();
             }
         });
     }
     //TODO Añadir botón flotante para descargar pdf sólo si se desea
 }
+//TODO hacer todo esto en una nueva clase ClasificacionActivity2

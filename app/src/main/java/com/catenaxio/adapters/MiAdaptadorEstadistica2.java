@@ -67,10 +67,11 @@ public class MiAdaptadorEstadistica2 extends BaseAdapter {
         ImageView imagenJugador=(ImageView)statsView.findViewById(R.id.imagenJugadorEstadistica);
         if(jugadores.getJugadores(position).getImageResource()!=0){
             imagenJugador.setImageResource(jugadores.getJugadores(position).getImageResource());
-        }else{
+        }else if(jugadores.getJugadores(position).getImagen()!=null){
             imagenJugador.setImageBitmap(jugadores.getJugadores(position).getImagen());
+        }else{
+            imagenJugador.setImageResource(R.drawable.invitado);
         }
-
         return statsView;
     }
 

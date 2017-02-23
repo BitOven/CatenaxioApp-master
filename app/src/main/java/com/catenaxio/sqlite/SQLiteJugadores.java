@@ -3,8 +3,9 @@ package com.catenaxio.sqlite;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
 import android.provider.BaseColumns;
+
+import com.catenaxio.utils.Constantes;
 
 /**
  * Created by Antonio on 26/01/2017.
@@ -13,48 +14,24 @@ import android.provider.BaseColumns;
 public class SQLiteJugadores extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
 
-    public static class Columnas implements BaseColumns {
-        public static final String TABLE_NAME = "jugadores";
-        public static final String COLUMN_PLAYERNAME = "nombre";
-        public static final String COLUMN_PJ = "partidosjugados";
-        public static final String COLUMN_PG = "partidosganados";
-        public static final String COLUMN_ASISTENCIAS = "asistencias";
-        public static final String COLUMN_GOLES = "goles";
-        public static final String COLUMN_IMAGEN = "imagen";
-        public static final String COLUMN_IMAGERESOURCE = "imageresource";
-        public static final String COLUMN_PT = "partidostotales";
-        public static final String COLUMN_TEMPORADA = "temporada";
-    }
-
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Catenaxio.db";
-
-    private static final String TEXT_TYPE = " TEXT";
-    private static final String INT_TYPE = " INTEGER";
-    private static final String REAL_TYPE = " REAL";
-    private static final String BLOB_TYPE = " BLOB";
-    private static final String NULL_TYPE = " NULL";
-    private static final String COMMA_SEP = ", ";
-    private static final String PRIMARY_KEY = " PRIMARY KEY";
-
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + Columnas.TABLE_NAME + " (" +
-                    Columnas._ID + INT_TYPE+ PRIMARY_KEY + COMMA_SEP+
-                    Columnas.COLUMN_PLAYERNAME + TEXT_TYPE + COMMA_SEP +
-                    Columnas.COLUMN_PJ + INT_TYPE + COMMA_SEP +
-                    Columnas.COLUMN_PG + INT_TYPE+ COMMA_SEP +
-                    Columnas.COLUMN_ASISTENCIAS + INT_TYPE + COMMA_SEP +
-                    Columnas.COLUMN_GOLES + INT_TYPE + COMMA_SEP +
-                    Columnas.COLUMN_IMAGEN + BLOB_TYPE + COMMA_SEP+
-                    Columnas.COLUMN_IMAGERESOURCE + INT_TYPE + COMMA_SEP+
-                    Columnas.COLUMN_PT + INT_TYPE + COMMA_SEP +
-                    Columnas.COLUMN_TEMPORADA + TEXT_TYPE +" )";
+            "CREATE TABLE " + Constantes.ColumnasJugadores.TABLE_NAME + " (" +
+                    Constantes.ColumnasJugadores._ID + Constantes.SqliteGlobales.INT_TYPE+ Constantes.SqliteGlobales.PRIMARY_KEY + Constantes.SqliteGlobales.COMMA_SEP+
+                    Constantes.ColumnasJugadores.COLUMN_PLAYERNAME + Constantes.SqliteGlobales.TEXT_TYPE + Constantes.SqliteGlobales.COMMA_SEP +
+                    Constantes.ColumnasJugadores.COLUMN_PJ + Constantes.SqliteGlobales.INT_TYPE + Constantes.SqliteGlobales.COMMA_SEP +
+                    Constantes.ColumnasJugadores.COLUMN_PG + Constantes.SqliteGlobales.INT_TYPE+ Constantes.SqliteGlobales.COMMA_SEP +
+                    Constantes.ColumnasJugadores.COLUMN_ASISTENCIAS + Constantes.SqliteGlobales.INT_TYPE + Constantes.SqliteGlobales.COMMA_SEP +
+                    Constantes.ColumnasJugadores.COLUMN_GOLES + Constantes.SqliteGlobales.INT_TYPE + Constantes.SqliteGlobales.COMMA_SEP +
+                    Constantes.ColumnasJugadores.COLUMN_IMAGEN + Constantes.SqliteGlobales.BLOB_TYPE + Constantes.SqliteGlobales.COMMA_SEP+
+                    Constantes.ColumnasJugadores.COLUMN_IMAGERESOURCE + Constantes.SqliteGlobales.INT_TYPE + Constantes.SqliteGlobales.COMMA_SEP+
+                    Constantes.ColumnasJugadores.COLUMN_PT + Constantes.SqliteGlobales.INT_TYPE + Constantes.SqliteGlobales.COMMA_SEP +
+                    Constantes.ColumnasJugadores.COLUMN_TEMPORADA + Constantes.SqliteGlobales.TEXT_TYPE +" )";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + Columnas.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + Constantes.ColumnasJugadores.TABLE_NAME;
 
     public SQLiteJugadores(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, Constantes.DATABASE_NAME, null, Constantes.DATABASE_VERSION);
     }
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
@@ -65,6 +42,8 @@ public class SQLiteJugadores extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
+
+    @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         onUpgrade(db, oldVersion, newVersion);
     }

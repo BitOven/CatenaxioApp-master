@@ -66,16 +66,6 @@
             android:label="@string/title_activity_clasificacion"
             android:screenOrientation="portrait" >
         </activity>
-        <activity
-            android:name=".TablLiga"
-            android:label="Liga"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".ResultadosActivity"
-            android:label="@string/title_activity_resultados"
-            android:screenOrientation="portrait" >
-        </activity>
 
         <service
             android:name=".MyAlarmService"
@@ -83,21 +73,6 @@
 
         <receiver android:name=".Receiver" />
 
-        <activity
-            android:name=".ResultadosGanados"
-            android:label="Partidos Ganados"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".ResultadosPerdidos"
-            android:label="Partidos Perdidos"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".ResultadosEmpatados"
-            android:label="Partidos Empatados"
-            android:screenOrientation="portrait" >
-        </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"

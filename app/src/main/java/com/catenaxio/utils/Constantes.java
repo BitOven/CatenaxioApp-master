@@ -1,6 +1,7 @@
 package com.catenaxio.utils;
 
 import android.graphics.Color;
+import android.provider.BaseColumns;
 
 import com.catenaxio.R;
 
@@ -42,7 +43,6 @@ public class Constantes {
     public static final String PREF_RESULTADO = "resultadoPref";
 
     //firebase
-    public static final String FRBS_ESTADISTICAS = "Estadisticas";
     public static final String FRBS_JUGADORES = "Jugadores";
     public static final String FRBS_ASISTENCIAS = "Asistencias";
     public static final String FRBS_GOLES = "Goles";
@@ -59,6 +59,43 @@ public class Constantes {
     public static final String JPG_EXTENSION = ".jpg";
     public static final String JUGADORES_STORAGE = "jugadores";
 
+    public static class ColumnasClasificacion implements BaseColumns {
+        public static final String TABLE_NAME = "clasificacion";
+        public static final String COLUMN_IMAGENCLASIF = "imagen";
+        public static final String COLUMN_TEMPORADA = "temporada";
+    }
+
+    public static class ColumnasJugadores implements BaseColumns {
+        public static final String TABLE_NAME = "jugadores";
+        public static final String COLUMN_PLAYERNAME = "nombre";
+        public static final String COLUMN_PJ = "partidosjugados";
+        public static final String COLUMN_PG = "partidosganados";
+        public static final String COLUMN_ASISTENCIAS = "asistencias";
+        public static final String COLUMN_GOLES = "goles";
+        public static final String COLUMN_IMAGEN = "imagen";
+        public static final String COLUMN_IMAGERESOURCE = "imageresource";
+        public static final String COLUMN_PT = "partidostotales";
+        public static final String COLUMN_TEMPORADA = "temporada";
+    }
+
+    //constantes sqlite globales
+
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "Catenaxio.db";
+
+    public static class SqliteGlobales {
+
+        public static final String TEXT_TYPE = " TEXT";
+        public static final String INT_TYPE = " INTEGER";
+        public static final String REAL_TYPE = " REAL";
+        public static final String BLOB_TYPE = " BLOB";
+        public static final String NULL_TYPE = " NULL";
+        public static final String COMMA_SEP = ", ";
+        public static final String PRIMARY_KEY = " PRIMARY KEY";
+    }
+
+
+
     public static final Map<String, Integer> IMG_JUGADORES= new HashMap<String, Integer>();
 
     private static final int [] colores = {
@@ -72,11 +109,11 @@ public class Constantes {
             Color.MAGENTA,
             Color.YELLOW,
             Color.RED,
-            R.color.darkdarkblue,
-            R.color.darkpurple,
-            R.color.gray,
-            R.color.white,
-            R.color.black,
+            Color.GRAY,
+            Color.WHITE,
+            Color.BLACK,
+            Color.argb(255, 50, 150, 100),
+            Color.argb(255, 150, 50, 100),
     };
 
     static{
