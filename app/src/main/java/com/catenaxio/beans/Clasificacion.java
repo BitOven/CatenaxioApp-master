@@ -1,6 +1,7 @@
 package com.catenaxio.beans;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 /**
  * Created by Antonio on 22/02/2017.
@@ -8,15 +9,23 @@ import android.graphics.Bitmap;
 
 public class Clasificacion {
 
-    private Bitmap imagen;
     private String temporada;
+    private byte[] bytesArray;
 
-    public Bitmap getImagen() {
-        return imagen;
+    public byte[] getBlob() {
+        return bytesArray;
     }
 
-    public void setImagen(Bitmap imagen) {
-        this.imagen = imagen;
+    public Bitmap getImagen() {
+        if(bytesArray!=null){
+            return BitmapFactory.decodeByteArray(bytesArray, 0, bytesArray.length);
+        }else{
+            return null;
+        }
+    }
+
+    public void setImagen(byte[] bytesArray) {
+        this.bytesArray = bytesArray;
     }
 
     public String getTemporada() {

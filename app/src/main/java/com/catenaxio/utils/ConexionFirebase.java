@@ -10,25 +10,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ConexionFirebase implements ConexionDB{
 
-    //firebase
-    private DatabaseReference mDatabase;
-
     @Override
     public Object conectar() {
-        return mDatabase = FirebaseDatabase.getInstance().getReference();
+        return FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
     public void desconectar() {
 
-    }
-
-    public DatabaseReference getmDatabase() {
-        return mDatabase;
-    }
-
-    public void setmDatabase(DatabaseReference mDatabase) {
-        this.mDatabase = mDatabase;
     }
 
 }

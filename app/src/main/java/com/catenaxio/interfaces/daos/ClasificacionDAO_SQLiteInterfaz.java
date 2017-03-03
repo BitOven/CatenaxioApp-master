@@ -12,9 +12,9 @@ public interface ClasificacionDAO_SQLiteInterfaz {
 
     long updateClasificacion(Clasificacion clasificacion);
 
-    long updateClasificacion(String temporada);
+    Bitmap getClasificacion();
 
-    Bitmap getClasificación();
+    Bitmap getClasificacionTemporada(String temp);
 
-    Bitmap getClasificacionTemporada();
+    void closeDB();
 }

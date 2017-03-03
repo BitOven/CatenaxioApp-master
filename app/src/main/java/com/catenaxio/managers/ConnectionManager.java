@@ -13,6 +13,7 @@ import com.catenaxio.interfaces.daos.ClasificacionDAO_SQLiteInterfaz;
 import com.catenaxio.interfaces.daos.JornadasDAOInterfaz;
 import com.catenaxio.interfaces.daos.JugadoresDAOInterfaz;
 import com.catenaxio.interfaces.daos.JugadoresDAO_SQLiteInterfaz;
+import com.catenaxio.utils.ConexionFirebase;
 
 /**
  * Created by Antonio on 29/01/2017.
@@ -20,36 +21,36 @@ import com.catenaxio.interfaces.daos.JugadoresDAO_SQLiteInterfaz;
 
 public class ConnectionManager {
 
-    private static JugadoresDAOInterfaz jugadoresDAOfb;
-    private static JornadasDAOFireBase jornadasDAO;
-    private static JugadoresDAO_SQLite jugadoresDAO_sqLite;
-    private static ClasificacionDAO_SQLite clasificacionDAO_sqLite;
+    /**
+     *
+     * @return objeto de tipo ConexionFirebase, cuyo metodo conectar devuelve un objeto de tipo DatabaseReference
+     */
+    public static ConexionFirebase getConexionFirebase() {
+
+        return new ConexionFirebase();
+    }
 
     public static JugadoresDAOInterfaz getJugadoresDAO(Context cnt, Jugadores jugadores, BaseAdapter adapter){
 
-        jugadoresDAOfb =new JugadoresDAOFireBase(cnt, jugadores, adapter);
+        return new JugadoresDAOFireBase(cnt, jugadores, adapter);
 
-        return jugadoresDAOfb;
     }
 
     public static JornadasDAOInterfaz getJornadasDAO(Context cnt, Jornadas jornadas, BaseAdapter adapter){
 
-        jornadasDAO=new JornadasDAOFireBase(cnt, jornadas, adapter);
+        return new JornadasDAOFireBase(cnt, jornadas, adapter);
 
-        return jornadasDAO;
     }
 
     public static JugadoresDAO_SQLiteInterfaz getJugadoresDAO_SQLite(Context cnt){
 
-        jugadoresDAO_sqLite= new JugadoresDAO_SQLite(cnt);
+        return new JugadoresDAO_SQLite(cnt);
 
-        return jugadoresDAO_sqLite;
     }
 
     public static ClasificacionDAO_SQLiteInterfaz getClasificacionDAO_SQLite(Context cnt){
 
-        clasificacionDAO_sqLite= new ClasificacionDAO_SQLite(cnt);
+        return new ClasificacionDAO_SQLite(cnt);
 
-        return clasificacionDAO_sqLite;
     }
 }

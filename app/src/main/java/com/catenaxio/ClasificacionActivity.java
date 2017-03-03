@@ -98,4 +98,4 @@ public class ClasificacionActivity extends Activity {
     }
     //TODO Añadir botón flotante para descargar pdf sólo si se desea
 }
-//TODO hacer todo esto en una nueva clase ClasificacionActivity2
+//TODO hacer todo esto en una nueva clase ClasificacionActivity2, usando los DAOs ya creados para este fin
