@@ -10,7 +10,7 @@ import android.graphics.BitmapFactory;
 
 import com.catenaxio.beans.Clasificacion;
 import com.catenaxio.interfaces.daos.ClasificacionDAO_SQLiteInterfaz;
-import com.catenaxio.sqlite.SQLiteClasificacion;
+import com.catenaxio.sqlite.SQLiteCatenaxio;
 import com.catenaxio.utils.Constantes;
 import com.catenaxio.utils.MiParseador;
 
@@ -26,7 +26,7 @@ public class ClasificacionDAO_SQLite implements ClasificacionDAO_SQLiteInterfaz 
 
     public ClasificacionDAO_SQLite(Context context) {
         this.context = context;
-        this.sqlClasificacion = new SQLiteClasificacion(context);
+        this.sqlClasificacion = new SQLiteCatenaxio(context);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ClasificacionDAO_SQLite implements ClasificacionDAO_SQLiteInterfaz 
 
         int resultadoSQL = db.update(Constantes.ColumnasClasificacion.TABLE_NAME, clasif, whereclause, selectionArgs);
         if(resultadoSQL==0){
-            return db.insert(Constantes.ColumnasJugadores.TABLE_NAME, null, clasif);
+            return db.insert(Constantes.ColumnasClasificacion.TABLE_NAME, null, clasif);
         }else{
             return resultadoSQL;
         }
@@ -58,9 +58,11 @@ public class ClasificacionDAO_SQLite implements ClasificacionDAO_SQLiteInterfaz 
 
         Cursor c = db.query(Constantes.ColumnasClasificacion.TABLE_NAME, null, selection, selectionArgs, null, null, null);
 
-                if(c.moveToNext()){
+        if(c.moveToNext()){
             byte[] byteArray = c.getBlob(c.getColumnIndex(Constantes.ColumnasClasificacion.COLUMN_IMAGENCLASIF));
-            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            if(byteArray!=null){
+                return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            }
         }
 
         return null;

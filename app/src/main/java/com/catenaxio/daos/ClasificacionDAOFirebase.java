@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 import com.catenaxio.beans.Clasificacion;
 import com.catenaxio.interfaces.conexion.ConexionDB;
@@ -13,7 +14,6 @@ import com.catenaxio.managers.ConnectionManager;
 import com.catenaxio.utils.Constantes;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -24,10 +24,14 @@ import com.google.firebase.storage.StorageReference;
 public class ClasificacionDAOFirebase implements ClasificacionDAOInterfaz {
 
     private Clasificacion clasificacion;
+    private ImageView imageView;
+    private Context cnt;
 
-    public ClasificacionDAOFirebase( Clasificacion clasificacion) {
+    public ClasificacionDAOFirebase(ImageView imageView, Clasificacion clasificacion, Context context) {
 
-        this.clasificacion = clasificacion;
+        this.imageView= imageView;
+        this.clasificacion= clasificacion;
+        this.cnt=context;
 
     }
 
@@ -39,30 +43,21 @@ public class ClasificacionDAOFirebase implements ClasificacionDAOInterfaz {
     private void descargarImagen(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference stRef = storage.getReference().child(Constantes.FRBS_CLASIFICACION)
-                .child(Constantes.FRBS_CLASIFICACION.toLowerCase()+clasificacion.getTemporada().toLowerCase()+Constantes.PNG_EXTENSION);
+                .child(Constantes.FRBS_CLASIFICACION+clasificacion.getTemporada()+Constantes.PNG_EXTENSION);
         final long ONE_MEGABYTE = 1024 * 1024;
-        stRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new MiSuccessListener(clasificacion)).addOnFailureListener(new OnFailureListener() {
+        stRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                imageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0,bytes.length));
+                clasificacion.setImagen(bytes);
+                ConnectionManager.getClasificacionDAO_SQLite(cnt).updateClasificacion(clasificacion);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(this.getClass().getSimpleName(),e.getLocalizedMessage());
             }
         });
-    }
-
-    //descarga y setea la imagen descargada
-    private class MiSuccessListener implements OnSuccessListener {
-
-        Clasificacion clasif;
-
-        public MiSuccessListener(Clasificacion clasificacion){
-            super();
-            clasif=clasificacion;
-        }
-
-        @Override
-        public void onSuccess(Object o) {
-            clasif.setImagen((byte[])o);
-        }
     }
 
 }

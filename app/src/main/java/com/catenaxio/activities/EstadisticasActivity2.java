@@ -51,7 +51,7 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
         setContentView(R.layout.activity_estadisticas);
 
         jugadores = new Jugadores();
-        ConnectionManager.getJugadoresDAO_SQLite(this).getJugadores(jugadores);
+        ConnectionManager.getJugadoresDAO_SQLite(this).getJugadores(jugadores);//actualiza jugadores desde sql
 
         miLista=(ListView)findViewById(R.id.listView);
         adapter=new MiAdaptadorEstadistica2(this,jugadores);
@@ -66,7 +66,7 @@ public class EstadisticasActivity2 extends Activity implements View.OnClickListe
         super.onStart();
         //TODO no cargar imagenes de internet si ya estan en sql (peor exp de usuario)
         jugDAO= ConnectionManager.getJugadoresDAO(this,jugadores,adapter);
-        jugDAO.downloadJugadores();
+        jugDAO.downloadJugadores();//actualiza los jugadores desde firebase
     }
 
     @Override

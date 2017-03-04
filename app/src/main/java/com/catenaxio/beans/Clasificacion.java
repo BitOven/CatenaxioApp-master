@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 public class Clasificacion {
 
     private String temporada;
+    private Bitmap bitmap;
     private byte[] bytesArray;
 
     public byte[] getBlob() {
@@ -17,15 +18,16 @@ public class Clasificacion {
     }
 
     public Bitmap getImagen() {
-        if(bytesArray!=null){
-            return BitmapFactory.decodeByteArray(bytesArray, 0, bytesArray.length);
-        }else{
-            return null;
-        }
+        return bitmap;
     }
 
     public void setImagen(byte[] bytesArray) {
         this.bytesArray = bytesArray;
+        this.bitmap= BitmapFactory.decodeByteArray(bytesArray, 0, bytesArray.length);
+    }
+
+    public void setImagen(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 
     public String getTemporada() {

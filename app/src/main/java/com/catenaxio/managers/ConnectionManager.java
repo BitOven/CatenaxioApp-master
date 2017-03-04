@@ -2,13 +2,17 @@ package com.catenaxio.managers;
 
 import android.content.Context;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
+import com.catenaxio.beans.Clasificacion;
 import com.catenaxio.beans.Jornadas;
 import com.catenaxio.beans.Jugadores;
+import com.catenaxio.daos.ClasificacionDAOFirebase;
 import com.catenaxio.daos.ClasificacionDAO_SQLite;
 import com.catenaxio.daos.JornadasDAOFireBase;
 import com.catenaxio.daos.JugadoresDAOFireBase;
 import com.catenaxio.daos.JugadoresDAO_SQLite;
+import com.catenaxio.interfaces.daos.ClasificacionDAOInterfaz;
 import com.catenaxio.interfaces.daos.ClasificacionDAO_SQLiteInterfaz;
 import com.catenaxio.interfaces.daos.JornadasDAOInterfaz;
 import com.catenaxio.interfaces.daos.JugadoresDAOInterfaz;
@@ -52,5 +56,17 @@ public class ConnectionManager {
 
         return new ClasificacionDAO_SQLite(cnt);
 
+    }
+
+    /**
+     * Metodo que devuelve un ClasificacionDAOInterfaz
+     * @param imageView
+     * @param clasificacion
+     * @param cnt
+     * @return
+     */
+    public static ClasificacionDAOInterfaz getClasificacionDAOFirebase(ImageView imageView, Clasificacion clasificacion, Context cnt){
+
+        return new ClasificacionDAOFirebase(imageView, clasificacion, cnt);
     }
 }

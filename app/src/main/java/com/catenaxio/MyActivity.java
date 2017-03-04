@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.catenaxio.activities.CalendarioActivity2;
+import com.catenaxio.activities.ClasificacionActivity2;
 import com.catenaxio.activities.EstadisticasActivity2;
 import com.catenaxio.utils.DownloadFile;
 import com.catenaxio.utils.PDFDownloader;
@@ -36,23 +37,20 @@ public class MyActivity extends Activity implements View.OnClickListener{
 
     Button botonCalendario,botonEstadistica,botonX,botonConvocatoria;
 
-    int id=1;
-
-    NotificationManager mNotifyManager;
-    NotificationCompat.Builder mBuilder;
-    Intent intent;
-    PendingIntent pIntent;
-    String urlPDF;
-
-    //firebase
-    private DatabaseReference mDatabase;
-    boolean ready;
-
+//    int id=1;
+//
+//    NotificationManager mNotifyManager;
+//    NotificationCompat.Builder mBuilder;
+//    Intent intent;
+//    PendingIntent pIntent;
+//    String urlPDF;
+//
+//    firebase
+//    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_my);
-            ready=false;
             botonCalendario = (Button) findViewById(R.id.botonCalendario);
             botonConvocatoria = (Button) findViewById(R.id.BotonConvocatoria);
             botonEstadistica = (Button) findViewById(R.id.botonEstadisticas);
@@ -68,7 +66,7 @@ public class MyActivity extends Activity implements View.OnClickListener{
             Intent lanzarAct = new Intent(this,ListProfiles.class);
             startActivity(lanzarAct);
         }
-        cargarFirebase();
+//        cargarFirebase();
     }
 
     @Override
@@ -106,39 +104,41 @@ public class MyActivity extends Activity implements View.OnClickListener{
             startActivity(lanzarActividad);
         }
         else if(view==botonX){
-            if(ready){
-                mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                mBuilder = new NotificationCompat.Builder(this);
-
-                mBuilder.setContentTitle("Descarga de Clasificación")
-                        .setContentText("Descarga en progreso")
-                        .setSmallIcon(R.drawable.ic_file_download_black_24dp);
-
-                String fileName= "clasificacion.pdf";
-                new DownloadFile(id, mNotifyManager, mBuilder, intent, pIntent, this).execute(urlPDF, fileName);
-                Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity.class);
-                startActivity(lanzarActividad);
-            }else{
-                Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity.class);
-                startActivity(lanzarActividad);
-            }
+            Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity2.class);
+            startActivity(lanzarActividad);
+//            if(ready){
+//                mNotifyManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//                mBuilder = new NotificationCompat.Builder(this);
+//
+//                mBuilder.setContentTitle("Descarga de Clasificación")
+//                        .setContentText("Descarga en progreso")
+//                        .setSmallIcon(R.drawable.ic_file_download_black_24dp);
+//
+//                String fileName= "clasificacion.pdf";
+//                new DownloadFile(id, mNotifyManager, mBuilder, intent, pIntent, this).execute(urlPDF, fileName);
+//                Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity2.class);
+//                startActivity(lanzarActividad);
+//            }else{
+//                Intent lanzarActividad=new Intent(getApplicationContext(),ClasificacionActivity2.class);
+//                startActivity(lanzarActividad);
+//            }
         }
     }
 
-    private void cargarFirebase(){
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Clasificacion");
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                urlPDF = dataSnapshot.getValue().toString();
-                ready=true;
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-               ready=false;
-            }
-        });
-    }
+//    private void cargarFirebase(){
+//        mDatabase = FirebaseDatabase.getInstance().getReference().child("Clasificacion");
+//
+//        mDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                urlPDF = dataSnapshot.getValue().toString();
+//                ready=true;
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//               ready=false;
+//            }
+//        });
+//    }
 }

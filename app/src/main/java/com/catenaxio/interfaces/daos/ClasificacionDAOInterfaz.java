@@ -7,7 +7,7 @@ package com.catenaxio.interfaces.daos;
 public interface ClasificacionDAOInterfaz {
 
     /**
-     *
+     *  Metodo que actualiza un ImageView, y lo guarda en sql
      */
     public void downloadClasificacion();
 }

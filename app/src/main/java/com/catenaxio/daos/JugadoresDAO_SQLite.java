@@ -11,7 +11,7 @@ import android.graphics.BitmapFactory;
 import com.catenaxio.beans.Jugador;
 import com.catenaxio.beans.Jugadores;
 import com.catenaxio.interfaces.daos.JugadoresDAO_SQLiteInterfaz;
-import com.catenaxio.sqlite.SQLiteJugadores;
+import com.catenaxio.sqlite.SQLiteCatenaxio;
 import com.catenaxio.utils.Constantes;
 import com.catenaxio.utils.MiParseador;
 
@@ -27,7 +27,7 @@ public class JugadoresDAO_SQLite implements JugadoresDAO_SQLiteInterfaz {
 
     public JugadoresDAO_SQLite(Context cnt){
         context=cnt;
-        sqlJugadores = new SQLiteJugadores(cnt);
+        sqlJugadores = new SQLiteCatenaxio(cnt);
     }
 
     public long updatePlayer(Jugador jugador){

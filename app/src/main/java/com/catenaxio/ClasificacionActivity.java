@@ -75,8 +75,7 @@ public class ClasificacionActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-//TODO Agregar guardado de imagen en sql (y poder cargarla en offline)
-//TODO Añadir sistema que permita saber si es necesario descargar nueva imagen (para evitar descargas innecesarias)
+
     private void cargarFireBase(){
         String clasifElegida = MiParseador.parsearTemporadaAYear(this);
         //selecciono la rama de firebase adecuada
@@ -91,11 +90,9 @@ public class ClasificacionActivity extends Activity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //TODO cargar imagen offline
                 Toast.makeText(getApplicationContext(), "¡Tenemos el servidor colapsado!", Toast.LENGTH_LONG).show();
             }
         });
     }
-    //TODO Añadir botón flotante para descargar pdf sólo si se desea
+
 }
-//TODO hacer todo esto en una nueva clase ClasificacionActivity2, usando los DAOs ya creados para este fin
