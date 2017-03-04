@@ -26,6 +26,7 @@ public class QuesitoActivity2 extends Activity {
     private PieChartData pieChart;
     private List<JugadorQuesito> jugadores;
     private List<SliceValue> listPieChartValues;
+    private List<SliceValue> listAux;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class QuesitoActivity2 extends Activity {
             Bundle extras = getIntent().getExtras();
             jugadores = (List<JugadorQuesito>) extras.getSerializable("jugadores");
             pieChart = new PieChartData();
-            listPieChartValues= new ArrayList<SliceValue>();
+            listAux= new ArrayList<SliceValue>();
 
             for(int j=0; j<jugadores.size(); j++){
                 int goles = jugadores.get(j).getGoles();
@@ -47,9 +48,11 @@ public class QuesitoActivity2 extends Activity {
                     value.setValue(goles);
                     value.setLabel(jugadores.get(j).getNombre()+": "+goles+" ("+jugadores.get(j).getPorcentajeGoles()+"%)");
                     value.setColor(Constantes.getColor(j));
-                    listPieChartValues.add(value);
+                    listAux.add(value);
                 }
             }
+
+            listPieChartValues=ordenarListSliceValues(listAux);
             pieChart.setValues(listPieChartValues);
             pieChart.setHasLabels(true);
             pieChart.setSlicesSpacing(3);
@@ -66,5 +69,25 @@ public class QuesitoActivity2 extends Activity {
     protected void onStop() {
         super.onStop();
         pieChart.finish();
+    }
+
+    private List<SliceValue> ordenarListSliceValues(List<SliceValue> targetList) {
+        ArrayList<SliceValue> listaOrdenada = new ArrayList<>();
+        final int numeroJugadores= targetList.size();
+
+        for(int i=0; i<numeroJugadores; i++){
+            SliceValue max = new SliceValue();
+            max.setValue(0);
+
+            for (SliceValue sValue : targetList) {
+                if (sValue.getValue() >= max.getValue()) {
+                   max=sValue;
+                }
+            }
+            listaOrdenada.add(max);
+            targetList.remove(max);
+        }
+
+        return listaOrdenada;
     }
 }
